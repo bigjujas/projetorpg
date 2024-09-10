@@ -1,5 +1,3 @@
-// src/enemies.ts
-
 import goblinImage from "/src/assets/goblin.jpg";
 import goblin2Image from "/src/assets/goblin2.jpg";
 import undeadForest from "/src/assets/undeadForest.jpg"
