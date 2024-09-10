@@ -1,5 +1,6 @@
-import swordTest from '/src/assets/swordTest.jpg'
-import skinTest from '/src/assets/skinTest.jpg'
+import starterSword from '/src/assets/starterSword.jpg'
+import starterArmor from '/src/assets/starterArmor.jpg'
+import testSword from '/src/assets/testSword.jpg'
 
 
 export type Item  = {
@@ -19,19 +20,27 @@ export type Item  = {
 
   export const items: { [key: string]: Item } = {
     starterSword: {
-      name: 'Espada Iniciante',
+      name: 'Espada de Madeira',
       type: 'sword',
       damage: 1,
       description: '1x Dano',
       unlocked: false,
-      image: swordTest,
+      image: starterSword,
+    },
+    testSword: {
+      name: 'Espada Flamejante',
+      type: 'sword',
+      damage: 10,
+      description: '10x Dano',
+      unlocked: false,
+      image: testSword,
     },
     starterArmor: {
-      name: 'Armadura Iniciante',
+      name: 'Viajante',
       type: 'armor',
       damage: 1,
       description: '1x Dano',
       unlocked: false,
-      image: skinTest,
+      image: starterArmor,
     },
   };

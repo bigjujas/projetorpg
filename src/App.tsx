@@ -81,6 +81,11 @@ function App() {
     setCurrentEnemy(enemies[enemyName]);
   };
 
+  const changeWeapon = (itemName: keyof typeof items) => {
+    setCurrentWeapon(items[itemName]);
+    setCurrentLeftTab(1)
+  };
+
   const healthBarWidth = (currentEnemy.health / currentEnemy.maxHealth) * 100; // Barra de Vida
 
   return (
@@ -102,34 +107,51 @@ function App() {
           </div>
           <div className="display__tabs">
             <p className={currentLeftTab === 1 ? "tab_active" : "tab_inactive"} onClick={() => toggleLeftTab(1)}>Inventário 📜</p>
-            <p className={currentLeftTab === 2 ? "tab_active" : "tab_inactive"} onClick={() => toggleLeftTab(2)}>Conquistas 🏆</p>
+            <p className={currentLeftTab === 4 ? "tab_active" : "tab_inactive"} onClick={() => toggleLeftTab(4)}>Conquistas 🏆</p>
           </div>
           {currentLeftTab === 1 && (
             <div className="leftTab">
+                <h1>Itens Equipados</h1>
               <div className="display__skin__container">
                 <div className="display__skin">
-                  <h1>{currentArmor.name}</h1>
                   <img src={currentArmor.image} alt="" draggable="false" />
+                  <div className="equipped__status">
+                  <h1>{currentArmor.name}</h1>
+                  <h2>{currentArmor.description}</h2>
+                  </div>
                 </div>
                 <div className="display__skin">
+                  <img src={currentWeapon.image} onClick={() => toggleLeftTab(3)} alt="" draggable="false" />
+                  <div className="equipped__status">
                   <h1>{currentWeapon.name}</h1>
-                  <img src={currentWeapon.image} alt="" draggable="false" />
-                </div>
-              </div>
-              <div className="equipped__status">
-                <h1>Status dos Equipamentos</h1>
-                <div className="itemstatus__container">
-                  <h2>Armadura</h2>
-                  <h3>{currentArmor.description}</h3>
-                </div>
-                <div className="itemstatus__container">
-                  <h2>Arma</h2>
-                  <h3>{currentWeapon.description}</h3>
+                  <h2>{currentWeapon.description}</h2>
+                  </div>
                 </div>
               </div>
             </div>
           )}
-          {currentLeftTab === 2 && (
+          {currentLeftTab === 3 && (
+            <div className="arsenalTab">
+              <h4>Arsenal</h4>
+              <div className="arsenal__slide">
+                <div className="display__skin display__skin__arsenal" onClick={() => changeWeapon('starterSword')}>
+                  <img src={items.starterSword.image} alt="" draggable="false" />
+                  <div className="equipped__status">
+                  <h1>{items.starterSword.name}</h1>
+                  <h2>{items.starterSword.description}</h2>
+                  </div>
+                 </div>                
+                <div className="display__skin display__skin__arsenal" onClick={() => changeWeapon('testSword')}>
+                  <img src={items.testSword.image} alt="" draggable="false" />
+                  <div className="equipped__status">
+                  <h1>{items.testSword.name}</h1>
+                  <h2>{items.testSword.description}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          {currentLeftTab === 4 && (
             <div className="leftTab">
               <div className="upgrade__container">
                 <h1>work</h1>
@@ -148,8 +170,8 @@ function App() {
             </div>
             <div className="enemies__container">
               <h3 onClick={() => changeEnemy('goblin')}>1</h3>
-              <h3 onClick={() => changeEnemy('goblin2')}>2</h3>
-              <h3 onClick={() => changeEnemy('undeadForest')}>3</h3>
+              <h3 onClick={() => changeEnemy('forestBandit')}>2</h3>
+              <h3 onClick={() => changeEnemy('forestUndead')}>3</h3>
               <h3 onClick={() => changeEnemy('forestTitan')}>💀</h3>
             </div>
             <h4>{currentEnemy.name}</h4>

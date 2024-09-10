@@ -1,6 +1,6 @@
-import goblinImage from "/src/assets/goblin.jpg";
-import goblin2Image from "/src/assets/goblin2.jpg";
-import undeadForest from "/src/assets/undeadForest.jpg"
+import goblin from "/src/assets/goblin.jpg";
+import forestBandit from "/src/assets/forestBandit.jpg";
+import forestUndead from "/src/assets/forestUndead.jpg"
 import forestTitan from "/src/assets/forestTitan.jpg"
 
 export type Enemy = {
@@ -17,21 +17,21 @@ export const enemies = {
     health: 100,
     maxHealth: 100,
     coinsDropped: 5,
-    image: goblinImage,
+    image: goblin,
   },
-  goblin2: {
-    name: 'Goblin Superior',
+  forestBandit: {
+    name: 'Bandido da Floresta',
     health: 500,
     maxHealth: 500,
     coinsDropped: 20,
-    image: goblin2Image,
+    image: forestBandit,
   },
-  undeadForest: {
+  forestUndead: {
     name: 'Morto-Vivo',
     health: 1200,
     maxHealth: 1200,
     coinsDropped: 40,
-    image: undeadForest,
+    image: forestUndead,
   },
   forestTitan: {
     name: 'Titã da Floresta',
