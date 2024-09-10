@@ -154,7 +154,7 @@
 .display__skin__container {
 	display: flex;
 	justify-content: space-around;
-	margin: 2vh;
+	margin: 1vh;
 	background-color: #343846;
 	border: black 2px solid;
 	border-radius: 15px;

@@ -8,15 +8,15 @@ import { Upgrade, upgrades } from './components/upgrades'; // Importa os upgrade
 import forestBackground from './assets/forestBackground.jpg'
 
 function App() {
-  const [playerDamage, setPlayerDamage] = useState<number>(1); // Dano do Jogador
+  const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
   const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
   const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
 
-  const finalDamage = playerDamage * currentWeapon.damage
-  const finalPower = 0.1 * currentWeapon.power
+  const finalDamage = (playerDamage + currentWeapon.damage) * currentArmor.damage
+  const finalPower = (currentWeapon.power) * currentArmor.power
 
   // Tabs
 
@@ -47,6 +47,16 @@ function App() {
       setPlayerPower(playerPower - upgrade.cost);
       upgrade.level += 1;
       scaleItemAttributes(currentWeapon); // Aplica o escalonamento dos atributos
+    }
+  };
+
+  const applyArmorUpgrade = (upgradeId: string) => {
+    const upgrade = upgrades.find(upg => upg.id === upgradeId);
+    if (upgrade && upgrade.costType === 'coins' && playerCoins >= upgrade.cost) {
+      const { newDamage } = upgrade.applyUpgrade(playerDamage);
+      setPlayerCoins(playerCoins - currentWeapon.baseCost);
+      currentArmor.level += 1;
+      scaleItemAttributes(currentArmor); // Aplica o escalonamento dos atributos
     }
   };
 
@@ -89,6 +99,10 @@ function App() {
     setCurrentWeapon(items[itemName]);
     setCurrentLeftTab(1)
   };
+  const changeArmor = (itemName: keyof typeof items) => {
+    setCurrentArmor(items[itemName]);
+    setCurrentLeftTab(1)
+  };
 
   const healthBarWidth = (currentEnemy.health / currentEnemy.maxHealth) * 100; // Barra de Vida
 
@@ -102,7 +116,7 @@ function App() {
           <div className="display__status">
             <div className="display__status__container">
               <p>Dano</p>
-              <h2>{parseFloat(finalDamage.toFixed(1))} 🗡️</h2>
+              <h2>{parseFloat(finalDamage.toFixed(2))} 🗡️</h2>
             </div>
             <div className="display__status__container">
               <p>Poder</p>
@@ -118,7 +132,7 @@ function App() {
                 <h6>Itens Equipados</h6>
               <div className="display__skin__container">
                 <div className="display__skin">
-                  <img src={currentArmor.image} alt="" draggable="false" />
+                  <img src={currentArmor.image} onClick={() => toggleLeftTab(2)} alt="" draggable="false" />
                   <div className="equipped__status">
                   <h1>{currentArmor.name}</h1>
                   <h2>{currentArmor.rarity}</h2>
@@ -140,6 +154,23 @@ function App() {
               </div>
             </div>
           )}
+          {currentLeftTab === 2 && (
+            <div className="arsenalTab">
+              <h6>Arsenal</h6>
+              <div className="arsenal__slide">
+                <div className="display__skin display__skin__arsenal" onClick={() => changeArmor('starterArmor')}>
+                  <img src={items.starterArmor.image} alt="" draggable="false" />
+                  <div className="equipped__status">
+                  <h1>{items.starterArmor.name}</h1>
+                  <h2>{items.starterArmor.rarity}</h2>
+                  <h3>{items.starterArmor.descriptionD}</h3>
+                  <h4>{items.starterArmor.descriptionP}</h4>
+                  <h5>Nv. {items.starterArmor.level}</h5>
+                  </div>
+                 </div>                
+              </div>
+            </div>
+          )}
           {currentLeftTab === 3 && (
             <div className="arsenalTab">
               <h6>Arsenal</h6>
@@ -148,7 +179,10 @@ function App() {
                   <img src={items.starterSword.image} alt="" draggable="false" />
                   <div className="equipped__status">
                   <h1>{items.starterSword.name}</h1>
-                  <h2>{items.starterSword.descriptionD}</h2>
+                  <h2>{items.starterSword.rarity}</h2>
+                  <h3>{items.starterSword.descriptionD}</h3>
+                  <h4>{items.starterSword.descriptionP}</h4>
+                  <h5>Nv. {items.starterSword.level}</h5>
                   </div>
                  </div>                
               </div>
@@ -208,7 +242,11 @@ function App() {
                   <h1>{upgrade1?.description}</h1>
                   <h2>{upgrade1?.name}</h2>
                   <h3>{currentWeapon.baseCost} 🥮</h3>
-                  <h4>Nv. {upgrade1?.level}</h4>
+                </div>
+                <div onClick={() => applyArmorUpgrade('upgrade1')} className="upgrade__container">
+                  <h1>{upgrade1?.description}</h1>
+                  <h2>{upgrade1?.name}</h2>
+                  <h3>{currentWeapon.baseCost} 🥮</h3>
                 </div>
               </div>
             </>

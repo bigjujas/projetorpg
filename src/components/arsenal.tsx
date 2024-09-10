@@ -7,9 +7,12 @@ export type Item  = {
     type: string;
     rarity: string;
     damage: number;
+    initialDamage: number;
     power: number;
-    level: number;
+    initialPower: number;
     baseCost: number;
+    initialBaseCost: number;
+    level: number;
     descriptionD: string;
     descriptionP: string;
     unlocked: boolean;
@@ -23,13 +26,25 @@ export type Item  = {
   };
 
   export const scaleItemAttributes = (item: Item) => {
-    const levelMultiplier = 1.15; // Ajuste o multiplicador conforme necessário
-    item.damage = parseFloat((item.damage * levelMultiplier).toFixed(1));
-    item.power = parseFloat((item.power * levelMultiplier).toFixed(1));
-    item.baseCost = parseFloat((item.baseCost * levelMultiplier).toFixed(1));
-    item.descriptionD = `${item.damage}x Dano`; // Atualiza a descrição com o novo valor de dano
-    item.descriptionP = `${item.power}x Poder`; // Atualiza a descrição com o novo valor de poder
-  };
+    const increasePercentage = 0.10; // 10% de aumento
+    
+    if (item.type === 'armor') {
+    item.damage = ((item.damage + ((item.initialDamage - 1)) * increasePercentage));
+    item.power = ((item.power + ((item.initialPower - 1)) * increasePercentage));
+    item.baseCost = ((item.baseCost + (item.initialBaseCost) * increasePercentage * 5));
+
+    item.descriptionD = `+${parseFloat(((item.damage - 1) * 100).toFixed(1))}% 🗡️`;
+    item.descriptionP = `+${parseFloat(((item.power - 1) * 100).toFixed(1))}% 🔥`;
+
+    } else if (item.type === 'sword') {
+      item.damage = ((item.damage + ((item.initialDamage)) * increasePercentage));
+      item.power = ((item.power + ((item.initialPower)) * increasePercentage));
+      item.baseCost = ((item.baseCost + (item.initialBaseCost) * increasePercentage * 5));
+
+      item.descriptionD = `+${parseFloat((item.damage).toFixed(2))} 🗡️`;
+      item.descriptionP = `+${parseFloat((item.power).toFixed(2))} 🔥`;
+    }
+};
   
   export const updateItemLevel = (itemId: string, newLevel: number) => {
     if (items[itemId]) {
@@ -40,42 +55,51 @@ export type Item  = {
 
   export const items: { [key: string]: Item } = {
     starterSword: {
-      name: 'Espada de Madeira',
-      type: 'sword',
-      rarity: "Comum",
-      damage: 1,
-      power: 1,
-      level: 0,
-      baseCost: 20,
-      descriptionD: '1x Dano',
-      descriptionP: '1x Poder',
-      unlocked: false,
-      image: starterSword,
+        name: 'Espada de Madeira',
+        type: 'sword',
+        rarity: "Comum",
+        damage: 1,
+        initialDamage: 1, // Valor inicial de damage
+        power: 0.1,
+        initialPower: 0.1, // Valor inicial de power
+        baseCost: 20,
+        initialBaseCost: 20, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '+1 🗡️',
+        descriptionP: '+0.1 🔥',
+        unlocked: false,
+        image: starterSword,
     },
     testSword: {
-      name: 'Espada Flamejante',
-      type: 'sword',
-      rarity: "Lendário",
-      damage: 10,
-      power: 1,
-      level: 0,
-      baseCost: 20,
-      descriptionD: '10x Dano',
-      descriptionP: '1x Poder',
-      unlocked: false,
-      image: testSword,
+        name: 'Espada Flamejante',
+        type: 'sword',
+        rarity: "Lendário",
+        damage: 10,
+        initialDamage: 10, // Valor inicial de damage
+        power: 1,
+        initialPower: 1, // Valor inicial de power
+        baseCost: 20,
+        initialBaseCost: 20, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '10x 🗡️',
+        descriptionP: '1x 🔥',
+        unlocked: false,
+        image: testSword,
     },
     starterArmor: {
-      name: 'Viajante',
-      type: 'armor',
-      rarity: "Comum",
-      damage: 1,
-      power: 1,
-      level: 0,
-      baseCost: 20,
-      descriptionD: '1x Dano',
-      descriptionP: '1x Poder',
-      unlocked: false,
-      image: starterArmor,
+        name: 'Viajante',
+        type: 'armor',
+        rarity: "Comum",
+        damage: 1.05,
+        initialDamage: 1.05, // Valor inicial de damage
+        power: 1.05,
+        initialPower: 1.05, // Valor inicial de power
+        baseCost: 20,
+        initialBaseCost: 20, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '+5% 🗡️',
+        descriptionP: '+5% 🔥',
+        unlocked: false,
+        image: starterArmor,
     },
-  };
+};

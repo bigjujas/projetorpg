@@ -11,8 +11,8 @@ export interface Upgrade {
   export const upgrades: Upgrade[] = [
     {
       id: 'upgrade1',
-      name: 'Refinar Arma',
-      description: '+1 🗡️',
+      name: 'Refinar Equipamente',
+      description: '+1',
       costType: "coins",
       cost: 20,
       level: 0,
@@ -21,10 +21,10 @@ export interface Upgrade {
     {
     id: 'upgrade2',
     name: 'Combate',
-    description: '+5 🗡️',
+    description: '+1 🗡️',
     costType: "power",
     cost: 20,
     level: 0,
-    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 5  }),
+    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 1  }),
   },
 ];
