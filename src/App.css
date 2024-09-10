@@ -140,11 +140,11 @@
 	align-items: center;
 }
 
-.leftTab h1 {
+.leftTab h6 {
 	font-family: "Poppins", sans-serif;
 	font-size: 25px;
 	font-weight: 600;
-	margin-top: 6vh;
+	margin-top: 2vh;
 	background-color: #1b212e;
 	border-radius: 15px;
 	padding: 10px 15px;
@@ -169,14 +169,20 @@
 	box-sizing: border-box;
 }
 
-.display__skin h1 {	
+.display__skin h1,
+.display__skin h2,
+.display__skin h3,
+.display__skin h4,
+.display__skin h5 {
 	font-family: "Poppins", sans-serif;
 	font-size: 14px;
 	font-weight: 600;
 	letter-spacing: 1px;
 	margin: 0px 0px;
+}
+
+.display__skin h1 {	
 	background-color: #1b212e;
-	border-radius: 0px 0px 0px 0px;
 	padding: 10px 10px;
 	border-left: #000000 1px solid;
 	border-right: #000000 1px solid;
@@ -184,12 +190,31 @@
 }
 
 .display__skin h2 {
-	font-family: "Poppins", sans-serif;
-	font-size: 16px;
-	font-weight: 700;
-	letter-spacing: 1px;
-	margin: 0px 0px;
+	background-color: #536795;
+	padding: 10px 25px;
+	border-left: #000000 2px solid;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+}
+
+.display__skin h3 {
 	background-color: #991c25;
+	padding: 10px 25px;
+	border-left: #000000 2px solid;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+}
+
+.display__skin h4 {
+	background-color: #99311c;
+	padding: 10px 25px;
+	border-left: #000000 2px solid;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+}
+
+.display__skin h5 {
+	background-color: #0e50ba;
 	border-radius: 0px 0px 25px 25px;
 	padding: 10px 25px;
 	border-left: #000000 2px solid;
@@ -224,7 +249,7 @@
 	background-color: #311d11;
 }
 
-.arsenalTab h4 {
+.arsenalTab h6 {
 	font-family: "Poppins", sans-serif;
 	font-size: 25px;
 	font-weight: 600;
