@@ -10,7 +10,7 @@ export interface Upgrade {
 
   export const upgrades: Upgrade[] = [
     {
-      id: 'upgrade1',
+      id: 'upgradeItem',
       name: 'Refinar Equipamente',
       description: '+1',
       costType: "coins",
@@ -20,7 +20,7 @@ export interface Upgrade {
     },
     {
     id: 'upgrade2',
-    name: 'Combate',
+    name: 'Força',
     description: '+1 🗡️',
     costType: "power",
     cost: 20,

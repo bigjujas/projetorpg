@@ -90,15 +90,15 @@ export type Item  = {
         name: 'Viajante',
         type: 'armor',
         rarity: "Comum",
-        damage: 1.05,
+        damage: 1.00,
         initialDamage: 1.05, // Valor inicial de damage
-        power: 1.05,
+        power: 1.00,
         initialPower: 1.05, // Valor inicial de power
         baseCost: 20,
         initialBaseCost: 20, // Valor inicial de baseCost
         level: 0,
-        descriptionD: '+5% 🗡️',
-        descriptionP: '+5% 🔥',
+        descriptionD: '+0% 🗡️',
+        descriptionP: '+0% 🔥',
         unlocked: false,
         image: starterArmor,
     },
