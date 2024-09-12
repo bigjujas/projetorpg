@@ -10,8 +10,9 @@ import anvil from './assets/anvil.png'
 
 function App() {
   const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
-  const [playerPower, setPlayerPower] = useState<number>(100); // Poder do jogador
-  const [playerCoins, setPlayerCoins] = useState<number>(1000); // Moedas do jogador
+  const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
+  const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(0); // Gemas do jogador
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
@@ -38,7 +39,7 @@ function App() {
   const applyUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
 
-   if (upgrade && upgrade.costType === 'power' && playerPower >= upgrade.cost) {
+    if (upgrade && upgrade.costType === 'power' && playerPower >= upgrade.cost) {
       const { newDamage } = upgrade.applyUpgrade(playerDamage);
       setPlayerDamage(newDamage);
       setPlayerPower(playerPower - upgrade.cost);
@@ -78,9 +79,32 @@ function App() {
   };
 
   // Função chamada ao atacar o inimigo
+  
+  const [clickCount, setClickCount] = useState(0);
+  const [lastClickTime, setLastClickTime] = useState(0);
+  const clickLimit = 12; // Limite de cliques por segundo
+  const timeWindow = 1000; // Janela de tempo em milissegundos
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setClickCount(0);
+    }, timeWindow);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const attackEnemy = () => {
-    const newHealth = currentEnemy.health - (finalDamage);
+    const currentTime = Date.now();
+
+    if (currentTime - lastClickTime < timeWindow / clickLimit) {
+      // Clique ignorado por exceder o limite
+      return;
+    }
+
+    setLastClickTime(currentTime);
+    setClickCount(prevCount => prevCount + 1);
+
+    const newHealth = currentEnemy.health - finalDamage;
     setPlayerPower(playerPower + finalPower);
     if (newHealth <= 0) {
       // Inimigo derrotado, ganha moedas e poder
@@ -135,26 +159,26 @@ function App() {
           </div>
           {currentLeftTab === 1 && (
             <div className="leftTab">
-                <h6>Itens Equipados</h6>
+              <h6>Itens Equipados</h6>
               <div className="display__skin__container">
                 <div className="display__skin">
+                  <h1>{currentArmor.name}</h1>
                   <img src={currentArmor.image} onClick={() => toggleLeftTab(2)} alt="" draggable="false" />
                   <div className="equipped__status">
-                  <h1>{currentArmor.name}</h1>
-                  <h2>{currentArmor.rarity}</h2>
-                  <h3>{currentArmor.descriptionD}</h3>
-                  <h4>{currentArmor.descriptionP}</h4>
-                  <h5>Nv. {currentArmor.level}</h5>
+                    <h2 className={currentArmor.rarity}>{currentArmor.rarity}</h2>
+                    <h3>{currentArmor.descriptionD}</h3>
+                    <h4>{currentArmor.descriptionP}</h4>
+                    <h5>Nv. {currentArmor.level}</h5>
                   </div>
                 </div>
                 <div className="display__skin">
+                  <h1>{currentWeapon.name}</h1>
                   <img src={currentWeapon.image} onClick={() => toggleLeftTab(3)} alt="" draggable="false" />
                   <div className="equipped__status">
-                  <h1>{currentWeapon.name}</h1>
-                  <h2>{currentWeapon.rarity}</h2>
-                  <h3>{currentWeapon.descriptionD}</h3>
-                  <h4>{currentWeapon.descriptionP}</h4>
-                  <h5>Nv. {currentWeapon.level}</h5>
+                    <h2 className={currentWeapon.rarity}>{currentWeapon.rarity}</h2>
+                    <h3>{currentWeapon.descriptionD}</h3>
+                    <h4>{currentWeapon.descriptionP}</h4>
+                    <h5>Nv. {currentWeapon.level}</h5>
                   </div>
                 </div>
               </div>
@@ -163,34 +187,43 @@ function App() {
           {currentLeftTab === 2 && (
             <div className="arsenalTab">
               <h6>Arsenal</h6>
-              <div className="arsenal__slide">
+              <div className="arsenal__grid">
                 <div className="display__skin display__skin__arsenal" onClick={() => changeArmor('starterArmor')}>
+                  <h1>{items.starterArmor.name}</h1>
                   <img src={items.starterArmor.image} alt="" draggable="false" />
                   <div className="equipped__status">
-                  <h1>{items.starterArmor.name}</h1>
-                  <h2>{items.starterArmor.rarity}</h2>
-                  <h3>{items.starterArmor.descriptionD}</h3>
-                  <h4>{items.starterArmor.descriptionP}</h4>
-                  <h5>Nv. {items.starterArmor.level}</h5>
+                    <h2 className={items.starterArmor.rarity}>{items.starterArmor.rarity}</h2>
+                    <h3>{items.starterArmor.descriptionD}</h3>
+                    <h4>{items.starterArmor.descriptionP}</h4>
+                    <h5>Nv. {items.starterArmor.level}</h5>
                   </div>
-                 </div>                
+                </div>
               </div>
             </div>
           )}
           {currentLeftTab === 3 && (
             <div className="arsenalTab">
               <h6>Arsenal</h6>
-              <div className="arsenal__slide">
-                <div className="display__skin display__skin__arsenal" onClick={() => changeWeapon('starterSword')}>
-                  <img src={items.starterSword.image} alt="" draggable="false" />
-                  <div className="equipped__status">
-                  <h1>{items.starterSword.name}</h1>
-                  <h2>{items.starterSword.rarity}</h2>
-                  <h3>{items.starterSword.descriptionD}</h3>
-                  <h4>{items.starterSword.descriptionP}</h4>
-                  <h5>Nv. {items.starterSword.level}</h5>
-                  </div>
-                 </div>                
+              <div className="arsenal__grid">
+              {Object.keys(items).filter(key => items[key].type === 'sword').map((key) => {
+                  const item = items[key];
+                  return (
+                    <div
+                      key={key}
+                      className="display__skin display__skin__arsenal"
+                      onClick={() => changeWeapon(key)}
+                    >
+                      <h1>{item.name}</h1>
+                      <img src={item.image} alt={item.name} draggable="false" />
+                      <div className="equipped__status">
+                        <h2 className={item.rarity}>{item.rarity}</h2>
+                        <h3>{item.descriptionD}</h3>
+                        <h4>{item.descriptionP}</h4>
+                        <h5>Nv. {item.level}</h5>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -233,7 +266,7 @@ function App() {
             </div>
             <div className="display__status__container">
               <p>Gemas</p>
-              <h2><span className='gem'>0</span> 💎</h2>
+              <h2><span className='gem'>{playerGems}</span> 💎</h2>
             </div>
           </div>
           <div className="display__tabs">
@@ -259,17 +292,17 @@ function App() {
               <div className="rightTab">
                 <h6>Melhorar Equipamento</h6>
                 <div className="displayForge__container">
-                <img src={anvil} alt="" />
-                <div onClick={() => applyWeaponUpgrade('upgradeItem')} className="upgradeForge__container">
-                  <h1>+1 Nv.</h1>
-                  <h2>Melhorar Arma</h2>
-                  <h3>{currentWeapon.baseCost} 🥮</h3>
-                </div>
-                <div onClick={() => applyArmorUpgrade('upgradeItem')} className="upgradeForge__container">
-                  <h1>+1 Nv.</h1>
-                  <h2>Melhorar Armadura</h2>
-                  <h3>{currentArmor.baseCost} 🥮</h3>
-                </div>
+                  <img src={anvil} alt="" />
+                  <div onClick={() => applyWeaponUpgrade('upgradeItem')} className="upgradeForge__container">
+                    <h1>+1 Nv.</h1>
+                    <h2>Melhorar Arma</h2>
+                    <h3>{currentWeapon.baseCost} 🥮</h3>
+                  </div>
+                  <div onClick={() => applyArmorUpgrade('upgradeItem')} className="upgradeForge__container">
+                    <h1>+1 Nv.</h1>
+                    <h2>Melhorar Armadura</h2>
+                    <h3>{currentArmor.baseCost} 🥮</h3>
+                  </div>
                 </div>
               </div>
             </>

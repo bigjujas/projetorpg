@@ -3,6 +3,14 @@
 	-webkit-user-select: none;
 }
 
+.arsenalTab::-webkit-scrollbar {
+    display: none; /* Esconde a barra de rolagem */
+}
+
+:-webkit-scrollbar {
+    display: none;
+}
+
 .gold {
 	font-family: "Poppins", sans-serif;
 	color: gold;
@@ -16,6 +24,25 @@
 .power {
 	font-family: "Poppins", sans-serif;
 	color: orange;
+}
+
+/* Raridades */
+
+.Comum {
+    color: #ffffff;
+	background-color: #302721 !important;
+}
+.Raro {
+    color: #ffffff;
+	background-color: #023a8f !important;
+}
+.Épico {
+    color: #ff00f2;
+	background-color: #2e0d3b !important;
+}
+.Lendário {
+    color: #ff5e00;
+	background-color: #3a0900 !important;
 }
 
 .header {
@@ -167,6 +194,7 @@
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
+	text-align: center;
 }
 
 .display__skin h1,
@@ -187,6 +215,7 @@
 	border-left: #000000 1px solid;
 	border-right: #000000 1px solid;
 	border-top: #000000 1px solid;
+	border-radius: 20px 20px 0px 0px;
 }
 
 .display__skin h2 {
@@ -225,7 +254,6 @@
 .display__skin img {
 	height: 380px;
 	width: 240px;
-	border-radius: 20px 20px 0px 0px;
 	border: #000000 2px solid;
 	transition: all 0.2s ease;
 }
@@ -247,6 +275,8 @@
 	flex: 1;
 	align-items: center;
 	background-color: #311d11;
+	overflow: auto;
+	overflow-x: hidden;
 }
 
 .arsenalTab h6 {
@@ -267,11 +297,26 @@
 	border: black 2px solid;
 }
 
-.arsenal__slide {
-	display: flex;
-	gap: 25px;
+.display__skin__arsenal img {
+	height: 260px;
+	width: 160px;
+	border: #000000 2px solid;
+	transition: all 0.2s ease;
+}
+
+.display__skin__arsenal h1,
+.display__skin__arsenal h2,
+.display__skin__arsenal h3,
+.display__skin__arsenal h4,
+.display__skin__arsenal h5 {
+	font-size: 12px;
+}
+
+.arsenal__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px; /* Ajuste o espaçamento entre os itens conforme necessário */
 	margin-top: 2vh;
-	transition: all 0.3s ease;
 }
 
 .world__container {
@@ -464,11 +509,11 @@
 	height: 300px;
 	width: auto;
 	margin: 20px auto;
-	background-color: #5c5f69;
+	background-color: #343846;
 	border-radius: 30px;
 	padding: 20px;
 	border: black 1px solid;
-	filter: brightness(0.8);
+	filter: brightness(0.8) saturate(0.8);
 	box-shadow: 15px 15px 20px 0px rgba(0, 0, 0, 0.5);
 }
 

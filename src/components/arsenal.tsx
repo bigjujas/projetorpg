@@ -1,4 +1,7 @@
 import starterSword from '/src/assets/starterSword.jpg'
+import metalSword from '/src/assets/metalSword.jpg'
+import forestSword from '/src/assets/forestSword.jpg'
+import titanSword from '/src/assets/titanSword.jpg'
 import starterArmor from '/src/assets/starterArmor.jpg'
 import testSword from '/src/assets/testSword.jpg'
 
@@ -70,6 +73,54 @@ export type Item  = {
         unlocked: false,
         image: starterSword,
     },
+    metalSword: {
+        name: 'Espada de Aço',
+        type: 'sword',
+        rarity: "Comum",
+        damage: 5,
+        initialDamage: 5, // Valor inicial de damage
+        power: 0.5,
+        initialPower: 0.5, // Valor inicial de power
+        baseCost: 50,
+        initialBaseCost: 20, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '+5 🗡️',
+        descriptionP: '+0.5 🔥',
+        unlocked: false,
+        image: metalSword,
+    },
+    forestSword: {
+        name: 'Lâmina da Floresta',
+        type: 'sword',
+        rarity: "Raro",
+        damage: 5,
+        initialDamage: 5, // Valor inicial de damage
+        power: 0.5,
+        initialPower: 0.5, // Valor inicial de power
+        baseCost: 50,
+        initialBaseCost: 20, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '+5 🗡️',
+        descriptionP: '+0.5 🔥',
+        unlocked: false,
+        image: forestSword,
+    },
+    titanSword: {
+        name: 'Espada do Titã',
+        type: 'sword',
+        rarity: "Épico",
+        damage: 12,
+        initialDamage: 12, // Valor inicial de damage
+        power: 1,
+        initialPower: 1, // Valor inicial de power
+        baseCost: 100,
+        initialBaseCost: 20, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '+12 🗡️',
+        descriptionP: '+1 🔥',
+        unlocked: false,
+        image: titanSword,
+    },
     testSword: {
         name: 'Espada Flamejante',
         type: 'sword',
@@ -78,11 +129,11 @@ export type Item  = {
         initialDamage: 10, // Valor inicial de damage
         power: 1,
         initialPower: 1, // Valor inicial de power
-        baseCost: 20,
-        initialBaseCost: 20, // Valor inicial de baseCost
+        baseCost: 200,
+        initialBaseCost: 200, // Valor inicial de baseCost
         level: 0,
-        descriptionD: '10x 🗡️',
-        descriptionP: '1x 🔥',
+        descriptionD: '+10 🗡️',
+        descriptionP: '+1 🔥',
         unlocked: false,
         image: testSword,
     },
