@@ -26,6 +26,12 @@
 	color: orange;
 }
 
+.Locked {
+	filter: saturate(0) brightness(0.1) blur(3px);
+	pointer-events: none;
+	z-index: 10;
+}
+
 /* Raridades */
 
 .Comum {
@@ -216,6 +222,7 @@
 	border-right: #000000 1px solid;
 	border-top: #000000 1px solid;
 	border-radius: 20px 20px 0px 0px;
+	margin: 0px 0px;
 }
 
 .display__skin h2 {
@@ -443,6 +450,24 @@
 	transition: width 0.3s ease;
 }
 
+/* tab direita */
+
+.rightTab {
+	align-items: center;
+	text-align: center;
+}
+
+.rightTab h6 {
+	font-family: "Poppins", sans-serif;
+	font-size: 25px;
+	font-weight: 600;
+	margin: 2vh 14vh;
+	background-color: #1b212e;
+	border-radius: 15px;
+	padding: 10px 15px;
+	border: black 2px solid;
+}
+
 .upgrade__container {
 	display: flex;
 	margin: 5px 3vh;
@@ -494,22 +519,21 @@
 
 .upgrade__container:active {
 	transform: scale(0.95);
-	filter: brightness(2);
+	filter: brightness(1);
 }
 
 /* Ferreiro */
 
-.rightTab {
+.forgeTab {
 	align-items: center;
 	text-align: center;
 }
 
-.rightTab img {
-	align-items: center;
+.forgeTab img {
 	height: 300px;
 	width: auto;
 	margin: 20px auto;
-	background-color: #343846;
+	background-color: #434961;
 	border-radius: 30px;
 	padding: 20px;
 	border: black 1px solid;
@@ -517,7 +541,7 @@
 	box-shadow: 15px 15px 20px 0px rgba(0, 0, 0, 0.5);
 }
 
-.rightTab h6 {
+.forgeTab h6 {
 	font-family: "Poppins", sans-serif;
 	font-size: 25px;
 	font-weight: 600;
@@ -597,4 +621,100 @@
 .upgrade__treinamento h3 {
 	color: orange;
 	background-color: #2f3a50;
+}
+
+/* Chests */
+
+.chests__container {
+	display: flex;
+	flex-direction: column;
+	background-color: #343846;
+	padding: 20px;
+	margin: 0px 5vh;
+	border: black 2px solid;
+	border-radius: 25px;
+	transition: all 0.3s ease;
+}
+
+.drawn__display {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	text-align: center;
+	margin: 0px auto;
+	background-color: #262833;
+	padding: 20px;
+	border: black 2px solid;
+}
+
+.drawn__display img {
+	height: 260px;
+	width: 160px;
+	border: black 1px solid;
+	border-radius: 20px 20px 0px 0px;
+	margin: 0px auto;
+}
+
+.drawn__display h1,
+.drawn__display h2 {
+	font-family: "Poppins", sans-serif;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 10px 20px;
+}
+
+.drawn__display h1 {
+	background-color: #273043;
+	border: black 1px solid;
+}
+
+.drawn__display h2 {
+	border: black 1px solid;
+}
+
+.chest__container {
+	display: flex;
+	margin: 15px 50px;
+	justify-content: space-around;
+	align-items: center;
+	text-align: center;
+	border: black 2px solid;
+	transition: all 0.3s ease;
+}
+
+.chest__container h1,
+.chest__container h2,
+.chest__container h3 {
+	font-family: "Poppins", sans-serif;
+	font-size: 15px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	margin: 0;
+	padding: 10px 5px;
+	flex: 1;
+	min-width: 0;
+	height: 100%;
+	border: black 1px solid;
+}
+
+.chest__container h1 {
+	background-color: #ca9400;
+}
+
+.chest__container h2 {
+	background-color: #302a4d;
+}
+
+.chest__container h3 {
+	background-color: #0057a8;
+}
+
+.chest__container:hover {
+	cursor: pointer;
+	transform: scale(1.02);
+}
+
+.chest__container:active {
+	transform: scale(0.98);
+	filter: brightness(2);
 }

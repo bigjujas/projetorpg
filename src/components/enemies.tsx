@@ -8,6 +8,8 @@ export type Enemy = {
   health: number;
   maxHealth: number;
   coinsDropped: number;
+  gemsDropped: number;
+  kills: number;
   image: string;
 };
 
@@ -17,6 +19,8 @@ export const enemies = {
     health: 100,
     maxHealth: 100,
     coinsDropped: 5,
+    gemsDropped: 0,
+    kills: 0,
     image: goblin,
   },
   forestBandit: {
@@ -24,6 +28,8 @@ export const enemies = {
     health: 500,
     maxHealth: 500,
     coinsDropped: 20,
+    gemsDropped: 0,
+    kills: 0,
     image: forestBandit,
   },
   forestUndead: {
@@ -31,6 +37,8 @@ export const enemies = {
     health: 1200,
     maxHealth: 1200,
     coinsDropped: 40,
+    gemsDropped: 0,
+    kills: 0,
     image: forestUndead,
   },
   forestTitan: {
@@ -38,6 +46,8 @@ export const enemies = {
     health: 5000,
     maxHealth: 5000,
     coinsDropped: 80,
+    gemsDropped: 5,
+    kills: 0,
     image: forestTitan,
   },
 };

@@ -4,11 +4,12 @@ import './reset.css'
 import { Enemy, enemies } from './components/enemies'; // Importa o objeto de inimigos agrupados
 import { Item, items, unlockItem, updateItemLevel, scaleItemAttributes } from './components/arsenal'; // Importa o objeto de armas e armaduras
 import { Upgrade, upgrades } from './components/upgrades'; // Importa os upgrades
+import ChestOpener from './components/ChestOpener';
 
 import forestBackground from './assets/forestBackground.jpg'
 import anvil from './assets/anvil.png'
 
-function App() {
+export const App = () => {
   const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
   const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
   const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
@@ -31,8 +32,6 @@ function App() {
   const toggleLeftTab = (tab: number) => {
     setCurrentLeftTab(tab);
   };
-
-  // Escalanamento
 
   // Função upgrade
 
@@ -109,6 +108,7 @@ function App() {
     if (newHealth <= 0) {
       // Inimigo derrotado, ganha moedas e poder
       setPlayerCoins(playerCoins + currentEnemy.coinsDropped);
+      setPlayerGems(playerGems + currentEnemy.gemsDropped)
       // Respawn do inimigo com vida cheia
       setCurrentEnemy({
         ...currentEnemy,
@@ -126,14 +126,25 @@ function App() {
   };
 
   const changeWeapon = (itemName: keyof typeof items) => {
-    setCurrentWeapon(items[itemName]);
-    setCurrentLeftTab(1)
-  };
-  const changeArmor = (itemName: keyof typeof items) => {
-    setCurrentArmor(items[itemName]);
-    setCurrentLeftTab(1)
-  };
+    const selectedItem = items[itemName];
 
+    if (selectedItem.unlocked) {
+        setCurrentWeapon(selectedItem);
+        setCurrentLeftTab(1);
+    } else {
+        console.error('A arma não está desbloqueada.');
+    }
+};
+const changeArmor = (itemName: keyof typeof items) => {
+  const selectedItem = items[itemName];
+
+  if (selectedItem.unlocked) {
+      setCurrentArmor(selectedItem);
+      setCurrentLeftTab(1);
+  } else {
+      console.error('A arma não está desbloqueada.');
+  }
+};
   const healthBarWidth = (currentEnemy.health / currentEnemy.maxHealth) * 100; // Barra de Vida
 
   return (
@@ -188,16 +199,28 @@ function App() {
             <div className="arsenalTab">
               <h6>Arsenal</h6>
               <div className="arsenal__grid">
-                <div className="display__skin display__skin__arsenal" onClick={() => changeArmor('starterArmor')}>
-                  <h1>{items.starterArmor.name}</h1>
-                  <img src={items.starterArmor.image} alt="" draggable="false" />
-                  <div className="equipped__status">
-                    <h2 className={items.starterArmor.rarity}>{items.starterArmor.rarity}</h2>
-                    <h3>{items.starterArmor.descriptionD}</h3>
-                    <h4>{items.starterArmor.descriptionP}</h4>
-                    <h5>Nv. {items.starterArmor.level}</h5>
-                  </div>
-                </div>
+              {Object.keys(items)
+              .filter(key => items[key].type === 'armor')
+              .sort((a, b) => Number(items[b].unlocked) - Number(items[a].unlocked))
+              .map((key) => {
+                  const item = items[key];
+                  return (
+                    <div
+                      key={key}
+                      className={`display__skin display__skin__arsenal ${item.unlocked ? '' : 'Locked'}`}
+                      onClick={() => changeArmor(key)}
+                    >
+                      <h1>{item.name}</h1>
+                      <img src={item.image} alt={item.name} draggable="false" />
+                      <div className="equipped__status">
+                        <h2 className={item.rarity}>{item.rarity}</h2>
+                        <h3>{item.descriptionD}</h3>
+                        <h4>{item.descriptionP}</h4>
+                        <h5>Nv. {item.level}</h5>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -205,12 +228,15 @@ function App() {
             <div className="arsenalTab">
               <h6>Arsenal</h6>
               <div className="arsenal__grid">
-              {Object.keys(items).filter(key => items[key].type === 'sword').map((key) => {
+              {Object.keys(items)
+              .filter(key => items[key].type === 'sword')
+              .sort((a, b) => Number(items[b].unlocked) - Number(items[a].unlocked))
+              .map((key) => {
                   const item = items[key];
                   return (
                     <div
                       key={key}
-                      className="display__skin display__skin__arsenal"
+                      className={`display__skin display__skin__arsenal ${item.unlocked ? '' : 'Locked'}`}
                       onClick={() => changeWeapon(key)}
                     >
                       <h1>{item.name}</h1>
@@ -289,7 +315,7 @@ function App() {
           )}
           {currentRightTab === 2 && (
             <>
-              <div className="rightTab">
+              <div className="forgeTab">
                 <h6>Melhorar Equipamento</h6>
                 <div className="displayForge__container">
                   <img src={anvil} alt="" />
@@ -310,12 +336,8 @@ function App() {
           {currentRightTab === 3 && (
             <>
               <div className="rightTab">
-                <h6>Loja da Cidade</h6>
-                <div className="upgrade__container">
-                  <h3><span className='gem'>20</span> 💎</h3>
-                  <h2>Abrir Caixa</h2>
-                  <h4>Tier I</h4>
-                </div>
+                <h6>Loja de Gemas</h6>  
+                <ChestOpener playerGems={playerGems} setPlayerGems={setPlayerGems} />
               </div>
             </>
           )}
