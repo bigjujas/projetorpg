@@ -14,7 +14,7 @@ export const App = () => {
   const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
   const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
   const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(100000); // Gemas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(0); // Gemas do jogador
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
