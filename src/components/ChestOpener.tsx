@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { drawItemFromChest, world1Chest, Item } from './arsenal';
+import { drawItemFromChest, world1Chest, world2Chest, Item } from './arsenal';
 
 interface ChestsProps {
     playerGems: number;
@@ -21,12 +21,29 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
         }
     };
 
+    const openWorld2Chest = () => {
+        const chestCost = 100; // Custo em gemas para abrir o baú comum
+
+        if (playerGems >= chestCost) {
+            const item = drawItemFromChest(world2Chest);
+            if (item) {
+                setPlayerGems(playerGems - chestCost);
+                setDrawnItem(item);
+            }
+        }
+    };
+
     return (
         <div className='chests__container'>
             <div className="chest__container" onClick={openWorld1Chest}>
                 <h1>Tier I</h1>
                 <h2>Báu</h2>
                 <h3><span className='gem'>20</span> 💎</h3>
+            </div>
+            <div className="chest__container" onClick={openWorld2Chest}>
+                <h1>Tier II</h1>
+                <h2>Báu</h2>
+                <h3><span className='gem'>100</span> 💎</h3>
             </div>
             {drawnItem && (
                 <div className='drawn__display'>

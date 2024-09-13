@@ -11,6 +11,8 @@
     display: none;
 }
 
+/* Globais */
+
 .gold {
 	font-family: "Poppins", sans-serif;
 	color: gold;
@@ -51,6 +53,33 @@
 	background-color: #3a0900 !important;
 }
 
+/* Mundos */
+
+.Mundo1 h2 {
+	background-color: #001305 !important;
+}
+
+.Mundo1 h1 {
+	background-color: #002b0b !important;	
+}
+
+.Mundo1 h3 {
+	background-color: #001305 !important;
+}
+
+.Mundo2 h2 {
+	background-color: #272727 !important;
+}
+
+.Mundo2 h1 {
+	background-color: #3d2821 !important;	
+}
+
+.Mundo2 h3 {
+	background-color: #272727 !important;
+}
+
+/* */
 .header {
 	display: flex;
 	background-color: #472119;
@@ -319,11 +348,63 @@
 	font-size: 12px;
 }
 
+.display__skin__arsenal h1 {
+	font-size: 11px;
+}
+
 .arsenal__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 6px; /* Ajuste o espaçamento entre os itens conforme necessário */
 	margin-top: 2vh;
+}
+
+/* mundos */
+
+.world__selector__container {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: center;
+	text-align: center;
+	background-color: #141822;
+}
+
+.world__selector {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	margin-top: 4vh;
+	transition: all 0.3s ease;
+}
+
+.world__selector h2 {
+	font-size: 1.2rem;
+	letter-spacing: 2px;
+	font-weight: 500;
+	background-color: #2e2824;
+	margin: 0px auto;
+	width: 30%;
+	border-left: black 2px solid;
+	border-right: black 2px solid;
+	border-top: black 2px solid;
+	border-radius: 10px 10px 0px 0px;
+}
+
+.world__selector h1 {
+	font-size: 2rem;
+	letter-spacing: 1px;
+	font-weight: 700;
+	border: black 2px solid;
+	border-radius: 30px;
+	padding: 5px 20px;
+	background-color: #493f39;
+}
+
+.world__selector:hover {
+	cursor: pointer;
+	transform: scale(1.05);
 }
 
 .world__container {
@@ -346,10 +427,12 @@
 	text-align: center;
 	align-items: center;
 	margin-top: 4vh;
+	transition: all 0.3s ease;
 }
 
 .world__name h2 {
 	font-size: 1rem;
+	letter-spacing: 2px;
 	font-weight: 500;
 	background-color: #2e2824;
 	margin: 0px auto;
@@ -362,11 +445,22 @@
 
 .world__name h1 {
 	font-size: 2rem;
+	letter-spacing: 1px;
 	font-weight: 700;
 	border: black 2px solid;
 	border-radius: 30px;
 	padding: 5px 20px;
 	background-color: #493f39;
+}
+
+.world__name:hover {
+	cursor: pointer;
+	transform: scale(1.02);
+}
+
+.world__name:active {
+	transform: scale(0.5);
+	filter: brightness(2);
 }
 
 .enemies__container {
@@ -393,11 +487,13 @@
 }
 
 .enemies__container h3:active {
-	transform: scale(0.98);
+	transform: scale(1.20);
+	filter: brightness(3);
 }
 
 .world__container h4 {
 	font-size: 2rem;
+	letter-spacing: 1px;
 	font-weight: 700;
 	margin-top: 3vh;
 }
@@ -500,7 +596,7 @@
 
 .upgrade__container h2 {
 	background-color: #555c77;
-	flex-grow: 3;
+	flex-grow: 1;
 }
 
 .upgrade__container h3 {
@@ -510,6 +606,7 @@
 
 .upgrade__container h4 {
 	background-color: #00671b;
+	flex-grow: 2;
 }
 
 .upgrade__container:hover {

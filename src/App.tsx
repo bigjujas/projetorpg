@@ -1,37 +1,57 @@
 import { useState, useEffect } from 'react';
 import './App.css';
 import './reset.css'
+import { worlds } from './components/worlds';
+import World from './components/world';
 import { Enemy, enemies } from './components/enemies'; // Importa o objeto de inimigos agrupados
 import { Item, items, unlockItem, updateItemLevel, scaleItemAttributes } from './components/arsenal'; // Importa o objeto de armas e armaduras
 import { Upgrade, upgrades } from './components/upgrades'; // Importa os upgrades
 import ChestOpener from './components/ChestOpener';
 
-import forestBackground from './assets/forestBackground.jpg'
 import anvil from './assets/anvil.png'
 
 export const App = () => {
   const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
   const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
   const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(0); // Gemas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(100000); // Gemas do jogador
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
+
+  // mundo
+  const [currentWorldIndex, setCurrentWorldIndex] = useState(0);
+
+  const changeWorld = (index: number) => {
+    setCurrentWorldIndex(index);
+    setCurrentEnemy(worlds[index].enemies[0]); // Atualiza para o primeiro inimigo do novo mundo
+    setCurrentMiddleTab(2)
+  };
+
+  const currentWorld = worlds[currentWorldIndex];
+
+ // dano e poder
 
   const finalDamage = (playerDamage + currentWeapon.damage) * currentArmor.damage
   const finalPower = (currentWeapon.power) * currentArmor.power
 
   // Tabs
 
+  const [currentLeftTab, setCurrentLeftTab] = useState<number>(1);
+  const toggleLeftTab = (tab: number) => {
+    setCurrentLeftTab(tab);
+  };
+
+  const [currentMiddleTab, setCurrentMiddleTab] = useState<number>(1);
+  const toggleMiddleTab = (tabIndex: number) => {
+    setCurrentMiddleTab(tabIndex);
+  };
+
   const [currentRightTab, setCurrentRightTab] = useState<number>(1);
   const toggleRightTab = (tab: number) => {
     setCurrentRightTab(tab);
   };
 
-  const [currentLeftTab, setCurrentLeftTab] = useState<number>(1);
-  const toggleLeftTab = (tab: number) => {
-    setCurrentLeftTab(tab);
-  };
 
   // Função upgrade
 
@@ -121,8 +141,11 @@ export const App = () => {
 
   // qol
 
-  const changeEnemy = (enemyName: keyof typeof enemies) => {   // funcao pra mudar inimigo
-    setCurrentEnemy(enemies[enemyName]);
+  const changeEnemy = (enemyName: string) => {
+    const enemy = worlds.flatMap(world => world.enemies).find(e => e.name === enemyName);
+    if (enemy) {
+      setCurrentEnemy(enemy);
+    }
   };
 
   const changeWeapon = (itemName: keyof typeof items) => {
@@ -264,31 +287,38 @@ const changeArmor = (itemName: keyof typeof items) => {
             </div>
           )}
         </div>
+        {currentMiddleTab === 1 && (
         <div className="middle__container">
-          <div className="world__container" style={{ backgroundImage: `url(${forestBackground})` }}>
-            <div className="world__name">
-              <h2>Mundo 1</h2>
-              <h1>Bosque Sombrio 🌲</h1>
-            </div>
-            <div className="enemies__container">
-              <h3 onClick={() => changeEnemy('goblin')}>1</h3>
-              <h3 onClick={() => changeEnemy('forestBandit')}>2</h3>
-              <h3 onClick={() => changeEnemy('forestUndead')}>3</h3>
-              <h3 onClick={() => changeEnemy('forestTitan')}>💀</h3>
-            </div>
-            <h4>{currentEnemy.name}</h4>
-            <div className="health-bar-container">
-              <div className="health-bar" style={{ width: `${healthBarWidth}%` }}></div>
-              <p>❤️ {currentEnemy.health.toFixed(0)} / {currentEnemy.maxHealth}</p>
-            </div>
-            <img className="enemy" onClick={attackEnemy} src={currentEnemy.image} alt={currentEnemy.name} draggable="false" />
+        <div className="world__selector__container">
+        {worlds.map((world, index) => (
+          <div className={`world__selector ${world.number}`} key={index} onClick={() => changeWorld(index)}>
+            <h2>{world.number}</h2>
+            <h1>{world.name}</h1>
           </div>
-        </div>
+        ))}
+      </div>
+    </div>
+    )}
+    {currentMiddleTab === 2 && (
+      <div className="middle__container">
+      <World
+        background={currentWorld.background}
+        worldNumber={currentWorld.number}
+        worldName={currentWorld.name}
+        enemies={currentWorld.enemies}
+        currentEnemy={currentEnemy}
+        toggleMiddleTab={toggleMiddleTab}
+        changeEnemy={changeEnemy}
+        attackEnemy={attackEnemy}
+        healthBarWidth={(currentEnemy.health / currentEnemy.maxHealth) * 100}
+      />
+      </div>
+        )}
         <div className="right__container">
           <div className="display__status">
             <div className="display__status__container">
               <p>Ouro</p>
-              <h2><span className="gold">{playerCoins.toFixed(1)}</span> 🥮</h2>
+              <h2><span className="gold">{playerCoins.toFixed(1)}</span> 📀</h2>
             </div>
             <div className="display__status__container">
               <p>Gemas</p>
@@ -322,12 +352,12 @@ const changeArmor = (itemName: keyof typeof items) => {
                   <div onClick={() => applyWeaponUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Arma</h2>
-                    <h3>{currentWeapon.baseCost} 🥮</h3>
+                    <h3>{currentWeapon.baseCost} 📀</h3>
                   </div>
                   <div onClick={() => applyArmorUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Armadura</h2>
-                    <h3>{currentArmor.baseCost} 🥮</h3>
+                    <h3>{currentArmor.baseCost} 📀</h3>
                   </div>
                 </div>
               </div>
