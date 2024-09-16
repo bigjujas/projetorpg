@@ -12,6 +12,8 @@ interface WorldProps {
   changeEnemy: (enemyName: string) => void;
   attackEnemy: () => void;
   healthBarWidth: number;
+  enemyVisible: boolean;
+  setEnemyVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const World: React.FC<WorldProps> = ({
@@ -24,6 +26,7 @@ const World: React.FC<WorldProps> = ({
   changeEnemy,
   attackEnemy,
   healthBarWidth,
+  enemyVisible,
 }) => {
   return (
     <div className={`world__container ${worldNumber}`} style={{ backgroundImage: `url(${background})` }}>
@@ -43,7 +46,11 @@ const World: React.FC<WorldProps> = ({
         <div className="health-bar" style={{ width: `${healthBarWidth}%` }}></div>
         <p>❤️ {currentEnemy.health.toFixed(0)} / {currentEnemy.maxHealth}</p>
       </div>
-      <img className="enemy" onClick={attackEnemy} src={currentEnemy.image} alt={currentEnemy.name} draggable="false" />
+      {enemyVisible && (
+        <div className={`enemy ${!enemyVisible ? 'hidden' : ''}`}>
+      <img onClick={attackEnemy} src={currentEnemy.image} alt={currentEnemy.name} draggable="false" />
+      </div>
+    )}
     </div>
   );
 };

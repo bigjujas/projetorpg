@@ -498,7 +498,7 @@
 	margin-top: 3vh;
 }
 
-.world__container img {
+.enemy img {
 	height: 380px;
 	width: 300px;
 	transition: all 0.3s ease;
@@ -507,13 +507,13 @@
 	box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
 }
 
-.world__container img:hover {
+.enemy img:hover {
 	transform: scale(1.02);
 	cursor: pointer;
 	border: #000000 3px solid;
 }
 
-.world__container img:active {
+.enemy img:active {
 	transform: scale(0.90);
 	filter: brightness(0.85)
 }

@@ -11,16 +11,22 @@ import ChestOpener from './components/ChestOpener';
 import anvil from './assets/anvil.png'
 
 export const App = () => {
-  const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
+  const [playerDamage, setPlayerDamage] = useState<number>(350); // Dano do Jogador
   const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
   const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0); // Gemas do jogador
+
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
+  const [enemyVisible, setEnemyVisible] = useState(true);
+  const [enemyProgress, setEnemyProgress] = useState<{ [enemyName: string]: { kills: number; } }>({});
+
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
 
+
   // mundo
   const [currentWorldIndex, setCurrentWorldIndex] = useState(0);
+  const currentWorld = worlds[currentWorldIndex];
 
   const changeWorld = (index: number) => {
     setCurrentWorldIndex(index);
@@ -28,7 +34,6 @@ export const App = () => {
     setCurrentMiddleTab(2)
   };
 
-  const currentWorld = worlds[currentWorldIndex];
 
  // dano e poder
 
@@ -112,32 +117,52 @@ export const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const attackEnemy = () => {
-    const currentTime = Date.now();
+  // ataque
 
-    if (currentTime - lastClickTime < timeWindow / clickLimit) {
-      // Clique ignorado por exceder o limite
-      return;
-    }
+const attackEnemy = () => {
+  const currentTime = Date.now();
 
-    setLastClickTime(currentTime);
-    setClickCount(prevCount => prevCount + 1);
+  if (currentTime - lastClickTime < timeWindow / clickLimit) {
+    // Clique ignorado por exceder o limite
+    return;
+  }
 
-    const newHealth = currentEnemy.health - finalDamage;
-    setPlayerPower(playerPower + finalPower);
-    if (newHealth <= 0) {
-      // Inimigo derrotado, ganha moedas e poder
-      setPlayerCoins(playerCoins + currentEnemy.coinsDropped);
-      setPlayerGems(playerGems + currentEnemy.gemsDropped)
+  setLastClickTime(currentTime);
+  setClickCount(prevCount => prevCount + 1);
+
+  const newHealth = currentEnemy.health - finalDamage;
+  setPlayerPower(playerPower + finalPower);
+  if (newHealth <= 0) {
+    currentEnemy.health = newHealth
+
+        // Incrementa as kills do inimigo
+        setEnemyProgress(prevProgress => ({
+          ...prevProgress,
+          [currentEnemy.name]: {
+            ...prevProgress[currentEnemy.name],
+            kills: (prevProgress[currentEnemy.name]?.kills || 0) + 1, // Incrementa a kill
+          }
+        }));
+    
+
+    // Inimigo derrotado, ganha moedas e poder
+    setPlayerCoins(playerCoins + currentEnemy.coinsDropped);
+    setPlayerGems(playerGems + currentEnemy.gemsDropped);
+
+    // Inimigo derrotado, some por 0,5 segundos
+    setEnemyVisible(false);
+    setTimeout(() => {
+      setEnemyVisible(true);
       // Respawn do inimigo com vida cheia
       setCurrentEnemy({
         ...currentEnemy,
         health: currentEnemy.maxHealth, // Inimigo volta com vida cheia
       });
-    } else {
-      setCurrentEnemy({ ...currentEnemy, health: newHealth });
-    }
-  };
+    }, 350);
+  } else {
+    setCurrentEnemy({ ...currentEnemy, health: newHealth });
+  }
+};
 
   // qol
 
@@ -311,6 +336,8 @@ const changeArmor = (itemName: keyof typeof items) => {
         changeEnemy={changeEnemy}
         attackEnemy={attackEnemy}
         healthBarWidth={(currentEnemy.health / currentEnemy.maxHealth) * 100}
+        enemyVisible={enemyVisible}
+        setEnemyVisible={setEnemyVisible}
       />
       </div>
         )}
