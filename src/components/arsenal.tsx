@@ -62,7 +62,7 @@ export type Item  = {
     if (item.type === 'armor') {
     item.damage = ((item.damage + ((item.initialDamage - 1)) * increasePercentage));
     item.power = ((item.power + ((item.initialPower - 1)) * increasePercentage));
-    item.baseCost = ((item.baseCost + (item.initialBaseCost) * increasePercentage * 5));
+    item.baseCost = ((item.baseCost + (item.initialBaseCost) * increasePercentage * 3));
 
     item.descriptionD = `+${parseFloat(((item.damage - 1) * 100).toFixed(1))}% 🗡️`;
     item.descriptionP = `+${parseFloat(((item.power - 1) * 100).toFixed(1))}% 🔥`;
@@ -98,8 +98,8 @@ export type Item  = {
         initialDamage: 1, // Valor inicial de damage
         power: 0.1,
         initialPower: 0.1, // Valor inicial de power
-        baseCost: 20,
-        initialBaseCost: 20, // Valor inicial de baseCost
+        baseCost: 5,
+        initialBaseCost: 5, // Valor inicial de baseCost
         level: 0,
         descriptionD: '+1 🗡️',
         descriptionP: '+0.1 🔥',
@@ -114,7 +114,7 @@ export type Item  = {
         initialDamage: 5, // Valor inicial de damage
         power: 0.5,
         initialPower: 0.5, // Valor inicial de power
-        baseCost: 50,
+        baseCost: 20,
         initialBaseCost: 20, // Valor inicial de baseCost
         level: 0,
         descriptionD: '+5 🗡️',
@@ -130,8 +130,8 @@ export type Item  = {
         initialDamage: 5, // Valor inicial de damage
         power: 0.5,
         initialPower: 0.5, // Valor inicial de power
-        baseCost: 50,
-        initialBaseCost: 20, // Valor inicial de baseCost
+        baseCost: 45,
+        initialBaseCost: 45, // Valor inicial de baseCost
         level: 0,
         descriptionD: '+5 🗡️',
         descriptionP: '+0.5 🔥',
@@ -147,7 +147,7 @@ export type Item  = {
         power: 1,
         initialPower: 1, // Valor inicial de power
         baseCost: 100,
-        initialBaseCost: 20, // Valor inicial de baseCost
+        initialBaseCost: 100, // Valor inicial de baseCost
         level: 0,
         descriptionD: '+12 🗡️',
         descriptionP: '+1 🔥',

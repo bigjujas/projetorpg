@@ -21,7 +21,6 @@ export const App = () => {
 
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
   const [enemyVisible, setEnemyVisible] = useState(true);
-  const [enemyProgress, setEnemyProgress] = useState<{ [enemyName: string]: { kills: number; } }>({});
 
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
@@ -148,17 +147,6 @@ export const App = () => {
     setPlayerPower(playerPower + finalPower);
     if (newHealth <= 0) {
       currentEnemy.health = newHealth
-
-      // Incrementa as kills do inimigo
-      setEnemyProgress(prevProgress => ({
-        ...prevProgress,
-        [currentEnemy.name]: {
-          ...prevProgress[currentEnemy.name],
-          kills: (prevProgress[currentEnemy.name]?.kills || 0) + 1, // Incrementa a kill
-        }
-      }));
-
-
       // Inimigo derrotado, ganha moedas e poder
       setPlayerCoins(playerCoins + currentEnemy.coinsDropped);
       setPlayerGems(playerGems + currentEnemy.gemsDropped);
