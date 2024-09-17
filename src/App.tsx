@@ -13,11 +13,11 @@ import anvil from './assets/anvil.png'
 
 export const App = () => {
   const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
-  const [playerPower, setPlayerPower] = useState<number>(1000000); // Poder do jogador
+  const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState(1)
-  const [playerXpPoint, setPlayerXpPoint] = useState(10000)
-  const [playerCoins, setPlayerCoins] = useState<number>(100000); // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(100000); // Gemas do jogador
+  const [playerXpPoint, setPlayerXpPoint] = useState(0)
+  const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(0); // Gemas do jogador
 
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
   const [enemyVisible, setEnemyVisible] = useState(true);
@@ -75,7 +75,7 @@ export const App = () => {
   const applyUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
 
-    if (upgrade && upgrade.level < 50 && playerXpPoint >= upgrade.cost) {
+    if (upgrade && upgrade.level < 100 && playerXpPoint >= upgrade.cost) {
       const { newDamage } = upgrade.applyUpgrade(playerDamage);
       setPlayerDamage(newDamage);
       setPlayerXpPoint(playerXpPoint - upgrade.cost);
@@ -87,7 +87,7 @@ export const App = () => {
 
   const applyArmorUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentArmor.level < 50 && upgrade.costType === 'coins' && playerCoins >= currentArmor.baseCost) {
+    if (upgrade && currentArmor.level < 100 && upgrade.costType === 'coins' && playerCoins >= currentArmor.baseCost) {
       setPlayerCoins(playerCoins - currentArmor.baseCost);
       currentArmor.level += 1;
       scaleItemAttributes(currentArmor); // Aplica o escalonamento dos atributos
@@ -96,7 +96,7 @@ export const App = () => {
 
   const applyWeaponUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentWeapon.level < 50 && upgrade.costType === 'coins' && playerCoins >= currentWeapon.baseCost) {
+    if (upgrade && currentWeapon.level < 100 && upgrade.costType === 'coins' && playerCoins >= currentWeapon.baseCost) {
       setPlayerCoins(playerCoins - currentWeapon.baseCost);
       currentWeapon.level += 1;
       scaleItemAttributes(currentWeapon); // Aplica o escalonamento dos atributos
@@ -387,23 +387,23 @@ export const App = () => {
                       <h1>{upgrade1.description}</h1>
                       <h2>{upgrade1.name}</h2>
                       <h4>Nv. {upgrade1.level}</h4>
-                      <h3>{upgrade1.level === 50 ? "Max" : upgrade1.cost} 💠</h3>
+                      <h3>{upgrade1.level === 100 ? "Max" : upgrade1.cost} 💠</h3>
                     </div>
                   )}
-                  {upgrade1 && upgrade1.level >= 10 && upgrade2 && (
+                  {upgrade1 && upgrade1.level >= 15 && upgrade2 && (
                     <div onClick={() => applyUpgrade('upgrade2')} className="upgrade__container">
                       <h1>{upgrade2.description}</h1>
                       <h2>{upgrade2.name}</h2>
                       <h4>Nv. {upgrade2.level}</h4>
-                      <h3>{upgrade2.level === 50 ? "Max" : upgrade2.cost} 💠</h3>
+                      <h3>{upgrade2.level === 100 ? "Max" : upgrade2.cost} 💠</h3>
                     </div>
                   )}
-                  {upgrade2 && upgrade2.level >= 10 && upgrade3 && (
+                  {upgrade2 && upgrade2.level >= 15 && upgrade3 && (
                     <div onClick={() => applyUpgrade('upgrade3')} className="upgrade__container">
                       <h1>{upgrade3.description}</h1>
                       <h2>{upgrade3.name}</h2>
                       <h4>Nv. {upgrade3.level}</h4>
-                      <h3>{upgrade3.level === 50 ? "Max" : upgrade3.cost} 💠</h3>
+                      <h3>{upgrade3.level === 100 ? "Max" : upgrade3.cost} 💠</h3>
                     </div>
                   )}
                 </div>
@@ -420,12 +420,12 @@ export const App = () => {
                   <div onClick={() => applyWeaponUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Arma</h2>
-                    <h3>{formatNumber(currentWeapon.baseCost)} 💰</h3>
+                    <h3>{currentWeapon.level === 100 ? "Max" : formatNumber(currentWeapon.baseCost)} 💰</h3>
                   </div>
                   <div onClick={() => applyArmorUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Armadura</h2>
-                    <h3>{formatNumber(currentArmor.baseCost)} 💰</h3>
+                    <h3>{currentArmor.level === 100 ? "Max" : formatNumber(currentArmor.baseCost)} 💰</h3>
                   </div>
                 </div>
               </div>

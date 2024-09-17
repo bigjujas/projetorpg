@@ -1,12 +1,19 @@
-import goblin from "/src/assets/goblin.jpg";
-import forestBandit from "/src/assets/forestBandit.jpg";
-import forestUndead from "/src/assets/forestUndead.jpg"
-import forestTitan from "/src/assets/forestTitan.jpg"
+import goblin from "/src/assets/enemies/goblin.jpg";
+import forestBandit from "/src/assets/enemies/forestBandit.jpg";
+import forestUndead from "/src/assets/enemies/forestUndead.jpg"
+import forestTitan from "/src/assets/enemies/forestTitan.jpg"
 
-import caveSkeleton from "/src/assets/caveSkeleton.jpg"
-import caveSpider from "/src/assets/caveSpider.jpg"
-import caveMonster from "/src/assets/caveMonster.jpg"
-import caveMage from "/src/assets/caveMage.jpg"
+import caveSkeleton from "/src/assets/enemies/caveSkeleton.jpg"
+import caveSpider from "/src/assets/enemies/caveSpider.jpg"
+import caveMonster from "/src/assets/enemies/caveMonster.jpg"
+import caveMage from "/src/assets/enemies/caveMage.jpg"
+
+import bronzeKnight from "/src/assets/enemies/bronzeKnight.jpg"
+import ghostKnight from "/src/assets/enemies/ghostKnight.jpg"
+import cavallaryKnight from "/src/assets/enemies/cavallaryKnight.jpg"
+import giantKnight from "/src/assets/enemies/giantKnight.jpg"
+
+
 
 export type Enemy = {
   name: string;
@@ -92,5 +99,42 @@ export const enemies = {
     gemsDropped: 12,
     kills: 0,
     image: caveMage,
+  },
+  // Mundo 3
+  bronzeKnight: {
+    name: 'Cavaleiro de Bronze',
+    health: 35000,
+    maxHealth: 35000,
+    coinsDropped: 150,
+    gemsDropped: 0,
+    kills: 0,
+    image: bronzeKnight,
+  },
+  ghostKnight: {
+    name: 'Cavaleiro Fantasma',
+    health: 50000,
+    maxHealth: 50000,
+    coinsDropped: 250,
+    gemsDropped: 0,
+    kills: 0,
+    image: ghostKnight,
+  },
+  cavallaryKnight: {
+    name: 'Cavalaria',
+    health: 75000,
+    maxHealth: 75000,
+    coinsDropped: 400,
+    gemsDropped: 0,
+    kills: 0,
+    image: cavallaryKnight,
+  },
+  giantKnight: {
+    name: 'General das Muralhas',
+    health: 120000,
+    maxHealth: 120000,
+    coinsDropped: 650,
+    gemsDropped: 65,
+    kills: 0,
+    image: giantKnight,
   },
 };

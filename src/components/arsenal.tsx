@@ -1,25 +1,37 @@
 import { formatNumber } from './utilities'
 
 //espadas
-import starterSword from '/src/assets/starterSword.jpg'
-import basicAxe from '/src/assets/basicAxe.jpg'
-import forestSword from '/src/assets/forestSword.jpg'
-import titanSword from '/src/assets/titanSword.jpg'
+import starterSword from '/src/assets/weapons/starterSword.jpg'
+import basicAxe from '/src/assets/weapons/basicAxe.jpg'
+import forestSword from '/src/assets/weapons/forestSword.jpg'
+import titanSword from '/src/assets/weapons/titanSword.jpg'
 
-import boneSword from '/src/assets/boneSword.jpg'
-import boneCutlass from '/src/assets/boneCutlass.jpg'
-import boneSmasher from '/src/assets/boneSmasher.jpg'
-import boneStaff from '/src/assets/boneStaff.jpg'
+import boneSword from '/src/assets/weapons/boneSword.jpg'
+import boneCutlass from '/src/assets/weapons/boneCutlass.jpg'
+import boneSmasher from '/src/assets/weapons/boneSmasher.jpg'
+import boneStaff from '/src/assets/weapons/boneStaff.jpg'
+
+import darksteelSword from '/src/assets/weapons/darksteelSword.jpg'
+import royalSword from '/src/assets/weapons/royalSword.jpg'
+import greatSword from '/src/assets/weapons/greatSword.jpg'
+import aureaSword from '/src/assets/weapons/aureaSword.jpg'
+import fireSword from '/src/assets/weapons/fireSword.jpg'
 
 //armaduras
-import starterArmor from '/src/assets/starterArmor.jpg'
-import travellerArmor from '/src/assets/travellerArmor.jpg'
-import forestSeeker from '/src/assets/forestSeeker.jpg'
-import titanArmor from '/src/assets/titanArmor.jpg'
+import starterArmor from '/src/assets/armor/starterArmor.jpg'
+import travellerArmor from '/src/assets/armor/travellerArmor.jpg'
+import forestSeeker from '/src/assets/armor/forestSeeker.jpg'
+import titanArmor from '/src/assets/armor/titanArmor.jpg'
 
-import steelArmor from '/src/assets/steelArmor.jpg'
-import darkSteelArmor from '/src/assets/darkSteelArmor.jpg'
-import bloodArmor from '/src/assets/bloodArmor.jpg'
+import steelArmor from '/src/assets/armor/steelArmor.jpg'
+import darkSteelArmor from '/src/assets/armor/darkSteelArmor.jpg'
+import bloodArmor from '/src/assets/armor/bloodArmor.jpg'
+
+import darkKnightArmor from '/src/assets/armor/darkKnightArmor.jpg'
+import royalArmor from '/src/assets/armor/royalArmor.jpg'
+import warriorArmor from '/src/assets/armor/warriorArmor.jpg'
+import darkRoyalArmor from '/src/assets/armor/darkRoyalArmor.jpg'
+import fireArmor from '/src/assets/armor/fireArmor.jpg'
 
 export type Item  = {
     name: string;
@@ -207,6 +219,87 @@ export type Item  = {
       unlocked: false,
       image: boneStaff,
   },
+  // mundo 3
+    darksteelSword: {
+      name: 'Aço Negro',
+      type: 'sword',
+      rarity: "Comum",
+      damage: 50,
+      initialDamage: 50, // Valor inicial de damage
+      power: 2.7,
+      initialPower: 2.7, // Valor inicial de power
+      baseCost: 650,
+      initialBaseCost: 650, // Valor inicial de baseCost
+      level: 0,
+      descriptionD: '+50 🗡️',
+      descriptionP: '+2.7 🔥',
+      unlocked: false,
+      image: darksteelSword,
+  },
+    royalSword: {
+      name: 'Espada Real',
+      type: 'sword',
+      rarity: "Raro",
+      damage: 75,
+      initialDamage: 75, // Valor inicial de damage
+      power: 3.2,
+      initialPower: 3.2, // Valor inicial de power
+      baseCost: 1000,
+      initialBaseCost: 1000, // Valor inicial de baseCost
+      level: 0,
+      descriptionD: '+75 🗡️',
+      descriptionP: '+3.2 🔥',
+      unlocked: false,
+      image: royalSword,
+  },
+    greatSword: {
+      name: 'Grande Espada',
+      type: 'sword',
+      rarity: "Épico",
+      damage: 100,
+      initialDamage: 100, // Valor inicial de damage
+      power: 4,
+      initialPower: 4, // Valor inicial de power
+      baseCost: 1500,
+      initialBaseCost: 1500, // Valor inicial de baseCost
+      level: 0,
+      descriptionD: '+100 🗡️',
+      descriptionP: '+4 🔥',
+      unlocked: false,
+      image: greatSword,
+  },
+    aureaSword: {
+      name: 'Espada da Ordem',
+      type: 'sword',
+      rarity: "Lendário",
+      damage: 135,
+      initialDamage: 135, // Valor inicial de damage
+      power: 5,
+      initialPower: 5, // Valor inicial de power
+      baseCost: 2000,
+      initialBaseCost: 2000, // Valor inicial de baseCost
+      level: 0,
+      descriptionD: '+135 🗡️',
+      descriptionP: '+5 🔥',
+      unlocked: false,
+      image: aureaSword,
+  },
+    fireSword: {
+      name: 'Fogo Ancestral',
+      type: 'sword',
+      rarity: "Mítico",
+      damage: 220,
+      initialDamage: 220, // Valor inicial de damage
+      power: 8,
+      initialPower: 8, // Valor inicial de power
+      baseCost: 5000,
+      initialBaseCost: 5000, // Valor inicial de baseCost
+      level: 0,
+      descriptionD: '+220 🗡️',
+      descriptionP: '+8 🔥',
+      unlocked: false,
+      image: fireSword,
+  },
 
     // Armaduras
     //mundo1
@@ -323,6 +416,87 @@ export type Item  = {
       unlocked: false,
       image: bloodArmor,
   },
+  //mundo 3
+  darkKnightArmor: {
+    name: 'Cavaleiro Simples',
+    type: 'armor',
+    rarity: "Comum",
+    damage: 1.28,
+    initialDamage: 1.28, // Valor inicial de damage
+    power: 1.28,
+    initialPower: 1.28, // Valor inicial de power
+    baseCost: 750,
+    initialBaseCost: 750, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+28% 🗡️',
+    descriptionP: '+28% 🔥',
+    unlocked: false,
+    image: darkKnightArmor,
+},
+  royalArmor: {
+    name: 'Armadura Real',
+    type: 'armor',
+    rarity: "Raro",
+    damage: 1.35,
+    initialDamage: 1.35, // Valor inicial de damage
+    power: 1.35,
+    initialPower: 1.35, // Valor inicial de power
+    baseCost: 1000,
+    initialBaseCost: 1000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+35% 🗡️',
+    descriptionP: '+35% 🔥',
+    unlocked: false,
+    image: royalArmor,
+},
+  warriorArmor: {
+    name: 'Guerreiro Feroz',
+    type: 'armor',
+    rarity: "Épico",
+    damage: 1.45,
+    initialDamage: 1.45, // Valor inicial de damage
+    power: 1.45,
+    initialPower: 1.45, // Valor inicial de power
+    baseCost: 1500,
+    initialBaseCost: 1500, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+45% 🗡️',
+    descriptionP: '+45% 🔥',
+    unlocked: false,
+    image: warriorArmor,
+},
+  darkRoyalArmor: {
+    name: 'Ordem Letal',
+    type: 'armor',
+    rarity: "Lendário",
+    damage: 1.55,
+    initialDamage: 1.55, // Valor inicial de damage
+    power: 1.55,
+    initialPower: 1.55, // Valor inicial de power
+    baseCost: 2200,
+    initialBaseCost: 2200, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+55% 🗡️',
+    descriptionP: '+55% 🔥',
+    unlocked: false,
+    image: darkRoyalArmor,
+},
+  fireArmor: {
+    name: 'Fogo Ancestral',
+    type: 'armor',
+    rarity: "Mítico",
+    damage: 1.80,
+    initialDamage: 1.80, // Valor inicial de damage
+    power: 1.80,
+    initialPower: 1.80, // Valor inicial de power
+    baseCost: 5000,
+    initialBaseCost: 5000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+80% 🗡️',
+    descriptionP: '+80% 🔥',
+    unlocked: false,
+    image: fireArmor,
+},
 };
 
 // Função para sortear um item de um baú específico
@@ -347,6 +521,7 @@ export const world1Chest = [
   { item: items.basicAxe, probability: 0.26 },
   { item: items.forestSword, probability: 0.2 },
   { item: items.titanSword, probability: 0.04 },
+
   { item: items.travellerArmor, probability: 0.26 },
   { item: items.forestSeeker, probability: 0.2 },
   { item: items.titanArmor, probability: 0.04 },
@@ -357,7 +532,22 @@ export const world2Chest = [
   { item: items.boneCutlass, probability: 0.175 },
   { item: items.boneSmasher, probability: 0.04 },
   { item: items.boneStaff, probability: 0.01 },
+
   { item: items.steelArmor, probability: 0.175 },
   { item: items.darkSteelArmor, probability: 0.04 },
   { item: items.bloodArmor, probability: 0.01 },
+];
+
+export const world3Chest = [
+  { item: items.darksteelSword, probability: 0.275 },
+  { item: items.royalSword, probability: 0.175 },
+  { item: items.greatSword, probability: 0.04 },
+  { item: items.aureaSword, probability: 0.009 },
+  { item: items.fireSword, probability: 0.001 },
+
+  { item: items.darkKnightArmor, probability: 0.275 },
+  { item: items.royalArmor, probability: 0.175 },
+  { item: items.warriorArmor, probability: 0.04 },
+  { item: items.darkRoyalArmor, probability: 0.009 },
+  { item: items.fireArmor, probability: 0.001 },
 ];
