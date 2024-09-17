@@ -52,7 +52,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
             <div className="chest__container" onClick={openWorld1Chest}>
                 <h1>Tier I</h1>
                 <h2>💼</h2>
-                <h3><span className='gem'>20</span> 💎</h3>
+                <h3><span className='gem'>15</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openWorld2Chest}>
                 <h1>Tier II</h1>
