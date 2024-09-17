@@ -1,3 +1,5 @@
+import { formatNumber } from './utilities'
+
 //espadas
 import starterSword from '/src/assets/starterSword.jpg'
 import basicAxe from '/src/assets/basicAxe.jpg'
@@ -58,8 +60,8 @@ export type Item  = {
       item.power = ((item.power + ((item.initialPower)) * increasePercentage));
       item.baseCost = ((item.baseCost + (item.initialBaseCost) * increasePercentage * 5));
 
-      item.descriptionD = `+${parseFloat((item.damage).toFixed(2))} 🗡️`;
-      item.descriptionP = `+${parseFloat((item.power).toFixed(2))} 🔥`;
+      item.descriptionD = `+${(formatNumber(item.damage))} 🗡️`;
+      item.descriptionP = `+${(formatNumber(item.power, 2))} 🔥`;
     }
 };
   

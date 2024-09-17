@@ -13,7 +13,7 @@ export const worlds = [
   },
   {
     number: 'Mundo2',
-    name: 'Caverna da Fronteira 🪨',
+    name: 'Caverna da Fronteira 🗿',
     background: cavernBackground,
     enemies: [enemies.caveSkeleton, enemies.caveSpider, enemies.caveMonster, enemies.caveMage],
   },

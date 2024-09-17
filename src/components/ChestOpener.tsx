@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { drawItemFromChest, world1Chest, world2Chest, Item } from './arsenal';
 
+import chestImage from '/src/assets/chestImage.png'
+
 interface ChestsProps {
     playerGems: number;
     setPlayerGems: React.Dispatch<React.SetStateAction<number>>;
@@ -10,7 +12,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
     const [drawnItem, setDrawnItem] = useState<Item | null>(null);
 
     const openWorld1Chest = () => {
-        const chestCost = 20; // Custo em gemas para abrir o baú comum
+        const chestCost = 15; // Custo em gemas para abrir o baú comum
 
         if (playerGems >= chestCost) {
             const item = drawItemFromChest(world1Chest);

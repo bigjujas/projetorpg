@@ -1,5 +1,6 @@
 // World.tsx
 import React from 'react';
+import { formatNumber } from './utilities';
 import { Enemy } from './enemies';
 
 interface WorldProps {
@@ -44,7 +45,7 @@ const World: React.FC<WorldProps> = ({
       <h4>{currentEnemy.name}</h4>
       <div className="health-bar-container">
         <div className="health-bar" style={{ width: `${healthBarWidth}%` }}></div>
-        <p>❤️ {currentEnemy.health.toFixed(0)} / {currentEnemy.maxHealth}</p>
+        <p>❤️ {formatNumber(currentEnemy.health)} / {formatNumber(currentEnemy.maxHealth)}</p>
       </div>
       {enemyVisible && (
         <div className={`enemy ${!enemyVisible ? 'hidden' : ''}`}>

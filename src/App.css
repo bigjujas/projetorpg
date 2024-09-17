@@ -217,7 +217,7 @@
 	display: flex;
 	justify-content: space-around;
 	margin: 1vh;
-	background-color: #343846;
+	background-color: #311d11;
 	border: black 2px solid;
 	border-radius: 15px;
 	gap: 4vh;
@@ -551,7 +551,7 @@
 .rightTab {
 	align-items: center;
 	text-align: center;
-}
+  }
 
 .rightTab h6 {
 	font-family: "Poppins", sans-serif;
@@ -564,9 +564,17 @@
 	border: black 2px solid;
 }
 
+.upgradeTab {
+	background-color: #311d11;
+	padding: 12px;
+	border-radius: 20px;
+	border: black 2px solid;
+	margin: 2vh;
+}
+
 .upgrade__container {
 	display: flex;
-	margin: 5px 3vh;
+	margin: 15px 3vh;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
@@ -595,18 +603,17 @@
 }
 
 .upgrade__container h2 {
-	background-color: #555c77;
-	flex-grow: 1;
+	background-color: #5a381c;
+	flex-grow: 1.8;
 }
 
 .upgrade__container h3 {
-	color: gold;
-	background-color: #82aaff;
+	background-color: #003775;
 }
 
 .upgrade__container h4 {
-	background-color: #00671b;
-	flex-grow: 2;
+	background-color: #c77c19;
+	flex-grow: 1.2;
 }
 
 .upgrade__container:hover {
@@ -616,7 +623,7 @@
 
 .upgrade__container:active {
 	transform: scale(0.95);
-	filter: brightness(1);
+	filter: brightness(2);
 }
 
 /* Ferreiro */
@@ -626,7 +633,7 @@
 	text-align: center;
 }
 
-.forgeTab img {
+.forgeTab .anvil {
 	height: 300px;
 	width: auto;
 	margin: 20px auto;
@@ -650,7 +657,7 @@
 }
 
 .displayForge__container {
-	background-color: #343846;
+	background-color: #311d11;
 	padding: 20px;
 	margin: 0px 3vh;
 	border-radius: 15px;
@@ -713,24 +720,43 @@
 	filter: brightness(2);
 }
 
-/* Treino */
+/* Chests */
 
-.upgrade__treinamento h3 {
-	color: orange;
-	background-color: #2f3a50;
+.chestTab {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: center;
+	overflow: auto;
+	overflow-x: hidden;
 }
 
-/* Chests */
+.chestTab h6 {
+	font-family: "Poppins", sans-serif;
+	font-size: 25px;
+	font-weight: 600;
+	margin-top: 2vh;
+	background-color: #1b212e;
+	border-radius: 15px;
+	padding: 10px 15px;
+	border: black 2px solid;
+}
 
 .chests__container {
 	display: flex;
 	flex-direction: column;
 	background-color: #343846;
 	padding: 20px;
-	margin: 0px 5vh;
+	margin: 2vh 5vh;
 	border: black 2px solid;
 	border-radius: 25px;
 	transition: all 0.3s ease;
+}
+
+.chests__container img {
+	height: 128px;
+	width: 128px;
+	margin: 0px auto;
 }
 
 .drawn__display {
@@ -742,6 +768,7 @@
 	background-color: #262833;
 	padding: 20px;
 	border: black 2px solid;
+	transition: all 0.3s ease;
 }
 
 .drawn__display img {
@@ -771,7 +798,7 @@
 
 .chest__container {
 	display: flex;
-	margin: 15px 50px;
+	margin: 12px 50px;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
@@ -787,10 +814,9 @@
 	font-weight: 700;
 	letter-spacing: 1.5px;
 	margin: 0;
-	padding: 10px 5px;
+	padding: 10px 15px;
 	flex: 1;
 	min-width: 0;
-	height: 100%;
 	border: black 1px solid;
 }
 
