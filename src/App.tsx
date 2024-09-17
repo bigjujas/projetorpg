@@ -39,8 +39,8 @@ export const App = () => {
 
   // dano e poder
 
-  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage) * 10
-  const finalPower = ((currentWeapon.power) * currentArmor.power) * 10
+  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage)
+  const finalPower = ((currentWeapon.power) * currentArmor.power)
 
   // Tabs
 
