@@ -33,7 +33,7 @@
 }
 
 .Locked {
-	filter: saturate(0) brightness(0.1) blur(3px);
+	filter: saturate(0) brightness(0.02) blur(3px);
 	pointer-events: none;
 	z-index: 10;
 }
@@ -103,7 +103,7 @@
 /* */
 .header {
 	display: flex;
-	background-color: #472119;
+	background-color: #111216;
 	height: 4vh;
 	justify-content: space-between;
 	align-items: center;
@@ -147,7 +147,7 @@
 
 .left__container {
 	display: flex;
-	background-color: #23262e;
+	background-color: #1a0f09;
 	width: 32%;
 	box-sizing: border-box;
 	flex-direction: column;
@@ -161,7 +161,7 @@
 }
 
 .right__container {
-	background-color: #23262e;
+	background-color: #1a0f09;
 	width: 32%;
 	box-sizing: border-box;
 	flex-direction: column;
@@ -179,7 +179,7 @@
 	margin: 0;
 	padding: 5px 15px;
 	text-align: center;
-	background-color: #742c1d;
+	background-color: #1e2027;
 	border-bottom: black 3px solid;
 	justify-content: center;
 }
@@ -209,7 +209,7 @@
 .display__tabs p {
 	font-family: "Poppins", sans-serif;
 	flex: 1;
-	background-color: #994636;
+	background-color: #3c4150;
 	border-bottom: black 3px solid;
 	margin: 0;
 	padding: 12px;
@@ -562,6 +562,10 @@
 	margin-top: 3vh;
 }
 
+.enemy {
+	position: relative;
+}
+
 .enemy img {
 	height: 380px;
 	width: 300px;
@@ -569,16 +573,17 @@
 	border: black 2px solid;
 	border-radius: 50px;
 	box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+	position: relative;
 }
 
 .enemy img:hover {
-	transform: scale(1.02);
+	transform: scale(0.98);
 	cursor: pointer;
 	border: #000000 3px solid;
 }
 
 .enemy img:active {
-	transform: scale(0.90);
+	transform: scale(0.95);
 	filter: brightness(0.85)
 }
 
