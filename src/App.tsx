@@ -17,7 +17,7 @@ export const App = () => {
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(10000) // Gemas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
 
   const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
 
