@@ -13,7 +13,7 @@ import anvil from './assets/anvil.png'
 
 export const App = () => {
   const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
-  const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
+  const [playerPower, setPlayerPower] = useState<number>(1000) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
@@ -43,7 +43,8 @@ export const App = () => {
       currentWeapon,
       currentArmor,
       currentEnemy,
-      items
+      items,
+      upgrades
     };
 
     // Converter os dados em string JSON
@@ -85,6 +86,15 @@ export const App = () => {
       // Atualizar o objeto `items`
       Object.keys(gameData.items).forEach(itemId => {
         items[itemId] = gameData.items[itemId];
+      });
+      
+      gameData.upgrades.forEach((importedUpgrade: any) => {
+        const existingUpgrade = upgrades.find(upg => upg.id === importedUpgrade.id);
+        if (existingUpgrade) {
+          // Atualizar apenas os dados relevantes do upgrade
+          existingUpgrade.level = importedUpgrade.level;
+          existingUpgrade.cost = importedUpgrade.cost;
+        }
       });
     };
 
