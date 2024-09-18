@@ -530,7 +530,7 @@ export const App = () => {
           <div className="display__tabs">
             <p className={currentRightTab === 1 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(1)}>Skills 🎯</p>
             <p className={currentRightTab === 2 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(2)}>Forja ⚒️</p>
-            <p className={currentRightTab === 3 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(3)}>Loja 🏪</p>
+            <p className={currentRightTab === 3 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(3)}>Loja 🛒</p>
           </div>
           {currentRightTab === 1 && (
             <>
@@ -539,7 +539,7 @@ export const App = () => {
                   <h6>Nivel: {playerLevel}</h6>
                   <div onClick={levelUp} className="upgrade__container">
                     <h1 className='Raro'>+1 💠</h1>
-                    <h2 className='Épico'>Level Up</h2>
+                    <h2>Level Up</h2>
                     <h3 className='power'>{formatNumber(powerNeeded)} 🔥</h3>
                   </div>
                   <h6>Pontos: {playerXpPoint} 💠</h6>

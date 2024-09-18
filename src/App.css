@@ -829,13 +829,10 @@
 .forgeTab .anvil {
 	height: 300px;
 	width: auto;
-	margin: 20px auto;
-	background-color: #434961;
+	margin: 0px auto;
 	border-radius: 30px;
 	padding: 20px;
-	border: black 1px solid;
 	filter: brightness(0.8) saturate(0.8);
-	box-shadow: 15px 15px 20px 0px rgba(0, 0, 0, 0.5);
 }
 
 .forgeTab h6 {
