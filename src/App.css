@@ -61,6 +61,11 @@
 	background: rgb(108,4,111);
 	background: radial-gradient(circle, rgba(108,4,111,1) 0%, rgba(132,0,255,1) 100%);
 }
+.Secreto {
+	color: #ffffff;
+	background: rgb(255,255,255);
+	background: radial-gradient(circle, rgba(255,255,255,0.29735644257703087) 0%, rgba(0,0,0,1) 58%);	
+}
 
 /* Mundos */
 
@@ -313,7 +318,8 @@
 .display__skin h3 {
 	background-color: #991c25;
 	flex: 1;
-	padding: 10px 25px;
+	font-size: 14px;
+	padding: 10px 12px;
 	border-left: #000000 2px solid;
 	border-right: #000000 1px solid;
 	border-bottom: #000000 2px solid;
@@ -322,7 +328,8 @@
 .display__skin h4 {
 	background-color: #99311c;
 	flex: 1;
-	padding: 10px 25px;
+	font-size: 14px;
+	padding: 10px 12px;
 	border-left: #000000 1px solid;
 	border-right: #000000 2px solid;
 	border-bottom: #000000 2px solid;
@@ -853,7 +860,7 @@
 
 .upgradeForge__container {
 	display: flex;
-	margin: 5px 50px;
+	margin: 5px 5px;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;

@@ -22,6 +22,7 @@ import starterArmor from '/src/assets/armor/starterArmor.jpg'
 import travellerArmor from '/src/assets/armor/travellerArmor.jpg'
 import forestSeeker from '/src/assets/armor/forestSeeker.jpg'
 import titanArmor from '/src/assets/armor/titanArmor.jpg'
+import edecio from '/src/assets/armor/edecio.jpg'
 
 import steelArmor from '/src/assets/armor/steelArmor.jpg'
 import darkSteelArmor from '/src/assets/armor/darkSteelArmor.jpg'
@@ -385,6 +386,23 @@ export type Item  = {
         source: "Mundo 1",
         image: titanArmor,
     },
+    edecioArmor: {
+        name: 'Edecio',
+        type: 'armor',
+        rarity: "Secreto",
+        damage: 2,
+        initialDamage: 2, // Valor inicial de damage
+        power: 2,
+        initialPower: 2, // Valor inicial de power
+        baseCost: 10000,
+        initialBaseCost: 10000, // Valor inicial de baseCost
+        level: 0,
+        descriptionD: '+100% 🗡️',
+        descriptionP: '+100% 🔥',
+        unlocked: false,
+        source: "Mundo 1",
+        image: edecio,
+    },
     //mundo2
     steelArmor: {
       name: 'Armadura de Aço',
@@ -550,7 +568,8 @@ export const world1Chest = [
 
   { item: items.travellerArmor, probability: 0.26 },
   { item: items.forestSeeker, probability: 0.2 },
-  { item: items.titanArmor, probability: 0.04 },
+  { item: items.titanArmor, probability: 0.0399 },
+  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world2Chest = [
