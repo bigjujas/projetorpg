@@ -275,6 +275,11 @@
 	text-align: center;
 }
 
+.item__status{
+	display: flex;
+	flex: 1;
+}
+
 .display__skin h1,
 .display__skin h2,
 .display__skin h3,
@@ -307,16 +312,18 @@
 
 .display__skin h3 {
 	background-color: #991c25;
+	flex: 1;
 	padding: 10px 25px;
 	border-left: #000000 2px solid;
-	border-right: #000000 2px solid;
+	border-right: #000000 1px solid;
 	border-bottom: #000000 2px solid;
 }
 
 .display__skin h4 {
 	background-color: #99311c;
+	flex: 1;
 	padding: 10px 25px;
-	border-left: #000000 2px solid;
+	border-left: #000000 1px solid;
 	border-right: #000000 2px solid;
 	border-bottom: #000000 2px solid;
 }

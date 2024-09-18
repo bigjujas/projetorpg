@@ -372,8 +372,10 @@ export const App = () => {
                   <img src={currentArmor.image} onClick={() => toggleLeftTab(2)} alt="" draggable="false" />
                   <div className="equipped__status">
                     <h2 className={currentArmor.rarity}>{currentArmor.rarity}</h2>
+                    <div className="item__status">
                     <h3>{currentArmor.descriptionD}</h3>
                     <h4>{currentArmor.descriptionP}</h4>
+                    </div>
                     <h5>Nv. {currentArmor.level}</h5>
                   </div>
                 </div>
@@ -382,8 +384,10 @@ export const App = () => {
                   <img src={currentWeapon.image} onClick={() => toggleLeftTab(3)} alt="" draggable="false" />
                   <div className="equipped__status">
                     <h2 className={currentWeapon.rarity}>{currentWeapon.rarity}</h2>
+                    <div className="item__status">
                     <h3>{currentWeapon.descriptionD}</h3>
                     <h4>{currentWeapon.descriptionP}</h4>
+                    </div>
                     <h5>Nv. {currentWeapon.level}</h5>
                   </div>
                 </div>
