@@ -216,22 +216,27 @@ export const App = () => {
 
   const attackEnemy = () => {
     const currentTime = Date.now();
-
+  
     if (currentTime - lastClickTime < timeWindow / clickLimit) {
       // Clique ignorado por exceder o limite
       return;
     }
-
+  
     setLastClickTime(currentTime);
     setClickCount(prevCount => prevCount + 1);
-
+  
     setCurrentEnemy(prevEnemy => {
+      // Verifica se o inimigo já foi derrotado
+      if (prevEnemy.health <= 0) {
+        return prevEnemy; // Não processa mais nada se o inimigo já está morto
+      }
+  
       const newHealth = prevEnemy.health - finalDamage;
       if (newHealth <= 0) {
-        // Inimigo derrotado, ganha moedas e poder
-        setPlayerCoins(playerCoins + prevEnemy.coinsDropped);
-        setPlayerGems(playerGems + prevEnemy.gemsDropped);
-
+        // Atualizando moedas e gemas corretamente
+        setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
+        setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
+  
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
@@ -247,18 +252,23 @@ export const App = () => {
         return { ...prevEnemy, health: newHealth };
       }
     });
-
+  
     setPlayerPower(prevPower => prevPower + finalPower);
   };
-
+  
   const autoAttackEnemy = () => {
     setCurrentEnemy(prevEnemy => {
+      // Verifica se o inimigo já foi derrotado
+      if (prevEnemy.health <= 0) {
+        return prevEnemy; // Não processa mais nada se o inimigo já está morto
+      }
+  
       const newHealth = prevEnemy.health - (finalDamage * autoAttackDamage);
       if (newHealth <= 0) {
-        // Inimigo derrotado, ganha moedas e poder
-        setPlayerCoins(playerCoins + prevEnemy.coinsDropped);
-        setPlayerGems(playerGems + prevEnemy.gemsDropped);
-
+        // Atualizando moedas e gemas corretamente no auto ataque
+        setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
+        setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
+  
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
@@ -274,7 +284,7 @@ export const App = () => {
         return { ...prevEnemy, health: newHealth };
       }
     });
-
+  
     setPlayerPower(prevPower => prevPower + (finalPower * autoAttackDamage));
   };
 
