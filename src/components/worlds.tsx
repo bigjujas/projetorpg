@@ -20,7 +20,7 @@ export const worlds = [
   },
   {
     number: 'Mundo3',
-    name: 'Ruínas das Muralhas 🗿',
+    name: 'Ruínas das Muralhas 🧱',
     background: castleBackground,
     enemies: [enemies.bronzeKnight, enemies.ghostKnight, enemies.cavallaryKnight, enemies.giantKnight],
   },

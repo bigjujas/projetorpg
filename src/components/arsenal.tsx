@@ -47,6 +47,7 @@ export type Item  = {
     descriptionD: string;
     descriptionP: string;
     unlocked: boolean;
+    source: string;
     image: string;
   };
 
@@ -104,6 +105,7 @@ export type Item  = {
         descriptionD: '+1 🗡️',
         descriptionP: '+0.1 🔥',
         unlocked: true,
+        source: "Mundo 1",
         image: starterSword,
     },
     basicAxe: {
@@ -120,6 +122,7 @@ export type Item  = {
         descriptionD: '+5 🗡️',
         descriptionP: '+0.5 🔥',
         unlocked: false,
+        source: "Mundo 1",
         image: basicAxe,
     },
     forestSword: {
@@ -136,6 +139,7 @@ export type Item  = {
         descriptionD: '+5 🗡️',
         descriptionP: '+0.5 🔥',
         unlocked: false,
+        source: "Mundo 1",
         image: forestSword,
     },
     titanSword: {
@@ -152,6 +156,7 @@ export type Item  = {
         descriptionD: '+12 🗡️',
         descriptionP: '+1 🔥',
         unlocked: false,
+        source: "Mundo 1",
         image: titanSword,
     },
     // mundo 2
@@ -169,6 +174,7 @@ export type Item  = {
       descriptionD: '+20 🗡️',
       descriptionP: '+2 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: boneSword,
   },
     boneCutlass: {
@@ -185,6 +191,7 @@ export type Item  = {
       descriptionD: '+25 🗡️',
       descriptionP: '+2.2 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: boneCutlass,
   },
     boneSmasher: {
@@ -201,6 +208,7 @@ export type Item  = {
       descriptionD: '+40 🗡️',
       descriptionP: '+2.5 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: boneSmasher,
   },
     boneStaff: {
@@ -217,6 +225,7 @@ export type Item  = {
       descriptionD: '+60 🗡️',
       descriptionP: '+3 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: boneStaff,
   },
   // mundo 3
@@ -234,6 +243,7 @@ export type Item  = {
       descriptionD: '+50 🗡️',
       descriptionP: '+2.7 🔥',
       unlocked: false,
+      source: "Mundo 3",
       image: darksteelSword,
   },
     royalSword: {
@@ -250,6 +260,7 @@ export type Item  = {
       descriptionD: '+75 🗡️',
       descriptionP: '+3.2 🔥',
       unlocked: false,
+      source: "Mundo 3",
       image: royalSword,
   },
     greatSword: {
@@ -266,6 +277,7 @@ export type Item  = {
       descriptionD: '+100 🗡️',
       descriptionP: '+4 🔥',
       unlocked: false,
+      source: "Mundo 3",
       image: greatSword,
   },
     aureaSword: {
@@ -282,6 +294,7 @@ export type Item  = {
       descriptionD: '+135 🗡️',
       descriptionP: '+5 🔥',
       unlocked: false,
+      source: "Mundo 3",
       image: aureaSword,
   },
     fireSword: {
@@ -298,6 +311,7 @@ export type Item  = {
       descriptionD: '+220 🗡️',
       descriptionP: '+8 🔥',
       unlocked: false,
+      source: "Mundo 3",
       image: fireSword,
   },
 
@@ -311,12 +325,13 @@ export type Item  = {
         initialDamage: 1.05, // Valor inicial de damage
         power: 1.00,
         initialPower: 1.05, // Valor inicial de power
-        baseCost: 20,
-        initialBaseCost: 20, // Valor inicial de baseCost
+        baseCost: 5,
+        initialBaseCost: 5, // Valor inicial de baseCost
         level: 0,
         descriptionD: '+0% 🗡️',
         descriptionP: '+0% 🔥',
         unlocked: true,
+        source: "Mundo 1",
         image: starterArmor,
     },
     travellerArmor: {
@@ -333,6 +348,7 @@ export type Item  = {
         descriptionD: '+3% 🗡️',
         descriptionP: '+3% 🔥',
         unlocked: false,
+        source: "Mundo 1",
         image: travellerArmor,
     },
     forestSeeker: {
@@ -349,6 +365,7 @@ export type Item  = {
         descriptionD: '+7.5% 🗡️',
         descriptionP: '+7.5% 🔥',
         unlocked: false,
+        source: "Mundo 1",
         image: forestSeeker,
     },
     titanArmor: {
@@ -365,6 +382,7 @@ export type Item  = {
         descriptionD: '+10% 🗡️',
         descriptionP: '+10% 🔥',
         unlocked: false,
+        source: "Mundo 1",
         image: titanArmor,
     },
     //mundo2
@@ -382,6 +400,7 @@ export type Item  = {
       descriptionD: '+16% 🗡️',
       descriptionP: '+16% 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: steelArmor,
   },
     darkSteelArmor: {
@@ -398,6 +417,7 @@ export type Item  = {
       descriptionD: '+22% 🗡️',
       descriptionP: '+22% 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: darkSteelArmor,
   },
     bloodArmor: {
@@ -414,6 +434,7 @@ export type Item  = {
       descriptionD: '+30% 🗡️',
       descriptionP: '+30% 🔥',
       unlocked: false,
+      source: "Mundo 2",
       image: bloodArmor,
   },
   //mundo 3
@@ -431,6 +452,7 @@ export type Item  = {
     descriptionD: '+28% 🗡️',
     descriptionP: '+28% 🔥',
     unlocked: false,
+    source: "Mundo 3",
     image: darkKnightArmor,
 },
   royalArmor: {
@@ -447,6 +469,7 @@ export type Item  = {
     descriptionD: '+35% 🗡️',
     descriptionP: '+35% 🔥',
     unlocked: false,
+    source: "Mundo 3",
     image: royalArmor,
 },
   warriorArmor: {
@@ -463,6 +486,7 @@ export type Item  = {
     descriptionD: '+45% 🗡️',
     descriptionP: '+45% 🔥',
     unlocked: false,
+    source: "Mundo 3",
     image: warriorArmor,
 },
   darkRoyalArmor: {
@@ -479,6 +503,7 @@ export type Item  = {
     descriptionD: '+55% 🗡️',
     descriptionP: '+55% 🔥',
     unlocked: false,
+    source: "Mundo 3",
     image: darkRoyalArmor,
 },
   fireArmor: {
@@ -495,6 +520,7 @@ export type Item  = {
     descriptionD: '+80% 🗡️',
     descriptionP: '+80% 🔥',
     unlocked: false,
+    source: "Mundo 3",
     image: fireArmor,
 },
 };

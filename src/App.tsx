@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import './reset.css'
 import { formatNumber } from './components/utilities';
@@ -12,23 +12,96 @@ import ChestOpener from './components/ChestOpener';
 import anvil from './assets/anvil.png'
 
 export const App = () => {
-  const [playerDamage, setPlayerDamage] = useState<number>(0); // Dano do Jogador
-  const [playerPower, setPlayerPower] = useState<number>(0); // Poder do jogador
-  const [playerLevel, setPlayerLevel] = useState(1)
-  const [playerXpPoint, setPlayerXpPoint] = useState(0)
-  const [playerCoins, setPlayerCoins] = useState<number>(0); // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(0); // Gemas do jogador
+  const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
+  const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
+  const [playerLevel, setPlayerLevel] = useState<number>(0)
+  const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
+  const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(10000) // Gemas do jogador
 
-  const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin); // Inimigo inicial
-  const [enemyVisible, setEnemyVisible] = useState(true);
+  const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
+
+  const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin) // Inimigo inicial
+  const [enemyVisible, setEnemyVisible] = useState(true)
 
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
 
+  // coisas para ser salva ^^^^
+  // funcao de save 
+
+  const exportGameData = () => {
+    // Dados que você quer salvar no arquivo JSON
+    const gameData = {
+      playerDamage,
+      playerPower,
+      playerLevel,
+      playerXpPoint,
+      playerCoins,
+      playerGems,
+      autoAttackLevel,
+      currentWeapon,
+      currentArmor,
+      currentEnemy,
+      items
+    };
+
+    // Converter os dados em string JSON
+    const jsonData = JSON.stringify(gameData, null, 2);
+
+    // Criar um arquivo de download
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "gameData.json";
+    link.click();
+  };
+
+  const importGameData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      if (!e.target) return;
+
+      const jsonData = e.target.result as string;
+
+      // Parse o JSON para um objeto JavaScript
+      const gameData = JSON.parse(jsonData);
+
+      // Atualizar os estados do jogo com os dados importados
+      setPlayerDamage(gameData.playerDamage);
+      setPlayerPower(gameData.playerPower);
+      setPlayerLevel(gameData.playerLevel);
+      setPlayerXpPoint(gameData.playerXpPoint);
+      setPlayerCoins(gameData.playerCoins);
+      setPlayerGems(gameData.playerGems);
+      setAutoAttackLevel(gameData.autoAttackLevel);
+      setCurrentWeapon(gameData.currentWeapon);
+      setCurrentArmor(gameData.currentArmor);
+      setCurrentEnemy(gameData.currentEnemy);
+
+      // Atualizar o objeto `items`
+      Object.keys(gameData.items).forEach(itemId => {
+        items[itemId] = gameData.items[itemId];
+      });
+    };
+
+    reader.readAsText(file);
+  };
+
+  const handleClick = () => {
+    document.getElementById('fileInput')?.click();
+  };
+
+  // save ^^^
+
+  const [isAutoAttackActive, setIsAutoAttackActive] = useState(false)
 
   // mundo
-  const [currentWorldIndex, setCurrentWorldIndex] = useState(0);
-  const currentWorld = worlds[currentWorldIndex];
+  const [currentWorldIndex, setCurrentWorldIndex] = useState(0)
+  const currentWorld = worlds[currentWorldIndex]
 
   const changeWorld = (index: number) => {
     setCurrentWorldIndex(index);
@@ -62,9 +135,9 @@ export const App = () => {
 
   // Função upgrade
 
-  const powerNeeded = (playerLevel * 10)
+  const powerNeeded = Math.floor(10 * Math.pow(1.10, playerLevel));
   const levelUp = () => {
-    if (playerPower >= powerNeeded) {
+    if (playerPower >= powerNeeded && playerLevel < 350) {
       setPlayerPower(playerPower - powerNeeded)
       setPlayerLevel(playerLevel + 1)
       setPlayerXpPoint(playerXpPoint + 1)
@@ -115,6 +188,7 @@ export const App = () => {
     }
   };
 
+
   // Função chamada ao atacar o inimigo
 
   const [clickCount, setClickCount] = useState(0);
@@ -130,7 +204,15 @@ export const App = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // ataque
+  useEffect(() => {
+    let autoAttackInterval: ReturnType<typeof setInterval>;
+    if (isAutoAttackActive) {
+      autoAttackInterval = setInterval(() => {
+        autoAttackEnemy();
+      }, 1000); // Ataca a cada segundo
+    }
+    return () => clearInterval(autoAttackInterval);
+  }, [isAutoAttackActive, autoAttackLevel]);
 
   const attackEnemy = () => {
     const currentTime = Date.now();
@@ -143,28 +225,69 @@ export const App = () => {
     setLastClickTime(currentTime);
     setClickCount(prevCount => prevCount + 1);
 
-    const newHealth = currentEnemy.health - finalDamage;
-    setPlayerPower(playerPower + finalPower);
-    if (newHealth <= 0) {
-      currentEnemy.health = newHealth
-      // Inimigo derrotado, ganha moedas e poder
-      setPlayerCoins(playerCoins + currentEnemy.coinsDropped);
-      setPlayerGems(playerGems + currentEnemy.gemsDropped);
+    setCurrentEnemy(prevEnemy => {
+      const newHealth = prevEnemy.health - finalDamage;
+      if (newHealth <= 0) {
+        // Inimigo derrotado, ganha moedas e poder
+        setPlayerCoins(playerCoins + prevEnemy.coinsDropped);
+        setPlayerGems(playerGems + prevEnemy.gemsDropped);
 
-      // Inimigo derrotado, some por 0,5 segundos
-      setEnemyVisible(false);
-      setTimeout(() => {
-        setEnemyVisible(true);
-        // Respawn do inimigo com vida cheia
-        setCurrentEnemy({
-          ...currentEnemy,
-          health: currentEnemy.maxHealth, // Inimigo volta com vida cheia
-        });
-      }, 350);
-    } else {
-      setCurrentEnemy({ ...currentEnemy, health: newHealth });
-    }
+        // Inimigo derrotado, some por 0,5 segundos
+        setEnemyVisible(false);
+        setTimeout(() => {
+          setEnemyVisible(true);
+          // Respawn do inimigo com vida cheia
+          setCurrentEnemy({
+            ...prevEnemy,
+            health: prevEnemy.maxHealth, // Inimigo volta com vida cheia
+          });
+        }, 350);
+        return { ...prevEnemy, health: 0 };
+      } else {
+        return { ...prevEnemy, health: newHealth };
+      }
+    });
+
+    setPlayerPower(prevPower => prevPower + finalPower);
   };
+
+  const autoAttackEnemy = () => {
+    setCurrentEnemy(prevEnemy => {
+      const newHealth = prevEnemy.health - (finalDamage * autoAttackDamage);
+      if (newHealth <= 0) {
+        // Inimigo derrotado, ganha moedas e poder
+        setPlayerCoins(playerCoins + prevEnemy.coinsDropped);
+        setPlayerGems(playerGems + prevEnemy.gemsDropped);
+
+        // Inimigo derrotado, some por 0,5 segundos
+        setEnemyVisible(false);
+        setTimeout(() => {
+          setEnemyVisible(true);
+          // Respawn do inimigo com vida cheia
+          setCurrentEnemy({
+            ...prevEnemy,
+            health: prevEnemy.maxHealth, // Inimigo volta com vida cheia
+          });
+        }, 350);
+        return { ...prevEnemy, health: 0 };
+      } else {
+        return { ...prevEnemy, health: newHealth };
+      }
+    });
+
+    setPlayerPower(prevPower => prevPower + (finalPower * autoAttackDamage));
+  };
+
+  // Level do Auto Attack
+
+  const autoAttackDamage = autoAttackLevel * 0.10
+
+  const autoAttackLevelUp = () => {
+    if (playerXpPoint >= 1 && autoAttackLevel < 50) {
+      setAutoAttackLevel(autoAttackLevel + 1)
+      setPlayerXpPoint(playerXpPoint - 1)
+    }
+  }
 
   // qol
 
@@ -175,32 +298,54 @@ export const App = () => {
     }
   };
 
-  const changeWeapon = (itemName: keyof typeof items) => {
-    const selectedItem = items[itemName];
+  const changeWeapon = (itemKey: string) => {
+    const selectedItem = items[itemKey];
 
-    if (selectedItem.unlocked) {
-      setCurrentWeapon(selectedItem);
-      setCurrentLeftTab(1);
+    if (selectedItem) {
+      if (selectedItem.unlocked) {
+        setCurrentWeapon(selectedItem);
+        setCurrentLeftTab(1);
+      } else {
+        console.error('O item não está desbloqueado.');
+      }
     } else {
-      console.error('A arma não está desbloqueada.');
+      console.error(`O item com a chave ${itemKey} não foi encontrado.`);
     }
   };
-  const changeArmor = (itemName: keyof typeof items) => {
-    const selectedItem = items[itemName];
 
-    if (selectedItem.unlocked) {
-      setCurrentArmor(selectedItem);
-      setCurrentLeftTab(1);
+  const changeArmor = (itemKey: string) => {
+    const selectedItem = items[itemKey];
+
+    if (selectedItem) {
+      if (selectedItem.unlocked) {
+        setCurrentArmor(selectedItem);
+        setCurrentLeftTab(1);
+      } else {
+        console.error('O item não está desbloqueado.');
+      }
     } else {
-      console.error('A arma não está desbloqueada.');
+      console.error(`O item com a chave ${itemKey} não foi encontrado.`);
     }
   };
+
   const healthBarWidth = (currentEnemy.health / currentEnemy.maxHealth) * 100; // Barra de Vida
 
   return (
     <>
       <header className='header'>
         <h1>Projeto RPG ⚔️ Alpha 1</h1>
+        <div className="save__container">
+          <h2 onClick={handleClick}> Importar Save
+            <input
+              id="fileInput"
+              type="file"
+              accept=".json"
+              onChange={importGameData}
+              style={{ display: 'none' }} // Esconde o input de arquivo
+            />
+          </h2>
+          <h3 onClick={exportGameData}>Carregar Save</h3>
+          </div>
       </header>
       <div className="game__container">
         <div className="left__container">
@@ -248,16 +393,27 @@ export const App = () => {
           {currentLeftTab === 2 && (
             <div className="arsenalTab">
               <h6>Arsenal</h6>
-              <div className="arsenal__grid">
-                {Object.keys(items)
-                  .filter(key => items[key].type === 'armor')
+              {Object.entries(
+                Object.keys(items)
+                  .filter((key) => items[key].type === "armor")
                   .sort((a, b) => Number(items[b].unlocked) - Number(items[a].unlocked))
-                  .map((key) => {
+                  .reduce<Record<string, { key: string; item: Item }[]>>((acc, key) => {
                     const item = items[key];
-                    return (
+                    const source = item.source;
+                    if (!acc[source]) {
+                      acc[source] = [];
+                    }
+                    acc[source].push({ key, item });
+                    return acc;
+                  }, {})
+              ).map(([source, itemsInSource]) => (
+                <div key={source} className="source__category">
+                  <p>{source}</p>
+                  <div className="items__grid">
+                    {itemsInSource.map(({ key, item }) => (
                       <div
                         key={key}
-                        className={`display__skin display__skin__arsenal ${item.unlocked ? '' : 'Locked'}`}
+                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}`}
                         onClick={() => changeArmor(key)}
                       >
                         <h1>{item.name}</h1>
@@ -269,24 +425,36 @@ export const App = () => {
                           <h5>Nv. {item.level}</h5>
                         </div>
                       </div>
-                    );
-                  })}
-              </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
           {currentLeftTab === 3 && (
             <div className="arsenalTab">
               <h6>Arsenal</h6>
-              <div className="arsenal__grid">
-                {Object.keys(items)
-                  .filter(key => items[key].type === 'sword')
+              {Object.entries(
+                Object.keys(items)
+                  .filter((key) => items[key].type === "sword")
                   .sort((a, b) => Number(items[b].unlocked) - Number(items[a].unlocked))
-                  .map((key) => {
+                  .reduce<Record<string, { key: string; item: Item }[]>>((acc, key) => {
                     const item = items[key];
-                    return (
+                    const source = item.source;
+                    if (!acc[source]) {
+                      acc[source] = [];
+                    }
+                    acc[source].push({ key, item });
+                    return acc;
+                  }, {})
+              ).map(([source, itemsInSource]) => (
+                <div key={source} className="source__category">
+                  <p>{source}</p>
+                  <div className="items__grid">
+                    {itemsInSource.map(({ key, item }) => (
                       <div
                         key={key}
-                        className={`display__skin display__skin__arsenal ${item.unlocked ? '' : 'Locked'}`}
+                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}`}
                         onClick={() => changeWeapon(key)}
                       >
                         <h1>{item.name}</h1>
@@ -298,9 +466,10 @@ export const App = () => {
                           <h5>Nv. {item.level}</h5>
                         </div>
                       </div>
-                    );
-                  })}
-              </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
           {currentLeftTab === 4 && (
@@ -394,6 +563,17 @@ export const App = () => {
                       <h3>{upgrade3.level === 100 ? "Max" : upgrade3.cost} 💠</h3>
                     </div>
                   )}
+                </div>
+                <div className="autoattack__container">
+                  <h6>Auto Ataque ⚔️</h6>
+                  <div className="autoattack__upgrade" onClick={autoAttackLevelUp}>
+                    <h1>{(autoAttackDamage * 100).toFixed(0)}%</h1>
+                    <h2>Nv. {autoAttackLevel}</h2>
+                    <h3>{autoAttackLevel === 50 ? "Max" : "1"}💠</h3>
+                  </div>
+                  <div className={`autoattack__button ${autoAttackLevel > 0 ? '' : 'Locked'}`}>
+                    <h2 className={isAutoAttackActive ? 'Ativado' : 'Desativado'} onClick={() => setIsAutoAttackActive(!isAutoAttackActive)}>{isAutoAttackActive ? 'Ativado' : 'Desativado'}</h2>
+                  </div>
                 </div>
               </div>
             </>

@@ -21,7 +21,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
-	font-family: "Cormorant Unicase", serif;
+	font-family: "Poppins", sans-serif;
 	overflow-wrap: break-word; /* permite que o texto seja quebrado em várias linhas */
 	text-overflow: ellipsis; /* adiciona "..." no final do texto que ultrapassar o container */
 	white-space: nowrap; /* impede que o texto quebre em várias linhas */
