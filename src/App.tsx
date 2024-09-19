@@ -18,7 +18,7 @@ export const App = () => {
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(10000) // Gemas do jogador
+  const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
   
   const [items, setItems] = useState<Record<string, Item>>(initialItems);
   
@@ -136,8 +136,8 @@ export const App = () => {
 
   // dano e poder
 
-  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage) * 10
-  const finalPower = ((currentWeapon.power) * currentArmor.power) * 10
+  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage)
+  const finalPower = ((currentWeapon.power) * currentArmor.power)
 
   // Tabs
 
