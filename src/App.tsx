@@ -6,6 +6,7 @@ import { worlds } from './components/worlds';
 import World from './components/world';
 import { Enemy, enemies } from './components/enemies'; // Importa o objeto de inimigos agrupados
 import { Item, items, unlockItem, updateItemLevel, scaleItemAttributes } from './components/arsenal'; // Importa o objeto de armas e armaduras
+import { items as initialItems } from './components/arsenal';
 import { Upgrade, upgrades } from './components/upgrades'; // Importa os upgrades
 import ChestOpener from './components/ChestOpener';
 
@@ -18,6 +19,10 @@ export const App = () => {
   const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
+
+  const [items, setItems] = useState<Record<string, Item>>(initialItems);
+
+  const [upgrades, setUpgrades] = useState<Upgrade[]>([]);
 
   const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
 
@@ -61,16 +66,16 @@ export const App = () => {
   const importGameData = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-
+  
     const reader = new FileReader();
     reader.onload = (e) => {
       if (!e.target) return;
-
+  
       const jsonData = e.target.result as string;
-
+  
       // Parse o JSON para um objeto JavaScript
       const gameData = JSON.parse(jsonData);
-
+  
       // Atualizar os estados do jogo com os dados importados
       setPlayerDamage(gameData.playerDamage);
       setPlayerPower(gameData.playerPower);
@@ -82,12 +87,14 @@ export const App = () => {
       setCurrentWeapon(gameData.currentWeapon);
       setCurrentArmor(gameData.currentArmor);
       setCurrentEnemy(gameData.currentEnemy);
-
-      // Atualizar o objeto `items`
+  
+      // Atualizar o objeto `items` de forma imutável
+      const updatedItems = { ...items }; // Cria uma cópia do objeto `items`
       Object.keys(gameData.items).forEach(itemId => {
-        items[itemId] = gameData.items[itemId];
+        updatedItems[itemId] = gameData.items[itemId]; // Atualiza a cópia com os dados importados
       });
-
+      setItems(updatedItems); // Atualiza o estado `items` com a nova cópia
+  
       gameData.upgrades.forEach((importedUpgrade: any) => {
         const existingUpgrade = upgrades.find(upg => upg.id === importedUpgrade.id);
         if (existingUpgrade) {
@@ -97,7 +104,7 @@ export const App = () => {
         }
       });
     };
-
+  
     reader.readAsText(file);
   };
 
@@ -122,8 +129,8 @@ export const App = () => {
 
   // dano e poder
 
-  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage)
-  const finalPower = ((currentWeapon.power) * currentArmor.power)
+  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage) * 10
+  const finalPower = ((currentWeapon.power) * currentArmor.power) * 10
 
   // Tabs
 
