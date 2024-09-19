@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import './reset.css'
 import { formatNumber } from './components/utilities';
@@ -14,6 +14,7 @@ import anvil from './assets/anvil.png'
 
 export const App = () => {
   const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
+  const [playerPowerGain, setPlayerPowerGain] = useState<number>(0) // Poder do jogador
   const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
@@ -137,7 +138,7 @@ export const App = () => {
   // dano e poder
 
   const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage)
-  const finalPower = ((currentWeapon.power) * currentArmor.power)
+  const finalPower = ((playerPowerGain + currentWeapon.power) * currentArmor.power)
 
   // Tabs
 
@@ -159,9 +160,9 @@ export const App = () => {
 
   // Função Level Up
 
-  const powerNeeded = Math.floor(10 * Math.pow(1.05, playerLevel));
+  const powerNeeded = Math.floor(10 * Math.pow(1.15, playerLevel));
   const levelUp = () => {
-    if (playerPower >= powerNeeded && playerLevel < 350) {
+    if (playerPower >= powerNeeded && playerLevel < 550) {
       setPlayerPower(playerPower - powerNeeded)
       setPlayerLevel(playerLevel + 1)
       setPlayerXpPoint(playerXpPoint + 1)
@@ -185,7 +186,7 @@ export const App = () => {
 
   const applyArmorUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentArmor.level < 100 && upgrade.costType === 'coins' && playerCoins >= currentArmor.baseCost) {
+    if (upgrade && currentArmor.level < 100 && playerCoins >= currentArmor.baseCost) {
       setPlayerCoins(playerCoins - currentArmor.baseCost);
       currentArmor.level += 1;
       scaleItemAttributes(currentArmor); // Aplica o escalonamento dos atributos
@@ -194,7 +195,7 @@ export const App = () => {
 
   const applyWeaponUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentWeapon.level < 100 && upgrade.costType === 'coins' && playerCoins >= currentWeapon.baseCost) {
+    if (upgrade && currentWeapon.level < 100 && playerCoins >= currentWeapon.baseCost) {
       setPlayerCoins(playerCoins - currentWeapon.baseCost);
       currentWeapon.level += 1;
       scaleItemAttributes(currentWeapon); // Aplica o escalonamento dos atributos
@@ -207,6 +208,8 @@ export const App = () => {
   const upgrade1 = upgrades.find(upg => upg.id === 'upgrade1');
   const upgrade2 = upgrades.find(upg => upg.id === 'upgrade2');
   const upgrade3 = upgrades.find(upg => upg.id === 'upgrade3');
+  const upgrade4 = upgrades.find(upg => upg.id === 'upgrade4');
+  const upgrade5 = upgrades.find(upg => upg.id === 'upgrade5');
 
 
   // Função chamada ao atacar o inimigo
@@ -376,7 +379,7 @@ export const App = () => {
               style={{ display: 'none' }} // Esconde o input de arquivo
             />
           </h2>
-          <h3 onClick={exportGameData}>Carregar Save</h3>
+          <h3 onClick={exportGameData}>Exportar Save</h3>
           </div>
       </header>
       <div className="game__container">
@@ -562,13 +565,13 @@ export const App = () => {
           <div className="display__tabs">
             <p className={currentRightTab === 1 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(1)}>Skills 🎯</p>
             <p className={currentRightTab === 2 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(2)}>Forja ⚒️</p>
-            <p className={currentRightTab === 3 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(3)}>Loja 🛒</p>
+            <p className={currentRightTab === 3 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(3)}>Mercado 📦</p>
           </div>
           {currentRightTab === 1 && (
             <>
               <div className="rightTab">
                 <div className="upgradeTab">
-                  <h6>Nivel: {playerLevel}</h6>
+                  <p><span>Nivel:</span> {playerLevel}</p>
                   <div onClick={levelUp} className="upgrade__container">
                     <h1 className='Raro'>+1 💠</h1>
                     <h2 className='Raro'>Level Up ⬆️</h2>
@@ -599,6 +602,23 @@ export const App = () => {
                       <h3>{upgrade3.level === 100 ? "Max" : upgrade3.cost} 💠</h3>
                     </div>
                   )}
+                  {upgrade3 && upgrade3.level >= 15 && upgrade4 && (
+                    <div onClick={() => applyUpgrade('upgrade4')} className="upgrade__container">
+                      <h1>{upgrade4.description}</h1>
+                      <h2>{upgrade4.name}</h2>
+                      <h4>Nv. {upgrade4.level}</h4>
+                      <h3>{upgrade4.level === 100 ? "Max" : upgrade4.cost} 💠</h3>
+                    </div>
+                  )}
+                  {upgrade4 && upgrade4.level >= 15 && upgrade5 && (
+                    <div onClick={() => applyUpgrade('upgrade5')} className="upgrade__container">
+                      <h1>{upgrade5.description}</h1>
+                      <h2>{upgrade5.name}</h2>
+                      <h4>Nv. {upgrade5.level}</h4>
+                      <h3>{upgrade5.level === 100 ? "Max" : upgrade5.cost} 💠</h3>
+                    </div>
+                  )}
+                  {/* upgrades de poder abaixo */}
                 </div>
                 <div className="autoattack__container">
                   <h6>Auto Ataque ⚔️</h6>

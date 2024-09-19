@@ -66,11 +66,9 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
             </div>
             {drawnItem && (
                 <div className='drawn__display'>
+                        <h1 className={drawnItem.rarity}>{drawnItem.name}</h1>
                     <img src={drawnItem.image} alt="" draggable="false" />
-                    <div className="draw__text">
-                        <h1>{drawnItem.name}</h1>
                         <h2 className={drawnItem.rarity}>{drawnItem.rarity}</h2>
-                    </div>
                 </div>
             )}
             <img src={chestImage} alt="" />

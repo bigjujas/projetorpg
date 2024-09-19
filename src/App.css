@@ -4,17 +4,22 @@
 }
 
 .arsenalTab::-webkit-scrollbar {
-    display: none; /* Esconde a barra de rolagem */
+	display: none;
+	/* Esconde a barra de rolagem */
 }
+
 .rightTab::-webkit-scrollbar {
-    display: none; /* Esconde a barra de rolagem */
+	display: none;
+	/* Esconde a barra de rolagem */
 }
+
 .chestTab::-webkit-scrollbar {
-    display: none; /* Esconde a barra de rolagem */
+	display: none;
+	/* Esconde a barra de rolagem */
 }
 
 :-webkit-scrollbar {
-    display: none;
+	display: none;
 }
 
 /* Globais */
@@ -43,30 +48,35 @@
 /* Raridades */
 
 .Comum {
-    color: #ffffff;
+	color: #ffffff;
 	background-color: #302721 !important;
 }
+
 .Raro {
-    color: #ffffff;
+	color: #ffffff;
 	background-color: #023a8f !important;
 }
+
 .Épico {
-    color: #ff00f2;
+	color: #ff00f2;
 	background-color: #2e0d3b !important;
 }
+
 .Lendário {
-    color: #ff5e00;
+	color: #ff5e00;
 	background-color: #3a0900 !important;
 }
+
 .Mítico {
 	color: #e19bf3;
-	background: rgb(108,4,111);
-	background: radial-gradient(circle, rgba(108,4,111,1) 0%, rgba(132,0,255,1) 100%);
+	background: rgb(108, 4, 111);
+	background: radial-gradient(circle, rgba(108, 4, 111, 1) 0%, rgba(132, 0, 255, 1) 100%);
 }
+
 .Secreto {
 	color: #ffffff;
-	background: rgb(255,255,255);
-	background: radial-gradient(circle, rgba(255,255,255,0.29735644257703087) 0%, rgba(0,0,0,1) 58%);	
+	background: rgb(255, 255, 255);
+	background: radial-gradient(circle, rgba(255, 255, 255, 0.29735644257703087) 0%, rgba(0, 0, 0, 1) 58%);
 }
 
 /* Mundos */
@@ -76,7 +86,7 @@
 }
 
 .Mundo1 h1 {
-	background-color: #002b0b !important;	
+	background-color: #002b0b !important;
 }
 
 .Mundo1 h3 {
@@ -88,7 +98,7 @@
 }
 
 .Mundo2 h1 {
-	background-color: #3d2821 !important;	
+	background-color: #3d2821 !important;
 }
 
 .Mundo2 h3 {
@@ -96,11 +106,11 @@
 }
 
 .Mundo3 h2 {
-	background-color: #794d24	 !important;
+	background-color: #794d24 !important;
 }
 
 .Mundo3 h1 {
-	background-color: #472e16 !important;	
+	background-color: #472e16 !important;
 }
 
 .Mundo3 h3 {
@@ -206,8 +216,9 @@
 }
 
 .display__status__container:not(:last-child) {
-	border-right: black 3px solid; /* Borda direita para todos os h3, exceto o último */
-  }
+	border-right: black 3px solid;
+	/* Borda direita para todos os h3, exceto o último */
+}
 
 .display__tabs {
 	display: flex;
@@ -233,8 +244,9 @@
 }
 
 .display__tabs p:not(:last-child) {
-	border-right: black 3px solid; /* Borda direita para todos os h3, exceto o último */
-  }
+	border-right: black 3px solid;
+	/* Borda direita para todos os h3, exceto o último */
+}
 
 .tab_active {
 	filter: brightness(1.10);
@@ -282,7 +294,7 @@
 	text-align: center;
 }
 
-.item__status{
+.item__status {
 	display: flex;
 	flex: 1;
 }
@@ -299,7 +311,7 @@
 	margin: 0px 0px;
 }
 
-.display__skin h1 {	
+.display__skin h1 {
 	background-color: #1b212e;
 	padding: 10px 10px;
 	border-left: #000000 1px solid;
@@ -412,9 +424,10 @@
 }
 
 .arsenal__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px; /* Ajuste o espaçamento entre os itens conforme necessário */
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 6px;
+	/* Ajuste o espaçamento entre os itens conforme necessário */
 	margin-top: 2vh;
 }
 
@@ -432,11 +445,12 @@
 	padding: 5px 20px;
 	border: black 2px solid;
 }
-  
+
 .items__grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px; /* Ajuste o espaçamento entre os itens conforme necessário */
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 6px;
+	/* Ajuste o espaçamento entre os itens conforme necessário */
 }
 
 /* mundos */
@@ -606,7 +620,7 @@
 
 .enemy img:active {
 	transform: scale(0.95);
-	filter: brightness(0.85) hue-rotate(-50deg) saturate(0.8);
+	filter: brightness(0.85) hue-rotate(-20deg) saturate(2);
 }
 
 .health-bar-container {
@@ -640,20 +654,37 @@
 /* tab direita */
 
 .rightTab {
+	letter-spacing: 1.5px;
 	display: flex;
 	flex-direction: column;
 	flex: 1;
 	align-items: center;
 	text-align: center;
-	overflow-y: auto; /* Habilita a rolagem vertical */
-	max-height: 82vh; /* Define uma altura máxima para ativar a rolagem */
-  }
+	overflow-y: auto;
+	/* Habilita a rolagem vertical */
+	max-height: 82vh;
+	/* Define uma altura máxima para ativar a rolagem */
+}
+
+.rightTab p {
+	font-size: 28px;
+	font-weight: 600;
+	margin: 0vh 12vh;
+	background-color: #14254b;
+	border-radius: 15px;
+	padding: 10px 15px;
+	border: black 2px solid;
+}
+
+.rightTab p span {
+	font-size: 22px;
+	font-weight: 500;
+}
 
 .rightTab h6 {
-	font-family: "Poppins", sans-serif;
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 600;
-	margin: 2vh 14vh;
+	margin: 2vh 16vh;
 	background-color: #1b212e;
 	border-radius: 15px;
 	padding: 10px 15px;
@@ -683,16 +714,16 @@
 .upgrade__container h2,
 .upgrade__container h3,
 .upgrade__container h4 {
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  margin: 0;
-  padding: 10px 5px;
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  border: black 1px solid;
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	margin: 0;
+	padding: 10px 5px;
+	flex: 1;
+	min-width: 0;
+	height: 100%;
+	border: black 1px solid;
 }
 
 .upgrade__container h1 {
@@ -716,6 +747,7 @@
 .upgrade__container:hover {
 	cursor: pointer;
 	transform: scale(0.98);
+	filter: brightness(1.20);
 }
 
 .upgrade__container:active {
@@ -734,7 +766,7 @@
 
 .autoattack__container h6 {
 	font-family: "Poppins", sans-serif;
-	font-size: 25px;
+	font-size: 20px;
 	font-weight: 600;
 	margin: 0 14vh;
 	background-color: #1b212e;
@@ -773,7 +805,7 @@
 	background-color: #c77c19;
 }
 
-.autoattack__upgrade h3{
+.autoattack__upgrade h3 {
 	background-color: #003775;
 }
 
@@ -837,7 +869,7 @@
 }
 
 .forgeTab .anvil {
-	height: 300px;
+	height: 200px;
 	width: auto;
 	margin: 0px auto;
 	border-radius: 30px;
@@ -879,31 +911,31 @@
 .upgradeForge__container h2,
 .upgradeForge__container h3,
 .upgradeForge__container h4 {
-  font-family: "Poppins", sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  margin: 0;
-  padding: 10px 5px;
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-  border: black 1px solid;
+	font-family: "Poppins", sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	margin: 0;
+	padding: 10px 5px;
+	flex: 1;
+	min-width: 0;
+	height: 100%;
+	border: black 1px solid;
 }
 
 
 .upgradeForge__container h1 {
-	background-color: #0e50ba;
+	background-color: #c77c19;
 }
 
 .upgradeForge__container h2 {
-	background-color: #4e5983;
+	background-color: #252b3f;
 	flex-grow: 3;
 }
 
 .upgradeForge__container h3 {
 	color: gold;
-	background-color: #273043;
+	background-color: #003775;
 }
 
 .upgradeForge__container h4 {
@@ -913,6 +945,7 @@
 .upgradeForge__container:hover {
 	cursor: pointer;
 	transform: scale(1.02);
+	filter: brightness(1.20);
 }
 
 .upgradeForge__container:active {
@@ -927,8 +960,10 @@
 	flex-direction: column;
 	flex: 1;
 	align-items: center;
-	overflow-y: auto; /* Habilita a rolagem vertical */
-	max-height: 82vh; /* Define uma altura máxima para ativar a rolagem */
+	overflow-y: auto;
+	/* Habilita a rolagem vertical */
+	max-height: 82vh;
+	/* Define uma altura máxima para ativar a rolagem */
 }
 
 .chestTab h6 {
@@ -945,7 +980,7 @@
 .chests__container {
 	display: flex;
 	flex-direction: column;
-	background-color: #343846;
+	background-color: #311d11;
 	padding: 10px;
 	margin: 1vh 5vh;
 	border: black 2px solid;
@@ -975,7 +1010,6 @@
 	height: 260px;
 	width: 160px;
 	border: black 1px solid;
-	border-radius: 20px 20px 0px 0px;
 	margin: 0px auto;
 }
 
@@ -990,15 +1024,17 @@
 .drawn__display h1 {
 	background-color: #273043;
 	border: black 1px solid;
+	border-radius: 15px 15px 0px 0px;
 }
 
 .drawn__display h2 {
 	border: black 1px solid;
+	border-radius: 0px 0px 15px 15px;
 }
 
 .chest__container {
 	display: flex;
-	margin: 5px 50px;
+	margin: 10px 50px;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
@@ -1035,13 +1071,10 @@
 .chest__container:hover {
 	cursor: pointer;
 	transform: scale(1.02);
+	filter: brightness(1.20);
 }
 
 .chest__container:active {
 	transform: scale(0.98);
 	filter: brightness(2);
-}
-
-.chests__container img {
-	margin-top: 2vh;
 }
