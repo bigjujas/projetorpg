@@ -113,15 +113,15 @@ export type Item  = {
         name: 'Machado Básico',
         type: 'sword',
         rarity: "Comum",
-        damage: 5,
-        initialDamage: 5, // Valor inicial de damage
-        power: 0.5,
-        initialPower: 0.5, // Valor inicial de power
+        damage: 4,
+        initialDamage: 4, // Valor inicial de damage
+        power: 0.4,
+        initialPower: 0.4, // Valor inicial de power
         baseCost: 20,
         initialBaseCost: 20, // Valor inicial de baseCost
         level: 0,
-        descriptionD: '+5 🗡️',
-        descriptionP: '+0.5 🔥',
+        descriptionD: '+3 🗡️',
+        descriptionP: '+0.3 🔥',
         unlocked: false,
         source: "Mundo 1",
         image: basicAxe,
@@ -130,15 +130,15 @@ export type Item  = {
         name: 'Lâmina da Floresta',
         type: 'sword',
         rarity: "Raro",
-        damage: 5,
-        initialDamage: 5, // Valor inicial de damage
-        power: 0.5,
-        initialPower: 0.5, // Valor inicial de power
+        damage: 8,
+        initialDamage: 8, // Valor inicial de damage
+        power: 0.8,
+        initialPower: 0.8, // Valor inicial de power
         baseCost: 45,
         initialBaseCost: 45, // Valor inicial de baseCost
         level: 0,
-        descriptionD: '+5 🗡️',
-        descriptionP: '+0.5 🔥',
+        descriptionD: '+8 🗡️',
+        descriptionP: '+0.8 🔥',
         unlocked: false,
         source: "Mundo 1",
         image: forestSword,

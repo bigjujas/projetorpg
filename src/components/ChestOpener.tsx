@@ -12,7 +12,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
     const [drawnItem, setDrawnItem] = useState<Item | null>(null);
 
     const openWorld1Chest = () => {
-        const chestCost = 15; // Custo em gemas para abrir o baú comum
+        const chestCost = 50; // Custo em gemas para abrir o baú comum
 
         if (playerGems >= chestCost) {
             const item = drawItemFromChest(world1Chest);
@@ -24,7 +24,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
     };
 
     const openWorld2Chest = () => {
-        const chestCost = 100; // Custo em gemas para abrir o baú comum
+        const chestCost = 1000; // Custo em gemas para abrir o baú comum
 
         if (playerGems >= chestCost) {
             const item = drawItemFromChest(world2Chest);
@@ -36,7 +36,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
     };
 
     const openWorld3Chest = () => {
-        const chestCost = 500; // Custo em gemas para abrir o baú comum
+        const chestCost = 15000; // Custo em gemas para abrir o baú comum
 
         if (playerGems >= chestCost) {
             const item = drawItemFromChest(world3Chest);
@@ -52,17 +52,17 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
             <div className="chest__container" onClick={openWorld1Chest}>
                 <h1>Tier I</h1>
                 <h2>💼</h2>
-                <h3><span className='gem'>15</span> 💎</h3>
+                <h3><span className='gem'>50</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openWorld2Chest}>
                 <h1>Tier II</h1>
                 <h2>💼</h2>
-                <h3><span className='gem'>100</span> 💎</h3>
+                <h3><span className='gem'>1K</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openWorld3Chest}>
                 <h1>Tier III</h1>
                 <h2>💼</h2>
-                <h3><span className='gem'>500</span> 💎</h3>
+                <h3><span className='gem'>15K</span> 💎</h3>
             </div>
             {drawnItem && (
                 <div className='drawn__display'>
@@ -73,6 +73,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
                     </div>
                 </div>
             )}
+            <img src={chestImage} alt="" />
         </div>
     );
 };

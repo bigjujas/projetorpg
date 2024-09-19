@@ -20,17 +20,19 @@ export const App = () => {
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
   
-  const [items, setItems] = useState<Record<string, Item>>(initialItems);
+  const [items, setItems] = useState<Record<string, Item>>(initialItems); // Pro Save Funcionar
   
   const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
   
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin) // Inimigo inicial
   const [enemyVisible, setEnemyVisible] = useState(true)
-
+  
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
-
+  
   // coisas para ser salva ^^^^
+
+
   // funcao de save 
 
   const exportGameData = () => {
@@ -121,8 +123,6 @@ export const App = () => {
 
   // save ^^^
 
-  const [isAutoAttackActive, setIsAutoAttackActive] = useState(false)
-
   // mundo
   const [currentWorldIndex, setCurrentWorldIndex] = useState(0)
   const currentWorld = worlds[currentWorldIndex]
@@ -157,9 +157,9 @@ export const App = () => {
   };
 
 
-  // Função upgrade
+  // Função Level Up
 
-  const powerNeeded = Math.floor(10 * Math.pow(1.10, playerLevel));
+  const powerNeeded = Math.floor(10 * Math.pow(1.5, playerLevel));
   const levelUp = () => {
     if (playerPower >= powerNeeded && playerLevel < 350) {
       setPlayerPower(playerPower - powerNeeded)
@@ -167,6 +167,8 @@ export const App = () => {
       setPlayerXpPoint(playerXpPoint + 1)
     }
   }
+
+  // Função Upgrade
 
   const applyUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
@@ -199,21 +201,17 @@ export const App = () => {
     }
   };
 
+  // Upgrades Finds
+
   const upgradeItem = upgrades.find(upg => upg.id === 'upgradeItem');
   const upgrade1 = upgrades.find(upg => upg.id === 'upgrade1');
   const upgrade2 = upgrades.find(upg => upg.id === 'upgrade2');
   const upgrade3 = upgrades.find(upg => upg.id === 'upgrade3');
 
-  // Função que desbloqueia items
-
-  const checkUnlocks = () => {
-    if (playerCoins >= 100) { // Exemplo de condição
-      unlockItem('starterSword');
-    }
-  };
-
 
   // Função chamada ao atacar o inimigo
+
+  const [isAutoAttackActive, setIsAutoAttackActive] = useState(false)
 
   const [clickCount, setClickCount] = useState(0);
   const [lastClickTime, setLastClickTime] = useState(0);
@@ -323,7 +321,7 @@ export const App = () => {
     }
   }
 
-  // qol
+  // utilities
 
   const changeEnemy = (enemyName: string) => {
     const enemy = worlds.flatMap(world => world.enemies).find(e => e.name === enemyName);
@@ -402,7 +400,7 @@ export const App = () => {
               <h6>Itens Equipados</h6>
               <div className="display__skin__container">
                 <div className="display__skin">
-                  <h1>{currentArmor.name}</h1>
+                  <h1 className={currentArmor.rarity}>{currentArmor.name}</h1>
                   <img src={currentArmor.image} onClick={() => toggleLeftTab(2)} alt="" draggable="false" />
                   <div className="equipped__status">
                     <h2 className={currentArmor.rarity}>{currentArmor.rarity}</h2>
@@ -414,7 +412,7 @@ export const App = () => {
                   </div>
                 </div>
                 <div className="display__skin">
-                  <h1>{currentWeapon.name}</h1>
+                  <h1 className={currentWeapon.rarity}>{currentWeapon.name}</h1>
                   <img src={currentWeapon.image} onClick={() => toggleLeftTab(3)} alt="" draggable="false" />
                   <div className="equipped__status">
                     <h2 className={currentWeapon.rarity}>{currentWeapon.rarity}</h2>
@@ -454,7 +452,7 @@ export const App = () => {
                         className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}`}
                         onClick={() => changeArmor(key)}
                       >
-                        <h1>{item.name}</h1>
+                        <h1 className={item.rarity}>{item.name}</h1>
                         <img src={item.image} alt={item.name} draggable="false" />
                         <div className="equipped__status">
                           <h2 className={item.rarity}>{item.rarity}</h2>
@@ -495,7 +493,7 @@ export const App = () => {
                         className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}`}
                         onClick={() => changeWeapon(key)}
                       >
-                        <h1>{item.name}</h1>
+                        <h1 className={item.rarity}>{item.name}</h1>
                         <img src={item.image} alt={item.name} draggable="false" />
                         <div className="equipped__status">
                           <h2 className={item.rarity}>{item.rarity}</h2>
@@ -573,7 +571,7 @@ export const App = () => {
                   <h6>Nivel: {playerLevel}</h6>
                   <div onClick={levelUp} className="upgrade__container">
                     <h1 className='Raro'>+1 💠</h1>
-                    <h2>Level Up</h2>
+                    <h2 className='Raro'>Level Up ⬆️</h2>
                     <h3 className='power'>{formatNumber(powerNeeded)} 🔥</h3>
                   </div>
                   <h6>Pontos: {playerXpPoint} 💠</h6>

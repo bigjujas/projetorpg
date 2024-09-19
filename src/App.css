@@ -6,8 +6,10 @@
 .arsenalTab::-webkit-scrollbar {
     display: none; /* Esconde a barra de rolagem */
 }
-
 .rightTab::-webkit-scrollbar {
+    display: none; /* Esconde a barra de rolagem */
+}
+.chestTab::-webkit-scrollbar {
     display: none; /* Esconde a barra de rolagem */
 }
 
@@ -336,7 +338,7 @@
 }
 
 .display__skin h5 {
-	background-color: #0e50ba;
+	background-color: #c77c19;
 	border-radius: 0px 0px 25px 25px;
 	padding: 10px 25px;
 	border-left: #000000 2px solid;
@@ -348,13 +350,13 @@
 	height: 380px;
 	width: 240px;
 	border: #000000 2px solid;
-	transition: all 0.2s ease;
+	transition: all 0.3s ease;
 }
 
 .display__skin img:hover {
 	cursor: pointer;
 	transform: scale(1.01);
-	border: white 2px solid;
+	border: #ffffffb2 2px solid;
 }
 
 .equipped__status {
@@ -442,9 +444,9 @@
 .world__selector__container {
 	display: flex;
 	flex-direction: column;
-	flex: 1;
 	align-items: center;
 	text-align: center;
+	flex: 1;
 	background-color: #141822;
 }
 
@@ -455,6 +457,11 @@
 	align-items: center;
 	margin-top: 4vh;
 	transition: all 0.3s ease;
+	background-color: #202636;
+	padding: 15px;
+	border-radius: 15px;
+	border: black 3px solid;
+	width: 450px;
 }
 
 .world__selector h2 {
@@ -483,6 +490,7 @@
 .world__selector:hover {
 	cursor: pointer;
 	transform: scale(1.05);
+	filter: brightness(1.3);
 }
 
 .world__container {
@@ -533,11 +541,11 @@
 
 .world__name:hover {
 	cursor: pointer;
-	transform: scale(1.02);
+	transform: scale(1.05);
 }
 
 .world__name:active {
-	transform: scale(0.5);
+	transform: scale(1.02);
 	filter: brightness(2);
 }
 
@@ -591,14 +599,14 @@
 }
 
 .enemy img:hover {
+	cursor: url('./assets//sword.cur'), auto;
 	transform: scale(0.98);
-	cursor: pointer;
 	border: #000000 3px solid;
 }
 
 .enemy img:active {
 	transform: scale(0.95);
-	filter: brightness(0.85)
+	filter: brightness(0.85) hue-rotate(-50deg) saturate(1);
 }
 
 .health-bar-container {
@@ -721,6 +729,7 @@
 	padding: 20px;
 	border: black 2px solid;
 	border-radius: 20px;
+	width: 550px;
 }
 
 .autoattack__container h6 {
@@ -738,6 +747,7 @@
 	display: flex;
 	justify-content: center;
 	margin: 2vh;
+	border: black 2px solid;
 	transition: all 0.3s ease;
 }
 
@@ -917,8 +927,8 @@
 	flex-direction: column;
 	flex: 1;
 	align-items: center;
-	overflow: auto;
-	overflow-x: hidden;
+	overflow-y: auto; /* Habilita a rolagem vertical */
+	max-height: 82vh; /* Define uma altura máxima para ativar a rolagem */
 }
 
 .chestTab h6 {
@@ -954,7 +964,7 @@
 	flex-direction: column;
 	box-sizing: border-box;
 	text-align: center;
-	margin: 0px auto;
+	margin: 2vh auto;
 	background-color: #262833;
 	padding: 20px;
 	border: black 2px solid;
@@ -1030,4 +1040,8 @@
 .chest__container:active {
 	transform: scale(0.98);
 	filter: brightness(2);
+}
+
+.chests__container img {
+	margin-top: 2vh;
 }
