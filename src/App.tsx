@@ -22,8 +22,6 @@ export const App = () => {
 
   const [items, setItems] = useState<Record<string, Item>>(initialItems);
 
-  const [upgrades, setUpgrades] = useState<Upgrade[]>([]);
-
   const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
 
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin) // Inimigo inicial
