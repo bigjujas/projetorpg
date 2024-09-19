@@ -159,7 +159,7 @@ export const App = () => {
 
   // Função Level Up
 
-  const powerNeeded = Math.floor(10 * Math.pow(1.5, playerLevel));
+  const powerNeeded = Math.floor(10 * Math.pow(1.05, playerLevel));
   const levelUp = () => {
     if (playerPower >= powerNeeded && playerLevel < 350) {
       setPlayerPower(playerPower - powerNeeded)

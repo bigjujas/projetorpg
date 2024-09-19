@@ -606,7 +606,7 @@
 
 .enemy img:active {
 	transform: scale(0.95);
-	filter: brightness(0.85) hue-rotate(-50deg) saturate(1);
+	filter: brightness(0.85) hue-rotate(-50deg) saturate(0.8);
 }
 
 .health-bar-container {
