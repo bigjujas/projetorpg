@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { createContext, useContext, useState, useEffect, useRef } from 'react';
 import './App.css';
 import './reset.css'
 import { formatNumber } from './components/utilities';
@@ -18,12 +18,12 @@ export const App = () => {
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
-  const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
-
+  const [playerGems, setPlayerGems] = useState<number>(10000) // Gemas do jogador
+  
   const [items, setItems] = useState<Record<string, Item>>(initialItems);
-
+  
   const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
-
+  
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin) // Inimigo inicial
   const [enemyVisible, setEnemyVisible] = useState(true)
 
@@ -86,12 +86,21 @@ export const App = () => {
       setCurrentArmor(gameData.currentArmor);
       setCurrentEnemy(gameData.currentEnemy);
   
-      // Atualizar o objeto `items` de forma imutável
-      const updatedItems = { ...items }; // Cria uma cópia do objeto `items`
-      Object.keys(gameData.items).forEach(itemId => {
-        updatedItems[itemId] = gameData.items[itemId]; // Atualiza a cópia com os dados importados
+      setItems((prevItems) => {
+        // Crie uma cópia do estado atual dos itens
+        const updatedItems = { ...prevItems };
+      
+        // Atualize somente os itens desbloqueados
+        Object.keys(gameData.items).forEach(itemId => {
+          const newItem = gameData.items[itemId];
+          if (newItem.unlocked) {
+            updatedItems[itemId] = { ...newItem }; // Cópia do item desbloqueado
+          }
+          // Itens bloqueados não são atualizados
+        });
+      
+        return updatedItems;
       });
-      setItems(updatedItems); // Atualiza o estado `items` com a nova cópia
   
       gameData.upgrades.forEach((importedUpgrade: any) => {
         const existingUpgrade = upgrades.find(upg => upg.id === importedUpgrade.id);

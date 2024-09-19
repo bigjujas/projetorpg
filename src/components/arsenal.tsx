@@ -552,7 +552,7 @@ export function drawItemFromChest(chest: { item: Item, probability: number }[]):
       cumulativeProbability += probability;
       if (random < cumulativeProbability) {
           item.unlocked = true;
-          return item;
+          return  item;
       }
   }
 
