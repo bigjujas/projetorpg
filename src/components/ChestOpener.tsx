@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { drawItemFromChest, world1Chest, world2Chest, world3Chest, Item } from './arsenal';
+import { drawItemFromChest, world1Chest, world2Chest, world3Chest, world4Chest, world5Chest, Item } from './arsenal';
 
 import chestImage from '/src/assets/chestImage.png'
 
@@ -47,6 +47,30 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
         }
     };
 
+    const openWorld4Chest = () => {
+        const chestCost = 180_000; // Custo em gemas para abrir o baú comum
+
+        if (playerGems >= chestCost) {
+            const item = drawItemFromChest(world4Chest);
+            if (item) {
+                setPlayerGems(playerGems - chestCost);
+                setDrawnItem(item);
+            }
+        }
+    };
+
+    const openWorld5Chest = () => {
+        const chestCost = 3_000_000; // Custo em gemas para abrir o baú comum
+
+        if (playerGems >= chestCost) {
+            const item = drawItemFromChest(world5Chest);
+            if (item) {
+                setPlayerGems(playerGems - chestCost);
+                setDrawnItem(item);
+            }
+        }
+    };
+
     return (
         <div className='chests__container'>
             <div className="chest__container" onClick={openWorld1Chest}>
@@ -63,6 +87,16 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems }) => {
                 <h1>Tier III</h1>
                 <h2>💼</h2>
                 <h3><span className='gem'>15K</span> 💎</h3>
+            </div>
+            <div className="chest__container" onClick={openWorld4Chest}>
+                <h1>Tier IV</h1>
+                <h2>💼</h2>
+                <h3><span className='gem'>180K</span> 💎</h3>
+            </div>
+            <div className="chest__container" onClick={openWorld5Chest}>
+                <h1>Tier V</h1>
+                <h2>💼</h2>
+                <h3><span className='gem'>3M</span> 💎</h3>
             </div>
             {drawnItem && (
                 <div className='drawn__display'>

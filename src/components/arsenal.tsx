@@ -17,6 +17,18 @@ import greatSword from '/src/assets/weapons/greatSword.jpg'
 import aureaSword from '/src/assets/weapons/aureaSword.jpg'
 import fireSword from '/src/assets/weapons/fireSword.jpg'
 
+import plagueHammer from '/src/assets/weapons/plagueHammer.jpg'
+import thornSword from '/src/assets/weapons/thornSword.jpg'
+import plagueDaggers from '/src/assets/weapons/plagueDaggers.jpg'
+import plagueScythe from '/src/assets/weapons/plagueScythe.jpg'
+import plagueSword from '/src/assets/weapons/plagueSword.jpg'
+
+import goldenAxe from '/src/assets/weapons/goldenAxe.jpg'
+import shockSword from '/src/assets/weapons/shockSword.jpg'
+import dragonLance from '/src/assets/weapons/dragonLance.jpg'
+import dragonSword from '/src/assets/weapons/dragonSword.jpg'
+import goldenSword from '/src/assets/weapons/goldenSword.jpg'
+
 //armaduras
 import starterArmor from '/src/assets/armor/starterArmor.jpg'
 import travellerArmor from '/src/assets/armor/travellerArmor.jpg'
@@ -33,6 +45,17 @@ import royalArmor from '/src/assets/armor/royalArmor.jpg'
 import warriorArmor from '/src/assets/armor/warriorArmor.jpg'
 import darkRoyalArmor from '/src/assets/armor/darkRoyalArmor.jpg'
 import fireArmor from '/src/assets/armor/fireArmor.jpg'
+
+import plagueWarrior from '/src/assets/armor/plagueWarrior.jpg'
+import thornArmor from '/src/assets/armor/thornArmor.jpg'
+import plagueDoctorArmor from '/src/assets/armor/plagueDoctorArmor.jpg'
+import plagueArmor from '/src/assets/armor/plagueArmor.jpg'
+
+import goldenArmor from '/src/assets/armor/goldenArmor.jpg'
+import goldenRobe from '/src/assets/armor/goldenRobe.jpg'
+import capitalArmor from '/src/assets/armor/capitalArmor.jpg'
+import dragonWarrior from '/src/assets/armor/dragonWarrior.jpg'
+import dragonArmor from '/src/assets/armor/dragonArmor.jpg'
 
 export type Item = {
   name: string;
@@ -66,8 +89,8 @@ export const scaleItemAttributes = (item: Item) => {
     item.power = ((item.power + ((item.initialPower - 1)) * increasePercentage));
     item.baseCost = Math.floor(item.baseCost + (item.initialBaseCost * increasePercentage * 3));
 
-    item.descriptionD = `+${parseFloat(((item.damage - 1) * 100).toFixed(1))}% 🗡️`;
-    item.descriptionP = `+${parseFloat(((item.power - 1) * 100).toFixed(1))}% 🔥`;
+    item.descriptionD = `x${parseFloat(item.damage.toFixed(2))} 🗡️`;
+    item.descriptionP = `x${parseFloat(item.power.toFixed(2))} 🔥`;
 
   } else if (item.type === 'sword') {
     item.damage = ((item.damage + ((item.initialDamage)) * increasePercentage));
@@ -302,6 +325,74 @@ export const items: { [key: string]: Item } = {
     name: 'Fogo Ancestral',
     type: 'sword',
     rarity: "Mítico",
+    damage: 235,
+    initialDamage: 235, // Valor inicial de damage
+    power: 8.5,
+    initialPower: 8.5, // Valor inicial de power
+    baseCost: 5000,
+    initialBaseCost: 5000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+235 🗡️',
+    descriptionP: '+8.5 🔥',
+    unlocked: false,
+    source: "Mundo 3",
+    image: fireSword,
+  },
+  plagueHammer: {
+    name: 'Martelo Devastado',
+    type: 'sword',
+    rarity: "Comum",
+    damage: 120,
+    initialDamage: 120, // Valor inicial de damage
+    power: 4.5,
+    initialPower: 4.5, // Valor inicial de power
+    baseCost: 1800,
+    initialBaseCost: 1800, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+120 🗡️',
+    descriptionP: '+4.5 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: plagueHammer,
+  },
+  thornSword: {
+    name: 'Espada Espinhosa',
+    type: 'sword',
+    rarity: "Raro",
+    damage: 150,
+    initialDamage: 150, // Valor inicial de damage
+    power: 5.5,
+    initialPower: 5.5, // Valor inicial de power
+    baseCost: 2600,
+    initialBaseCost: 2600, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+150 🗡️',
+    descriptionP: '+5.5 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: thornSword,
+  },
+  plagueDaggers: {
+    name: 'Adagas da Praga',
+    type: 'sword',
+    rarity: "Épico",
+    damage: 180,
+    initialDamage: 180, // Valor inicial de damage
+    power: 6.5,
+    initialPower: 6.5, // Valor inicial de power
+    baseCost: 3500,
+    initialBaseCost: 3500, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+180 🗡️',
+    descriptionP: '+6.5 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: plagueDaggers,
+  },
+  plagueScythe: {
+    name: 'Foice da Praga',
+    type: 'sword',
+    rarity: "Lendário",
     damage: 220,
     initialDamage: 220, // Valor inicial de damage
     power: 8,
@@ -312,8 +403,111 @@ export const items: { [key: string]: Item } = {
     descriptionD: '+220 🗡️',
     descriptionP: '+8 🔥',
     unlocked: false,
-    source: "Mundo 3",
-    image: fireSword,
+    source: "Mundo 4",
+    image: plagueScythe,
+  },
+  plagueSword: {
+    name: 'A Praga',
+    type: 'sword',
+    rarity: "Mítico",
+    damage: 350,
+    initialDamage: 350, // Valor inicial de damage
+    power: 10,
+    initialPower: 10, // Valor inicial de power
+    baseCost: 10000,
+    initialBaseCost: 10000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+350 🗡️',
+    descriptionP: '+10 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: plagueSword,
+  },
+  // mundo 5
+  goldenAxe: {
+    name: 'Machado Prismático',
+    type: 'sword',
+    rarity: "Comum",
+    damage: 200,
+    initialDamage: 200, // Valor inicial de damage
+    power: 7.2,
+    initialPower: 7.2, // Valor inicial de power
+    baseCost: 4200,
+    initialBaseCost: 4200, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+200 🗡️',
+    descriptionP: '+7.2 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: goldenAxe,
+  },
+  shockSword: {
+    name: 'Lâmina Elétrica',
+    type: 'sword',
+    rarity: "Raro",
+    damage: 250,
+    initialDamage: 250, // Valor inicial de damage
+    power: 8.5,
+    initialPower: 8.5, // Valor inicial de power
+    baseCost: 5500,
+    initialBaseCost: 5500, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+250 🗡️',
+    descriptionP: '+8.5 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: shockSword,
+  },
+  dragonLance: {
+    name: 'Lança do Dragão',
+    type: 'sword',
+    rarity: "Épico",
+    damage: 300,
+    initialDamage: 300, // Valor inicial de damage
+    power: 9,
+    initialPower: 9, // Valor inicial de power
+    baseCost: 7500,
+    initialBaseCost: 7500, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+300 🗡️',
+    descriptionP: '+9 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: dragonLance,
+  },
+  dragonSword: {
+    name: 'Espada Dracônica',
+    type: 'sword',
+    rarity: "Lendário",
+    damage: 340,
+    initialDamage: 340, // Valor inicial de damage
+    power: 10,
+    initialPower: 10, // Valor inicial de power
+    baseCost: 9000,
+    initialBaseCost: 9000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+340 🗡️',
+    descriptionP: '+10 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: dragonSword,
+  },
+  goldenSword: {
+    name: 'Era Dourada',
+    type: 'sword',
+    rarity: "Mítico",
+    damage: 420,
+    initialDamage: 420, // Valor inicial de damage
+    power: 14,
+    initialPower: 14, // Valor inicial de power
+    baseCost: 15000,
+    initialBaseCost: 15000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+420 🗡️',
+    descriptionP: '+14 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: goldenSword,
   },
 
   // Armaduras
@@ -329,8 +523,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 5,
     initialBaseCost: 5, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+0% 🗡️',
-    descriptionP: '+0% 🔥',
+    descriptionD: 'x1 🗡️',
+    descriptionP: 'x1 🔥',
     unlocked: true,
     source: "Mundo 1",
     image: starterArmor,
@@ -346,8 +540,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 35,
     initialBaseCost: 35, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+3% 🗡️',
-    descriptionP: '+3% 🔥',
+    descriptionD: 'x1.03 🗡️',
+    descriptionP: 'x1.03 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: travellerArmor,
@@ -363,8 +557,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 70,
     initialBaseCost: 70, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+7.5% 🗡️',
-    descriptionP: '+7.5% 🔥',
+    descriptionD: 'x1.07 🗡️',
+    descriptionP: 'x1.07 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: forestSeeker,
@@ -380,8 +574,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 100,
     initialBaseCost: 100, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+10% 🗡️',
-    descriptionP: '+10% 🔥',
+    descriptionD: 'x1.10 🗡️',
+    descriptionP: 'x1.10 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: titanArmor,
@@ -397,8 +591,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 10000,
     initialBaseCost: 10000, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+100% 🗡️',
-    descriptionP: '+100% 🔥',
+    descriptionD: 'x2 🗡️',
+    descriptionP: 'x2 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: edecio,
@@ -415,8 +609,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 300,
     initialBaseCost: 300, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+16% 🗡️',
-    descriptionP: '+16% 🔥',
+    descriptionD: 'x1.16 🗡️',
+    descriptionP: 'x1.16 🔥',
     unlocked: false,
     source: "Mundo 2",
     image: steelArmor,
@@ -432,8 +626,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 500,
     initialBaseCost: 500, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+22% 🗡️',
-    descriptionP: '+22% 🔥',
+    descriptionD: 'x1.22 🗡️',
+    descriptionP: 'x1.22 🔥',
     unlocked: false,
     source: "Mundo 2",
     image: darkSteelArmor,
@@ -449,8 +643,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 750,
     initialBaseCost: 750, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+30% 🗡️',
-    descriptionP: '+30% 🔥',
+    descriptionD: 'x1.30 🗡️',
+    descriptionP: 'x1.30 🔥',
     unlocked: false,
     source: "Mundo 2",
     image: bloodArmor,
@@ -467,8 +661,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 750,
     initialBaseCost: 750, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+28% 🗡️',
-    descriptionP: '+28% 🔥',
+    descriptionD: 'x1.28 🗡️',
+    descriptionP: 'x1.28 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: darkKnightArmor,
@@ -484,8 +678,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 1000,
     initialBaseCost: 1000, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+35% 🗡️',
-    descriptionP: '+35% 🔥',
+    descriptionD: 'x1.35 🗡️',
+    descriptionP: 'x1.35 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: royalArmor,
@@ -501,8 +695,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 1500,
     initialBaseCost: 1500, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+45% 🗡️',
-    descriptionP: '+45% 🔥',
+    descriptionD: 'x1.45 🗡️',
+    descriptionP: 'x1.45 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: warriorArmor,
@@ -518,8 +712,8 @@ export const items: { [key: string]: Item } = {
     baseCost: 2200,
     initialBaseCost: 2200, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+55% 🗡️',
-    descriptionP: '+55% 🔥',
+    descriptionD: 'x1.55 🗡️',
+    descriptionP: 'x1.55 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: darkRoyalArmor,
@@ -535,11 +729,166 @@ export const items: { [key: string]: Item } = {
     baseCost: 5000,
     initialBaseCost: 5000, // Valor inicial de baseCost
     level: 0,
-    descriptionD: '+80% 🗡️',
-    descriptionP: '+80% 🔥',
+    descriptionD: 'x1.8 🗡️',
+    descriptionP: 'x1.8 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: fireArmor,
+  },
+  // mundo 4
+  plagueWarrior: {
+    name: 'Caçador Devasto',
+    type: 'armor',
+    rarity: "Raro",
+    damage: 1.50,
+    initialDamage: 1.50, // Valor inicial de damage
+    power: 1.50,
+    initialPower: 1.50, // Valor inicial de power
+    baseCost: 2000,
+    initialBaseCost: 2000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.5 🗡️',
+    descriptionP: 'x1.5 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: plagueWarrior,
+  },
+  thornArmor: {
+    name: 'Manto Espinhoso',
+    type: 'armor',
+    rarity: "Épico",
+    damage: 1.65,
+    initialDamage: 1.65, // Valor inicial de damage
+    power: 1.65,
+    initialPower: 1.65, // Valor inicial de power
+    baseCost: 2800,
+    initialBaseCost: 2800, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.65 🗡️',
+    descriptionP: 'x1.65 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: thornArmor,
+  },
+  plagueDoctorArmor: {
+    name: 'Doutor da Praga',
+    type: 'armor',
+    rarity: "Lendário",
+    damage: 1.75,
+    initialDamage: 1.75, // Valor inicial de damage
+    power: 1.75,
+    initialPower: 1.75, // Valor inicial de power
+    baseCost: 4000,
+    initialBaseCost: 4000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.75 🗡️',
+    descriptionP: 'x1.75 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: plagueDoctorArmor,
+  },
+  plagueArmor: {
+    name: 'A Praga',
+    type: 'armor',
+    rarity: "Mítico",
+    damage: 2,
+    initialDamage: 2, // Valor inicial de damage
+    power: 2,
+    initialPower: 2, // Valor inicial de power
+    baseCost: 10000,
+    initialBaseCost: 10000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x2 🗡️',
+    descriptionP: 'x2 🔥',
+    unlocked: false,
+    source: "Mundo 4",
+    image: plagueArmor,
+  },
+  // mundo 5
+  goldenArmor: {
+    name: 'Armadura Dourada',
+    type: 'armor',
+    rarity: "Comum",
+    damage: 1.70,
+    initialDamage: 1.70, // Valor inicial de damage
+    power: 1.70,
+    initialPower: 1.70, // Valor inicial de power
+    baseCost: 4000,
+    initialBaseCost: 4000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.7 🗡️',
+    descriptionP: 'x1.7 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: goldenArmor,
+  },
+  goldenRobe: {
+    name: 'Vestes Pristinas',
+    type: 'armor',
+    rarity: "Raro",
+    damage: 1.82,
+    initialDamage: 1.82, // Valor inicial de damage
+    power: 1.82,
+    initialPower: 1.82, // Valor inicial de power
+    baseCost: 6000,
+    initialBaseCost: 6000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.82 🗡️',
+    descriptionP: 'x1.82 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: goldenRobe,
+  },
+  capitalArmor: {
+    name: 'Guarda Real',
+    type: 'armor',
+    rarity: "Épico",
+    damage: 1.90,
+    initialDamage: 1.90, // Valor inicial de damage
+    power: 1.90,
+    initialPower: 1.90, // Valor inicial de power
+    baseCost: 8000,
+    initialBaseCost: 8000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.9 🗡️',
+    descriptionP: 'x1.9 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: capitalArmor,
+  },
+  dragonWarrior: {
+    name: 'Armadura Dracônica',
+    type: 'armor',
+    rarity: "Lendário",
+    damage: 1.98,
+    initialDamage: 1.98, // Valor inicial de damage
+    power: 1.98,
+    initialPower: 1.98, // Valor inicial de power
+    baseCost: 9500,
+    initialBaseCost: 9500, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x1.96 🗡️',
+    descriptionP: 'x1.96 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: dragonWarrior,
+  },
+  dragonArmor: {
+    name: 'Era Dourada',
+    type: 'armor',
+    rarity: "Mítico",
+    damage: 2.30,
+    initialDamage: 2.30, // Valor inicial de damage
+    power: 2.30,
+    initialPower: 2.30, // Valor inicial de power
+    baseCost: 15000,
+    initialBaseCost: 15000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x2.3 🗡️',
+    descriptionP: 'x2.3 🔥',
+    unlocked: false,
+    source: "Mundo 5",
+    image: dragonArmor,
   },
 };
 
@@ -595,4 +944,31 @@ export const world3Chest = [
   { item: items.warriorArmor, probability: 0.04 },
   { item: items.darkRoyalArmor, probability: 0.009 },
   { item: items.fireArmor, probability: 0.001 },
+];
+
+export const world4Chest = [
+  { item: items.plagueHammer, probability: 0.55 },
+  { item: items.thornSword, probability: 0.175 },
+  { item: items.plagueDaggers, probability: 0.04 },
+  { item: items.plagueScythe, probability: 0.009 },
+  { item: items.plagueSword, probability: 0.001 },
+
+  { item: items.plagueWarrior, probability: 0.175 },
+  { item: items.thornArmor, probability: 0.04 },
+  { item: items.plagueDoctorArmor, probability: 0.009 },
+  { item: items.plagueArmor, probability: 0.001 },
+];
+
+export const world5Chest = [
+  { item: items.goldenAxe, probability: 0.275 },
+  { item: items.shockSword, probability: 0.175 },
+  { item: items.dragonLance, probability: 0.04 },
+  { item: items.dragonSword, probability: 0.009 },
+  { item: items.goldenSword, probability: 0.001 },
+
+  { item: items.goldenArmor, probability: 0.275 },
+  { item: items.goldenRobe, probability: 0.175 },
+  { item: items.capitalArmor, probability: 0.04 },
+  { item: items.dragonWarrior, probability: 0.009 },
+  { item: items.dragonArmor, probability: 0.001 },
 ];

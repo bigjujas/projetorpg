@@ -82,7 +82,7 @@
 /* Mundos */
 
 .Mundo1 h2 {
-	background-color: #001305 !important;
+	background-color: #031a09 !important;
 }
 
 .Mundo1 h1 {
@@ -90,7 +90,7 @@
 }
 
 .Mundo1 h3 {
-	background-color: #001305 !important;
+	background-color: #031a09 !important;
 }
 
 .Mundo2 h2 {
@@ -115,6 +115,30 @@
 
 .Mundo3 h3 {
 	background-color: #794d24 !important;
+}
+
+.Mundo4 h2 {
+	background-color: #312e17 !important;
+}
+
+.Mundo4 h1 {
+	background-color: #292c12 !important;
+}
+
+.Mundo4 h3 {
+	background-color: #312e17 !important;
+}
+
+.Mundo5 h2 {
+	background-color: #26421d !important;
+}
+
+.Mundo5 h1 {
+	background-color: #917c42 !important;
+}
+
+.Mundo5 h3 {
+	background-color: #26421d !important;
 }
 
 /* */
@@ -1062,10 +1086,12 @@
 
 .chest__container h2 {
 	background-color: #302a4d;
+	flex-grow: 0.5;
 }
 
 .chest__container h3 {
 	background-color: #0057a8;
+	flex-grow: 1.5;
 }
 
 .chest__container:hover {
