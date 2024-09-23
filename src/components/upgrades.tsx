@@ -4,58 +4,83 @@ export interface Upgrade {
   description: string;
   cost: number;
   level: number;
-  applyUpgrade: (playerDamage: number) => { newDamage: number };
+  boost: number;
 }
 
-  export const upgrades: Upgrade[] = [
-    {
-      id: 'upgradeItem',
-      name: 'Refinar Equipamente',
-      description: '+1',
-      cost: 0,
-      level: 0,
-      applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 1  }),
-    },
-    // upgrade dano
-    {
+export const upgrades: Upgrade[] = [
+  {
+    id: 'upgradeItem',
+    name: 'Refinar Equipamente',
+    description: '+1',
+    cost: 0,
+    level: 0,
+    boost: 0,
+  },
+  // upgrade dano
+  {
     id: 'upgrade1',
-    name: 'Destreza 🏹',
-    description: '+1 🗡️',
-    cost: 1,
-    level: 0,
-    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 1  }),
-  },
-    {
-    id: 'upgrade2',
     name: 'Força 🥊',
-    description: '+2 🗡️',
-    cost: 1,
+    description: '+1 🗡️',
+    cost: 10,
     level: 0,
-    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 2  }),
+    boost: 1,
   },
-    {
+  {
     id: 'upgrade3',
-    name: 'Magia 🌀',
-    description: '+5 🗡️',
-    cost: 1,
+    name: 'Destreza 🏹',
+    description: '+2 🗡️',
+    cost: 30,
     level: 0,
-    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 5  }),
+    boost: 2,
   },
-    {
-    id: 'upgrade4',
-    name: 'Fúria 💢',
-    description: '+10 🗡️',
-    cost: 1,
-    level: 0,
-    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 10  }),
-  },
-    {
+  {
     id: 'upgrade5',
-    name: 'Berserk 🪓',
-    description: '+25 🗡️',
-    cost: 1,
+    name: 'Fúria 💢',
+    description: '+5 🗡️',
+    cost: 100,
     level: 0,
-    applyUpgrade: (playerDamage) => ({ newDamage: playerDamage + 25  }),
+    boost: 5,
+  },
+  {
+    id: 'upgrade7',
+    name: 'Berserk 🪓',
+    description: '+10 🗡️',
+    cost: 350,
+    level: 0,
+    boost: 10,
+  },
+  // upgrade poder
+  {
+    id: 'upgrade2',
+    name: 'Mana 🌀',
+    description: '+0.1 🔥',
+    cost: 10,
+    level: 0,
+    boost: 0.1,
+  },
+  {
+    id: 'upgrade4',
+    name: 'Magia 🔮',
+    description: '+0.2 🔥',
+    cost: 30,
+    level: 0,
+    boost: 0.2,
+  },
+  {
+    id: 'upgrade6',
+    name: 'Energia ⚡️',
+    description: '+0.5 🔥',
+    cost: 100,
+    level: 0,
+    boost: 0.5,
+  },
+  {
+    id: 'upgrade8',
+    name: 'Energia ⚡️',
+    description: '+1 🔥',
+    cost: 350,
+    level: 0,
+    boost: 1,
   },
   //upgrades de poder
 ];

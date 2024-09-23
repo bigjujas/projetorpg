@@ -580,23 +580,6 @@ export const items: { [key: string]: Item } = {
     source: "Mundo 1",
     image: titanArmor,
   },
-  edecioArmor: {
-    name: 'Edecio',
-    type: 'armor',
-    rarity: "Secreto",
-    damage: 2,
-    initialDamage: 2, // Valor inicial de damage
-    power: 2,
-    initialPower: 2, // Valor inicial de power
-    baseCost: 10000,
-    initialBaseCost: 10000, // Valor inicial de baseCost
-    level: 0,
-    descriptionD: 'x2 🗡️',
-    descriptionP: 'x2 🔥',
-    unlocked: false,
-    source: "Mundo 1",
-    image: edecio,
-  },
   //mundo2
   steelArmor: {
     name: 'Armadura de Aço',
@@ -890,6 +873,24 @@ export const items: { [key: string]: Item } = {
     source: "Mundo 5",
     image: dragonArmor,
   },
+  // Extras
+  edecioArmor: {
+    name: 'Edecio',
+    type: 'armor',
+    rarity: "Secreto",
+    damage: 2,
+    initialDamage: 2, // Valor inicial de damage
+    power: 2,
+    initialPower: 2, // Valor inicial de power
+    baseCost: 10000,
+    initialBaseCost: 10000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x2 🗡️',
+    descriptionP: 'x2 🔥',
+    unlocked: false,
+    source: "Extras",
+    image: edecio,
+  },
 };
 
 // Função para sortear um item de um baú específico
@@ -900,8 +901,12 @@ export function drawItemFromChest(chest: { item: Item, probability: number }[]):
   for (const { item, probability } of chest) {
     cumulativeProbability += probability;
     if (random < cumulativeProbability) {
+      if (item.unlocked === true) {
+        item.level = item.level + 1
+        scaleItemAttributes(item);
+      } else
       item.unlocked = true;
-      return item;
+      return item;   
     }
   }
 
@@ -928,8 +933,9 @@ export const world2Chest = [
   { item: items.boneStaff, probability: 0.01 },
 
   { item: items.steelArmor, probability: 0.175 },
-  { item: items.darkSteelArmor, probability: 0.04 },
+  { item: items.darkSteelArmor, probability: 0.0399 },
   { item: items.bloodArmor, probability: 0.01 },
+  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world3Chest = [
@@ -941,9 +947,10 @@ export const world3Chest = [
 
   { item: items.darkKnightArmor, probability: 0.275 },
   { item: items.royalArmor, probability: 0.175 },
-  { item: items.warriorArmor, probability: 0.04 },
+  { item: items.warriorArmor, probability: 0.0399 },
   { item: items.darkRoyalArmor, probability: 0.009 },
   { item: items.fireArmor, probability: 0.001 },
+  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world4Chest = [
@@ -954,9 +961,10 @@ export const world4Chest = [
   { item: items.plagueSword, probability: 0.001 },
 
   { item: items.plagueWarrior, probability: 0.175 },
-  { item: items.thornArmor, probability: 0.04 },
+  { item: items.thornArmor, probability: 0.0399 },
   { item: items.plagueDoctorArmor, probability: 0.009 },
   { item: items.plagueArmor, probability: 0.001 },
+  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world5Chest = [
@@ -968,7 +976,8 @@ export const world5Chest = [
 
   { item: items.goldenArmor, probability: 0.275 },
   { item: items.goldenRobe, probability: 0.175 },
-  { item: items.capitalArmor, probability: 0.04 },
+  { item: items.capitalArmor, probability: 0.0399 },
   { item: items.dragonWarrior, probability: 0.009 },
   { item: items.dragonArmor, probability: 0.001 },
+  { item: items.edecio, probability: 0.0001 },
 ];

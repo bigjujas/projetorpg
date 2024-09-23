@@ -17,20 +17,19 @@ export const App = () => {
   const [playerPowerGain, setPlayerPowerGain] = useState<number>(0) // Poder do jogador
   const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
-  const [playerXpPoint, setPlayerXpPoint] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
-  
+
   const [items, setItems] = useState<Record<string, Item>>(initialItems); // Pro Save Funcionar
-  
+
   const [autoAttackLevel, setAutoAttackLevel] = useState<number>(0)
-  
+
   const [currentEnemy, setCurrentEnemy] = useState<Enemy>(enemies.goblin) // Inimigo inicial
   const [enemyVisible, setEnemyVisible] = useState(true)
-  
+
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
-  
+
   // coisas para ser salva ^^^^
 
 
@@ -42,7 +41,6 @@ export const App = () => {
       playerDamage,
       playerPower,
       playerLevel,
-      playerXpPoint,
       playerCoins,
       playerGems,
       autoAttackLevel,
@@ -67,32 +65,31 @@ export const App = () => {
   const importGameData = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
-  
+
     const reader = new FileReader();
     reader.onload = (e) => {
       if (!e.target) return;
-  
+
       const jsonData = e.target.result as string;
-  
+
       // Parse o JSON para um objeto JavaScript
       const gameData = JSON.parse(jsonData);
-  
+
       // Atualizar os estados do jogo com os dados importados
       setPlayerDamage(gameData.playerDamage);
       setPlayerPower(gameData.playerPower);
       setPlayerLevel(gameData.playerLevel);
-      setPlayerXpPoint(gameData.playerXpPoint);
       setPlayerCoins(gameData.playerCoins);
       setPlayerGems(gameData.playerGems);
       setAutoAttackLevel(gameData.autoAttackLevel);
       setCurrentWeapon(gameData.currentWeapon);
       setCurrentArmor(gameData.currentArmor);
       setCurrentEnemy(gameData.currentEnemy);
-  
+
       setItems((prevItems) => {
         // Crie uma cópia do estado atual dos itens
         const updatedItems = { ...prevItems };
-      
+
         // Atualize somente os itens desbloqueados
         Object.keys(gameData.items).forEach(itemId => {
           const newItem = gameData.items[itemId];
@@ -101,10 +98,10 @@ export const App = () => {
           }
           // Itens bloqueados não são atualizados
         });
-      
+
         return updatedItems;
       });
-  
+
       gameData.upgrades.forEach((importedUpgrade: any) => {
         const existingUpgrade = upgrades.find(upg => upg.id === importedUpgrade.id);
         if (existingUpgrade) {
@@ -114,7 +111,7 @@ export const App = () => {
         }
       });
     };
-  
+
     reader.readAsText(file);
   };
 
@@ -160,25 +157,39 @@ export const App = () => {
 
   // Função Level Up
 
-  const powerNeeded = Math.floor(10 * Math.pow(1.08, playerLevel));
-  const levelUp = () => {
-    if (playerPower >= powerNeeded && playerLevel < 550) {
-      setPlayerPower(playerPower - powerNeeded)
-      setPlayerLevel(playerLevel + 1)
-      setPlayerXpPoint(playerXpPoint + 1)
-    }
-  }
+  const getUpgradeCost = (cost: number, level: number) => {
+    return Math.floor(cost * Math.pow(1.10, level));
+  };
 
   // Função Upgrade
 
   const applyUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
 
-    if (upgrade && upgrade.level < 100 && playerXpPoint >= upgrade.cost) {
-      const { newDamage } = upgrade.applyUpgrade(playerDamage);
-      setPlayerDamage(newDamage);
-      setPlayerXpPoint(playerXpPoint - upgrade.cost);
-      upgrade.level += 1;
+    if (upgrade && upgrade.level < 100) {
+      const upgradeCost = getUpgradeCost(upgrade.cost, upgrade.level);
+
+      if (playerPower >= upgradeCost) {
+        setPlayerDamage(playerDamage + upgrade.boost);
+        setPlayerLevel(playerLevel + 1);
+        setPlayerPower(playerPower - upgradeCost);
+        upgrade.level += 1;
+      }
+    }
+  };
+
+  const applyPowerUpgrade = (upgradeId: string) => {
+    const upgrade = upgrades.find(upg => upg.id === upgradeId);
+
+    if (upgrade && upgrade.level < 100) {
+      const upgradeCost = getUpgradeCost(upgrade.cost, upgrade.level);
+
+      if (playerPower >= upgradeCost) {
+        setPlayerPowerGain(playerPowerGain + upgrade.boost);
+        setPlayerLevel(playerLevel + 1);
+        setPlayerPower(playerPower - upgradeCost);
+        upgrade.level += 1;
+      }
     }
   };
 
@@ -210,6 +221,9 @@ export const App = () => {
   const upgrade3 = upgrades.find(upg => upg.id === 'upgrade3');
   const upgrade4 = upgrades.find(upg => upg.id === 'upgrade4');
   const upgrade5 = upgrades.find(upg => upg.id === 'upgrade5');
+  const upgrade6 = upgrades.find(upg => upg.id === 'upgrade6');
+  const upgrade7 = upgrades.find(upg => upg.id === 'upgrade7');
+  const upgrade8 = upgrades.find(upg => upg.id === 'upgrade8');
 
 
   // Função chamada ao atacar o inimigo
@@ -241,27 +255,27 @@ export const App = () => {
 
   const attackEnemy = () => {
     const currentTime = Date.now();
-  
+
     if (currentTime - lastClickTime < timeWindow / clickLimit) {
       // Clique ignorado por exceder o limite
       return;
     }
-  
+
     setLastClickTime(currentTime);
     setClickCount(prevCount => prevCount + 1);
-  
+
     setCurrentEnemy(prevEnemy => {
       // Verifica se o inimigo já foi derrotado
       if (prevEnemy.health <= 0) {
         return prevEnemy; // Não processa mais nada se o inimigo já está morto
       }
-  
+
       const newHealth = prevEnemy.health - finalDamage;
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-  
+
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
@@ -277,23 +291,23 @@ export const App = () => {
         return { ...prevEnemy, health: newHealth };
       }
     });
-  
+
     setPlayerPower(prevPower => prevPower + finalPower);
   };
-  
+
   const autoAttackEnemy = () => {
     setCurrentEnemy(prevEnemy => {
       // Verifica se o inimigo já foi derrotado
       if (prevEnemy.health <= 0) {
         return prevEnemy; // Não processa mais nada se o inimigo já está morto
       }
-  
+
       const newHealth = prevEnemy.health - (finalDamage * autoAttackDamage);
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente no auto ataque
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-  
+
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
@@ -309,18 +323,20 @@ export const App = () => {
         return { ...prevEnemy, health: newHealth };
       }
     });
-  
+
     setPlayerPower(prevPower => prevPower + (finalPower * autoAttackDamage));
   };
 
   // Level do Auto Attack
 
   const autoAttackDamage = autoAttackLevel * 0.10
+  const powerNeeded = Math.floor(10 * Math.pow(1.20, autoAttackLevel));
 
   const autoAttackLevelUp = () => {
-    if (playerXpPoint >= 1 && autoAttackLevel < 50) {
+    if (playerPower >= powerNeeded && autoAttackLevel < 50) {
       setAutoAttackLevel(autoAttackLevel + 1)
-      setPlayerXpPoint(playerXpPoint - 1)
+      setPlayerPower(playerPower - powerNeeded)
+      setPlayerLevel(playerLevel + 1)
     }
   }
 
@@ -380,7 +396,7 @@ export const App = () => {
             />
           </h2>
           <h3 onClick={exportGameData}>Exportar Save</h3>
-          </div>
+        </div>
       </header>
       <div className="game__container">
         <div className="left__container">
@@ -390,7 +406,7 @@ export const App = () => {
               <h2>{formatNumber(finalDamage)} 🗡️</h2>
             </div>
             <div className="display__status__container">
-              <p>Poder</p>
+              <p>Poder por Ataque: {formatNumber(finalPower)}</p>
               <h2><span className='power'>{formatNumber(playerPower)}</span> 🔥</h2>
             </div>
           </div>
@@ -408,8 +424,8 @@ export const App = () => {
                   <div className="equipped__status">
                     <h2 className={currentArmor.rarity}>{currentArmor.rarity}</h2>
                     <div className="item__status">
-                    <h3>{currentArmor.descriptionD}</h3>
-                    <h4>{currentArmor.descriptionP}</h4>
+                      <h3>{currentArmor.descriptionD}</h3>
+                      <h4>{currentArmor.descriptionP}</h4>
                     </div>
                     <h5>Nv. {currentArmor.level}</h5>
                   </div>
@@ -420,8 +436,8 @@ export const App = () => {
                   <div className="equipped__status">
                     <h2 className={currentWeapon.rarity}>{currentWeapon.rarity}</h2>
                     <div className="item__status">
-                    <h3>{currentWeapon.descriptionD}</h3>
-                    <h4>{currentWeapon.descriptionP}</h4>
+                      <h3>{currentWeapon.descriptionD}</h3>
+                      <h4>{currentWeapon.descriptionP}</h4>
                     </div>
                     <h5>Nv. {currentWeapon.level}</h5>
                   </div>
@@ -570,62 +586,84 @@ export const App = () => {
           {currentRightTab === 1 && (
             <>
               <div className="rightTab">
-                <div className="upgradeTab">
                   <p><span>Nivel:</span> {playerLevel}</p>
-                  <div onClick={levelUp} className="upgrade__container">
-                    <h1 className='Raro'>+1 💠</h1>
-                    <h2 className='Raro'>Level Up ⬆️</h2>
-                    <h3 className='power'>{formatNumber(powerNeeded)} 🔥</h3>
-                  </div>
-                  <h6>Pontos: {playerXpPoint} 💠</h6>
+                <div className="upgradeTab">
+                  <h6>Upgrades de Dano</h6>
                   {upgrade1 && (
                     <div onClick={() => applyUpgrade('upgrade1')} className="upgrade__container">
                       <h1>{upgrade1.description}</h1>
                       <h2>{upgrade1.name}</h2>
                       <h4>Nv. {upgrade1.level}</h4>
-                      <h3>{upgrade1.level === 100 ? "Max" : upgrade1.cost} 💠</h3>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade1.cost, upgrade1.level) ? 'buyable' : 'expensive'}`}>{upgrade1.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade1.cost, upgrade1.level))} 🔥</h3>
                     </div>
                   )}
-                  {upgrade1 && upgrade1.level >= 15 && upgrade2 && (
-                    <div onClick={() => applyUpgrade('upgrade2')} className="upgrade__container">
-                      <h1>{upgrade2.description}</h1>
-                      <h2>{upgrade2.name}</h2>
-                      <h4>Nv. {upgrade2.level}</h4>
-                      <h3>{upgrade2.level === 100 ? "Max" : upgrade2.cost} 💠</h3>
-                    </div>
-                  )}
-                  {upgrade2 && upgrade2.level >= 15 && upgrade3 && (
+                  {upgrade1 && upgrade1.level >= 15 && upgrade3 && (
                     <div onClick={() => applyUpgrade('upgrade3')} className="upgrade__container">
                       <h1>{upgrade3.description}</h1>
                       <h2>{upgrade3.name}</h2>
                       <h4>Nv. {upgrade3.level}</h4>
-                      <h3>{upgrade3.level === 100 ? "Max" : upgrade3.cost} 💠</h3>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade3.cost, upgrade3.level) ? 'buyable' : 'expensive'}`}>{upgrade3.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade3.cost, upgrade3.level))} 🔥</h3>
                     </div>
                   )}
-                  {upgrade3 && upgrade3.level >= 15 && upgrade4 && (
-                    <div onClick={() => applyUpgrade('upgrade4')} className="upgrade__container">
-                      <h1>{upgrade4.description}</h1>
-                      <h2>{upgrade4.name}</h2>
-                      <h4>Nv. {upgrade4.level}</h4>
-                      <h3>{upgrade4.level === 100 ? "Max" : upgrade4.cost} 💠</h3>
-                    </div>
-                  )}
-                  {upgrade4 && upgrade4.level >= 15 && upgrade5 && (
+                  {upgrade3 && upgrade3.level >= 15 && upgrade5 && (
                     <div onClick={() => applyUpgrade('upgrade5')} className="upgrade__container">
                       <h1>{upgrade5.description}</h1>
                       <h2>{upgrade5.name}</h2>
                       <h4>Nv. {upgrade5.level}</h4>
-                      <h3>{upgrade5.level === 100 ? "Max" : upgrade5.cost} 💠</h3>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade5.cost, upgrade5.level) ? 'buyable' : 'expensive'}`}>{upgrade5.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade5.cost, upgrade5.level))} 🔥</h3>
                     </div>
                   )}
+                  {upgrade5 && upgrade5.level >= 15 && upgrade7 && (
+                    <div onClick={() => applyUpgrade('upgrade7')} className="upgrade__container">
+                      <h1>{upgrade7.description}</h1>
+                      <h2>{upgrade7.name}</h2>
+                      <h4>Nv. {upgrade7.level}</h4>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade7.cost, upgrade7.level) ? 'buyable' : 'expensive'}`}>{upgrade7.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade7.cost, upgrade7.level))} 🔥</h3>
+                    </div>
+                  )}
+                  </div>
                   {/* upgrades de poder abaixo */}
+                  <div className="upgradeTab">
+                  <h6>Upgrades de Poder</h6>
+                  {upgrade2 && (
+                    <div onClick={() => applyPowerUpgrade('upgrade2')} className="upgrade__container powerUpgrade">
+                      <h1>{upgrade2.description}</h1>
+                      <h2>{upgrade2.name}</h2>
+                      <h4>Nv. {upgrade2.level}</h4>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade2.cost, upgrade2.level) ? 'buyable' : 'expensive'}`}>{upgrade2.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade2.cost, upgrade2.level))} 🔥</h3>
+                    </div>
+                  )}
+                  {upgrade2 && upgrade2.level >= 15 && upgrade4 && (
+                    <div onClick={() => applyPowerUpgrade('upgrade4')} className="upgrade__container powerUpgrade">
+                      <h1>{upgrade4.description}</h1>
+                      <h2>{upgrade4.name}</h2>
+                      <h4>Nv. {upgrade4.level}</h4>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade4.cost, upgrade4.level) ? 'buyable' : 'expensive'}`}>{upgrade4.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade4.cost, upgrade4.level))} 🔥</h3>
+                    </div>
+                  )}
+                  {upgrade4 && upgrade4.level >= 15 && upgrade6 && (
+                    <div onClick={() => applyPowerUpgrade('upgrade6')} className="upgrade__container powerUpgrade">
+                      <h1>{upgrade6.description}</h1>
+                      <h2>{upgrade6.name}</h2>
+                      <h4>Nv. {upgrade6.level}</h4>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade6.cost, upgrade6.level) ? 'buyable' : 'expensive'}`}>{upgrade6.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade6.cost, upgrade6.level))} 🔥</h3>
+                    </div>
+                  )}
+                  {upgrade6 && upgrade6.level >= 15 && upgrade8 && (
+                    <div onClick={() => applyPowerUpgrade('upgrade8')} className="upgrade__container powerUpgrade">
+                      <h1>{upgrade8.description}</h1>
+                      <h2>{upgrade8.name}</h2>
+                      <h4>Nv. {upgrade8.level}</h4>
+                      <h3 className={`${playerPower >= getUpgradeCost(upgrade8.cost, upgrade8.level) ? 'buyable' : 'expensive'}`}>{upgrade8.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade8.cost, upgrade8.level))} 🔥</h3>
+                    </div>
+                  )}
                 </div>
                 <div className="autoattack__container">
                   <h6>Auto Ataque ⚔️</h6>
                   <div className="autoattack__upgrade" onClick={autoAttackLevelUp}>
                     <h1>{(autoAttackDamage * 100).toFixed(0)}%</h1>
                     <h2>Nv. {autoAttackLevel}</h2>
-                    <h3>{autoAttackLevel === 50 ? "Max" : "1"}💠</h3>
+                    <h3 className={`${playerPower >= powerNeeded ? 'buyable' : 'expensive'}`}>{autoAttackLevel === 50 ? "Max" : formatNumber(powerNeeded)} 🔥</h3>
                   </div>
                   <div className={`autoattack__button ${autoAttackLevel > 0 ? '' : 'Locked'}`}>
                     <h2 className={isAutoAttackActive ? 'Ativado' : 'Desativado'} onClick={() => setIsAutoAttackActive(!isAutoAttackActive)}>{isAutoAttackActive ? 'Ativado' : 'Desativado'}</h2>
@@ -644,12 +682,12 @@ export const App = () => {
                   <div onClick={() => applyWeaponUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Arma</h2>
-                    <h3>{currentWeapon.level === 100 ? "Max" : formatNumber(currentWeapon.baseCost)} 💰</h3>
+                    <h3 className={`${playerCoins >= currentWeapon.baseCost ? 'buyable' : 'expensive'}`}>{currentWeapon.level === 100 ? "Max" : formatNumber(currentWeapon.baseCost)} 💰</h3>
                   </div>
                   <div onClick={() => applyArmorUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Armadura</h2>
-                    <h3>{currentArmor.level === 100 ? "Max" : formatNumber(currentArmor.baseCost)} 💰</h3>
+                    <h3 className={`${playerCoins >= currentArmor.baseCost ? 'buyable' : 'expensive'}`}>{currentArmor.level === 100 ? "Max" : formatNumber(currentArmor.baseCost)} 💰</h3>
                   </div>
                 </div>
               </div>
