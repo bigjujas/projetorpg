@@ -76,7 +76,7 @@ export const upgrades: Upgrade[] = [
   },
   {
     id: 'upgrade8',
-    name: 'Energia ⚡️',
+    name: 'Ar 💨',
     description: '+1 🔥',
     cost: 350,
     level: 0,

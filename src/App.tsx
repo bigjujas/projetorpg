@@ -89,16 +89,23 @@ export const App = () => {
       setItems((prevItems) => {
         // Crie uma cópia do estado atual dos itens
         const updatedItems = { ...prevItems };
-
+      
         // Atualize somente os itens desbloqueados
         Object.keys(gameData.items).forEach(itemId => {
           const newItem = gameData.items[itemId];
           if (newItem.unlocked) {
-            updatedItems[itemId] = { ...newItem }; // Cópia do item desbloqueado
+            updatedItems[itemId] = {
+              ...prevItems[itemId], // Mantém as propriedades originais
+              level: newItem.level,
+              damage: newItem.damage,
+              baseCost: newItem.baseCost,
+              power: newItem.power,
+              unlocked: newItem.unlocked
+            }; // Atualiza apenas as propriedades necessárias
           }
           // Itens bloqueados não são atualizados
         });
-
+      
         return updatedItems;
       });
 

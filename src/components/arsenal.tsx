@@ -902,7 +902,7 @@ export function drawItemFromChest(chest: { item: Item, probability: number }[]):
     cumulativeProbability += probability;
     if (random < cumulativeProbability) {
       if (item.unlocked === true) {
-        item.level = item.level + 1
+        item.level += 1
         scaleItemAttributes(item);
       } else
       item.unlocked = true;
