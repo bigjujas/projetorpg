@@ -8,6 +8,10 @@
 	/* Esconde a barra de rolagem */
 }
 
+.world__selector__container::-webkit-scrollbar {
+	display: none;
+}
+
 .rightTab::-webkit-scrollbar {
 	display: none;
 	/* Esconde a barra de rolagem */
@@ -32,6 +36,10 @@
 .gem {
 	font-family: "Poppins", sans-serif;
 	color: skyblue;
+}
+
+.prism {
+	color: #9b0d9b;
 }
 
 .power {
@@ -147,6 +155,18 @@
 
 .Mundo5 h3 {
 	background-color: #26421d !important;
+}
+
+.Masmorra h2 {
+	background-color: #170d29 !important;
+}
+
+.Masmorra h1 {
+	background-color: #3c1066 !important;
+}
+
+.Masmorra h3 {
+	background-color: #170d29 !important;
 }
 
 /* */
@@ -420,7 +440,7 @@
 
 .arsenalTab h6 {
 	font-family: "Poppins", sans-serif;
-	font-size: 25px;
+	font-size: 26px;
 	font-weight: 600;
 	margin-top: 2vh;
 	background-color: #1b212e;
@@ -471,7 +491,7 @@
 	font-size: 20px;
 	font-weight: 600;
 	margin: 1.5vh auto;
-	width: 150px;
+	width: 500px;
 	background-color: #2b3b5e;
 	border-radius: 15px;
 	padding: 5px 20px;
@@ -494,6 +514,8 @@
 	text-align: center;
 	flex: 1;
 	background-color: #141822;
+	overflow-y: auto;
+	max-height: 96vh;
 }
 
 .world__selector {
@@ -501,7 +523,8 @@
 	flex-direction: column;
 	text-align: center;
 	align-items: center;
-	margin-top: 4vh;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
 	transition: all 0.3s ease;
 	background-color: #202636;
 	padding: 15px;
@@ -516,7 +539,7 @@
 	font-weight: 500;
 	background-color: #2e2824;
 	margin: 0px auto;
-	width: 30%;
+	width: 35%;
 	border-left: black 2px solid;
 	border-right: black 2px solid;
 	border-top: black 2px solid;
@@ -551,6 +574,7 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
+	background-color: #28082b;
 }
 
 .world__name {
@@ -568,7 +592,7 @@
 	font-weight: 500;
 	background-color: #2e2824;
 	margin: 0px auto;
-	width: 30%;
+	width: 45%;
 	border-left: black 2px solid;
 	border-right: black 2px solid;
 	border-top: black 2px solid;
@@ -622,6 +646,10 @@
 	transform: scale(1.20);
 	filter: brightness(3);
 }
+
+.active-enemy {
+	filter: brightness(1.75);
+  }
 
 .world__container h4 {
 	font-size: 2rem;
@@ -681,6 +709,21 @@
 	width: 100%;
 	/* A largura será ajustada dinamicamente */
 	transition: width 0.3s ease;
+}
+
+.timer {
+	color: #fff;
+	font-weight: 700;
+	margin-top: 4vh;
+	font-size: 22px;
+	background-color: orange;
+	padding: 10px 20px;
+	width: 100px;
+	text-align: center;
+	border: black 2px solid;
+	border-radius: 15px;
+	position: absolute;
+	top: 75vh;
 }
 
 /* tab direita */

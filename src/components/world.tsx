@@ -2,6 +2,7 @@
 import React from 'react';
 import { formatNumber } from './utilities';
 import { Enemy } from './enemies';
+import { div } from 'framer-motion/client';
 
 interface WorldProps {
   background: string;
@@ -15,6 +16,7 @@ interface WorldProps {
   healthBarWidth: number;
   enemyVisible: boolean;
   setEnemyVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  timeLeft: number;
 }
 
 const World: React.FC<WorldProps> = ({
@@ -28,6 +30,7 @@ const World: React.FC<WorldProps> = ({
   attackEnemy,
   healthBarWidth,
   enemyVisible,
+  timeLeft,
 }) => {
   return (
     <div className={`world__container ${worldNumber}`} style={{ backgroundImage: `url(${background})` }}>
@@ -37,7 +40,7 @@ const World: React.FC<WorldProps> = ({
       </div>
       <div className="enemies__container">
         {enemies.map((enemy, index) => (
-          <h3 key={index} onClick={() => changeEnemy(enemy.name)}>
+          <h3 className={enemy.name === currentEnemy.name ? 'active-enemy' : ''} key={index} onClick={() => changeEnemy(enemy.name)}>
             {index + 1}
           </h3>
         ))}
@@ -51,6 +54,11 @@ const World: React.FC<WorldProps> = ({
         <div className={`enemy ${!enemyVisible ? 'hidden' : ''}`}>
       <img onClick={attackEnemy} src={currentEnemy.image} alt={currentEnemy.name} draggable="false" />
       </div>
+    )}
+    {currentEnemy.tier! > 0 && (
+      <div className='timer'>
+      {timeLeft} ⏱️
+    </div>
     )}
     </div>
   );

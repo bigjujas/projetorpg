@@ -23,6 +23,12 @@ import capitalGuardian from "/src/assets/enemies/capitalGuardian.jpg"
 import capitalWarrior from "/src/assets/enemies/capitalWarrior.jpg"
 import capitalDragon from "/src/assets/enemies/capitalDragon.jpg"
 
+// tower
+import abyssalKnight from "/src/assets/enemies/abyssalKnight.jpg"
+import abyssalLion from "/src/assets/enemies/abyssalLion.jpg"
+import abyssalWolf from "/src/assets/enemies/abyssalWolf.jpg"
+import abyssalDragon from "/src/assets/enemies/abyssalDragon.jpg"
+export const towerEnemyImages = [abyssalKnight, abyssalLion, abyssalWolf, abyssalDragon, capitalDragon, plagueDoctor, giantKnight, caveMage, forestTitan];
 
 
 export type Enemy = {
@@ -33,6 +39,8 @@ export type Enemy = {
   gemsDropped: number;
   kills: number;
   image: string;
+  tier?: number;
+  prismsDropped?: number;
 };
 
 export const enemies = {
@@ -221,4 +229,17 @@ export const enemies = {
     kills: 0,
     image: capitalDragon,
   },
+  // bosses
+  abyssalKnight: {
+    name: 'Tier 1',
+    health: 250000,
+    maxHealth: 250000,
+    coinsDropped: 0,
+    gemsDropped: 0,
+    kills: 0,
+    image: towerEnemyImages[Math.floor(Math.random() * towerEnemyImages.length)],
+    tier: 1,
+    prismsDropped: 1,
+  },
 };
+

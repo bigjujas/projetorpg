@@ -4,21 +4,23 @@ import './reset.css'
 import { formatNumber } from './components/utilities';
 import { worlds } from './components/worlds';
 import World from './components/world';
-import { Enemy, enemies } from './components/enemies'; // Importa o objeto de inimigos agrupados
+import { Enemy, enemies, towerEnemyImages } from './components/enemies'; // Importa o objeto de inimigos agrupados
 import { Item, items, unlockItem, updateItemLevel, scaleItemAttributes } from './components/arsenal'; // Importa o objeto de armas e armaduras
 import { items as initialItems } from './components/arsenal';
 import { Upgrade, upgrades } from './components/upgrades'; // Importa os upgrades
 import ChestOpener from './components/ChestOpener';
 
 import anvil from './assets/anvil.png'
+import { time } from 'console';
 
 export const App = () => {
-  const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
+  const [playerDamage, setPlayerDamage] = useState<number>(100000) // Dano do Jogador
   const [playerPowerGain, setPlayerPowerGain] = useState<number>(0) // Poder do jogador
-  const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
+  const [playerPower, setPlayerPower] = useState<number>(100000) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
+  const [playerPrisms, setPlayerPrisms] = useState<number>(0) // Prismas do jogador
 
   const [items, setItems] = useState<Record<string, Item>>(initialItems); // Pro Save Funcionar
 
@@ -43,6 +45,7 @@ export const App = () => {
       playerLevel,
       playerCoins,
       playerGems,
+      playerPrisms,
       autoAttackLevel,
       currentWeapon,
       currentArmor,
@@ -81,6 +84,7 @@ export const App = () => {
       setPlayerLevel(gameData.playerLevel);
       setPlayerCoins(gameData.playerCoins);
       setPlayerGems(gameData.playerGems);
+      setPlayerPrisms(gameData.playerPrisms);
       setAutoAttackLevel(gameData.autoAttackLevel);
       setCurrentWeapon(gameData.currentWeapon);
       setCurrentArmor(gameData.currentArmor);
@@ -262,43 +266,58 @@ export const App = () => {
 
   const attackEnemy = () => {
     const currentTime = Date.now();
-
+  
     if (currentTime - lastClickTime < timeWindow / clickLimit) {
       // Clique ignorado por exceder o limite
       return;
     }
-
+  
     setLastClickTime(currentTime);
     setClickCount(prevCount => prevCount + 1);
-
+  
     setCurrentEnemy(prevEnemy => {
       // Verifica se o inimigo já foi derrotado
       if (prevEnemy.health <= 0) {
         return prevEnemy; // Não processa mais nada se o inimigo já está morto
       }
-
+  
       const newHealth = prevEnemy.health - finalDamage;
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-
+        setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
+  
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
           setEnemyVisible(true);
-          // Respawn do inimigo com vida cheia
-          setCurrentEnemy({
+  
+          const upgradedEnemy = {
             ...prevEnemy,
             health: prevEnemy.maxHealth, // Inimigo volta com vida cheia
-          });
+          };
+  
+          // Se o inimigo tiver a propriedade 'tier', aumente-a
+          if (upgradedEnemy.tier !== undefined) {
+            upgradedEnemy.tier += 1; // Aumenta o tier
+            upgradedEnemy.health = Math.round(upgradedEnemy.health * 1.2); // Aumenta a saúde em 20%
+            upgradedEnemy.maxHealth = Math.round(upgradedEnemy.maxHealth * 1.2); // Aumenta o maxHealth em 20%
+            upgradedEnemy.prismsDropped = (upgradedEnemy.prismsDropped! * 1.4); // Aumenta o maxHealth em 20%
+            upgradedEnemy.name = `Tier ${upgradedEnemy.tier}`;
+            upgradedEnemy.image = towerEnemyImages[Math.floor(Math.random() * towerEnemyImages.length)],
+            setTimeLeft(30); 
+          }
+  
+          // Respawn do inimigo com vida cheia e tier atualizado
+          setCurrentEnemy(upgradedEnemy);
         }, 350);
         return { ...prevEnemy, health: 0 };
       } else {
         return { ...prevEnemy, health: newHealth };
       }
     });
-
+  
     setPlayerPower(prevPower => prevPower + finalPower);
   };
 
@@ -308,32 +327,77 @@ export const App = () => {
       if (prevEnemy.health <= 0) {
         return prevEnemy; // Não processa mais nada se o inimigo já está morto
       }
-
-      const newHealth = prevEnemy.health - (finalDamage * autoAttackDamage);
+  
+      const newHealth = prevEnemy.health - finalDamage * autoAttackDamage;
       if (newHealth <= 0) {
-        // Atualizando moedas e gemas corretamente no auto ataque
+        // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-
+        setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
+  
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
           setEnemyVisible(true);
-          // Respawn do inimigo com vida cheia
-          setCurrentEnemy({
+  
+          const upgradedEnemy = {
             ...prevEnemy,
             health: prevEnemy.maxHealth, // Inimigo volta com vida cheia
-          });
+          };
+  
+          // Se o inimigo tiver a propriedade 'tier', aumente-a
+          if (upgradedEnemy.tier !== undefined) {
+            upgradedEnemy.tier += 1; // Aumenta o tier
+            upgradedEnemy.health = Math.round(upgradedEnemy.health * 1.2); // Aumenta a saúde em 20%
+            upgradedEnemy.maxHealth = Math.round(upgradedEnemy.maxHealth * 1.2); // Aumenta o maxHealth em 20%
+            upgradedEnemy.prismsDropped = (upgradedEnemy.prismsDropped! * 1.4); // Aumenta o maxHealth em 20%
+            upgradedEnemy.name = `Tier ${upgradedEnemy.tier}`;
+            setTimeLeft(30); 
+          }
+  
+          // Respawn do inimigo com vida cheia e tier atualizado
+          setCurrentEnemy(upgradedEnemy);
         }, 350);
         return { ...prevEnemy, health: 0 };
       } else {
         return { ...prevEnemy, health: newHealth };
       }
     });
-
-    setPlayerPower(prevPower => prevPower + (finalPower * autoAttackDamage));
+  
+    setPlayerPower(prevPower => prevPower + finalPower * autoAttackDamage);
   };
 
+  // Temporizador de Dungeon
+
+  const [timeLeft, setTimeLeft] = useState(30); // Inicializa o timer apenas se tier existir
+
+  // Efeito para o countdown do timer, somente se o inimigo tiver tier
+  useEffect(() => {
+    if (currentEnemy.tier && timeLeft > 0) { 
+      const timerInterval = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000); // Conta para baixo a cada segundo
+
+      return () => clearInterval(timerInterval); // Limpa o timer quando o componente desmontar
+    } else if (currentEnemy.tier && timeLeft === 0) {
+      // Se o tempo acabar e o inimigo tiver tier, reseta
+      resetEnemy();
+    }
+  }, [timeLeft, currentEnemy.tier]);
+
+  // Função que reseta o inimigo para o tier 1 e restaura a vida
+  const resetEnemy = () => {
+    setCurrentEnemy((prev) => ({
+      ...prev,
+      health: 250000,
+      maxHealth: 250000,
+      tier: 1, // Reseta para o tier 1
+      prismsDropped: 1,
+      name: "Tier 1"
+    }));
+    setTimeLeft(30); // Reseta o tempo visual
+  };
+  
   // Level do Auto Attack
 
   const autoAttackDamage = autoAttackLevel * 0.10
@@ -571,6 +635,7 @@ export const App = () => {
               healthBarWidth={(currentEnemy.health / currentEnemy.maxHealth) * 100}
               enemyVisible={enemyVisible}
               setEnemyVisible={setEnemyVisible}
+              timeLeft={timeLeft}
             />
           </div>
         )}
@@ -584,6 +649,12 @@ export const App = () => {
               <p>Gemas</p>
               <h2><span className='gem'>{formatNumber(playerGems)}</span> 💎</h2>
             </div>
+            {playerPrisms > 0 && (
+            <div className="display__status__container">
+              <p>Prismas</p>
+              <h2><span className='prism'>{formatNumber(playerPrisms)}</span> 🟣</h2>
+            </div>
+            )}
           </div>
           <div className="display__tabs">
             <p className={currentRightTab === 1 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(1)}>Skills 🎯</p>

@@ -6,6 +6,7 @@ import cavernBackground from '/src/assets/cavernBackground.jpg'
 import castleBackground from '/src/assets/castleBackground.jpg'
 import plagueBackground from '/src/assets/plagueBackground.jpg'
 import capitalBackground from '/src/assets/capitalBackground.jpg'
+import towerBackground from '/src/assets/towerBackground.jpg'
 
 export const worlds = [
   {
@@ -39,4 +40,10 @@ export const worlds = [
     enemies: [enemies.capitalArmy, enemies.capitalGuardian, enemies.capitalWarrior, enemies.capitalDragon],
   },
   // Adicione mais mundos aqui
+  {
+    number: 'Masmorra',
+    name: 'Torre do Vazio 🌠',
+    background: towerBackground,
+    enemies: [enemies.abyssalKnight],
+  },
 ];
