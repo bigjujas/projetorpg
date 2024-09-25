@@ -47,6 +47,7 @@ export const App = () => {
       playerGems,
       playerPrisms,
       autoAttackLevel,
+      isAutoAttackActive,
       currentWeapon,
       currentArmor,
       currentEnemy,
@@ -86,6 +87,7 @@ export const App = () => {
       setPlayerGems(gameData.playerGems);
       setPlayerPrisms(gameData.playerPrisms);
       setAutoAttackLevel(gameData.autoAttackLevel);
+      setIsAutoAttackActive(gameData.isAutoAttackActive)
       setCurrentWeapon(gameData.currentWeapon);
       setCurrentArmor(gameData.currentArmor);
       setCurrentEnemy(gameData.currentEnemy);
