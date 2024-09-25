@@ -232,8 +232,8 @@ export const enemies = {
   // bosses
   abyssalKnight: {
     name: 'Tier 1',
-    health: 250000,
-    maxHealth: 250000,
+    health: 1_000_000,
+    maxHealth: 1_000_000,
     coinsDropped: 0,
     gemsDropped: 0,
     kills: 0,

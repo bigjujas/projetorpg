@@ -14,9 +14,9 @@ import anvil from './assets/anvil.png'
 import { time } from 'console';
 
 export const App = () => {
-  const [playerDamage, setPlayerDamage] = useState<number>(100000) // Dano do Jogador
+  const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
   const [playerPowerGain, setPlayerPowerGain] = useState<number>(0) // Poder do jogador
-  const [playerPower, setPlayerPower] = useState<number>(100000) // Poder do jogador
+  const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
@@ -389,8 +389,8 @@ export const App = () => {
   const resetEnemy = () => {
     setCurrentEnemy((prev) => ({
       ...prev,
-      health: 250000,
-      maxHealth: 250000,
+      health: 1000_000,
+      maxHealth: 1_000_000,
       tier: 1, // Reseta para o tier 1
       prismsDropped: 1,
       name: "Tier 1"
@@ -775,7 +775,7 @@ export const App = () => {
             <>
               <div className="chestTab">
                 <h6>Loja de Gemas</h6>
-                <ChestOpener playerGems={playerGems} setPlayerGems={setPlayerGems} />
+                <ChestOpener playerGems={playerGems} setPlayerGems={setPlayerGems} playerPrisms={playerPrisms} setPlayerPrisms={setPlayerPrisms} />
               </div>
             </>
           )}

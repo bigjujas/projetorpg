@@ -29,12 +29,16 @@ import dragonLance from '/src/assets/weapons/dragonLance.jpg'
 import dragonSword from '/src/assets/weapons/dragonSword.jpg'
 import goldenSword from '/src/assets/weapons/goldenSword.jpg'
 
+import voidSword from '/src/assets/weapons/voidSword.jpg'
+import voidFlame from '/src/assets/weapons/voidFlame.jpg'
+import voidThunder from '/src/assets/weapons/voidThunder.jpg'
+import voidLordSword from '/src/assets/weapons/voidLordSword.jpg'
+
 //armaduras
 import starterArmor from '/src/assets/armor/starterArmor.jpg'
 import travellerArmor from '/src/assets/armor/travellerArmor.jpg'
 import forestSeeker from '/src/assets/armor/forestSeeker.jpg'
 import titanArmor from '/src/assets/armor/titanArmor.jpg'
-import edecio from '/src/assets/armor/edecio.jpg'
 
 import steelArmor from '/src/assets/armor/steelArmor.jpg'
 import darkSteelArmor from '/src/assets/armor/darkSteelArmor.jpg'
@@ -56,6 +60,11 @@ import goldenRobe from '/src/assets/armor/goldenRobe.jpg'
 import capitalArmor from '/src/assets/armor/capitalArmor.jpg'
 import dragonWarrior from '/src/assets/armor/dragonWarrior.jpg'
 import dragonArmor from '/src/assets/armor/dragonArmor.jpg'
+
+import voidArmor from '/src/assets/armor/voidArmor.jpg'
+import voidRogue from '/src/assets/armor/voidRogue.jpg'
+import voidKnight from '/src/assets/armor/voidKnight.jpg'
+import voidLord from '/src/assets/armor/voidLord.jpg'
 
 export type Item = {
   name: string;
@@ -509,7 +518,75 @@ export const items: { [key: string]: Item } = {
     source: "Mundo 5",
     image: goldenSword,
   },
-
+  // masmorra torre
+  voidSword: {
+    name: 'Espada do Vazio',
+    type: 'sword',
+    rarity: "Raro",
+    damage: 375,
+    initialDamage: 375, // Valor inicial de damage
+    power: 12,
+    initialPower: 12, // Valor inicial de power
+    baseCost: 12000,
+    initialBaseCost: 12000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+375 🗡️',
+    descriptionP: '+12 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidSword,
+  },
+  voidFlame: {
+    name: 'Chama Vazia',
+    type: 'sword',
+    rarity: "Épico",
+    damage: 400,
+    initialDamage: 400, // Valor inicial de damage
+    power: 14,
+    initialPower: 14, // Valor inicial de power
+    baseCost: 15000,
+    initialBaseCost: 15000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+400 🗡️',
+    descriptionP: '+14 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidFlame,
+  },
+  voidThunder: {
+    name: 'Raio Negro',
+    type: 'sword',
+    rarity: "Lendário",
+    damage: 450,
+    initialDamage: 450, // Valor inicial de damage
+    power: 16,
+    initialPower: 16, // Valor inicial de power
+    baseCost: 20000,
+    initialBaseCost: 20000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+450 🗡️',
+    descriptionP: '+16 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidThunder,
+  },
+  voidLordSword: {
+    name: 'Lorde do Vazio',
+    type: 'sword',
+    rarity: "Mítico",
+    damage: 520,
+    initialDamage: 520, // Valor inicial de damage
+    power: 20,
+    initialPower: 20, // Valor inicial de power
+    baseCost: 30000,
+    initialBaseCost: 30000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: '+520 🗡️',
+    descriptionP: '+20 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidLordSword,
+  },
   // Armaduras
   //mundo1
   starterArmor: {
@@ -873,23 +950,74 @@ export const items: { [key: string]: Item } = {
     source: "Mundo 5",
     image: dragonArmor,
   },
-  // Extras
-  edecioArmor: {
-    name: 'Edecio',
+  // torre do vazio
+  voidArmor: {
+    name: 'Armadura do Vazio',
     type: 'armor',
-    rarity: "Secreto",
-    damage: 2,
-    initialDamage: 2, // Valor inicial de damage
-    power: 2,
-    initialPower: 2, // Valor inicial de power
-    baseCost: 10000,
-    initialBaseCost: 10000, // Valor inicial de baseCost
+    rarity: "Raro",
+    damage: 2.10,
+    initialDamage: 2.10, // Valor inicial de damage
+    power: 2.10,
+    initialPower: 2.10, // Valor inicial de power
+    baseCost: 12000,
+    initialBaseCost: 12000, // Valor inicial de baseCost
     level: 0,
-    descriptionD: 'x2 🗡️',
-    descriptionP: 'x2 🔥',
+    descriptionD: 'x2.1 🗡️',
+    descriptionP: 'x2.1 🔥',
     unlocked: false,
-    source: "Extras",
-    image: edecio,
+    source: "Torre do Vazio",
+    image: voidArmor,
+  },
+  voidRogue: {
+    name: 'Assassino Vazio',
+    type: 'armor',
+    rarity: "Épico",
+    damage: 2.25,
+    initialDamage: 2.25, // Valor inicial de damage
+    power: 2.25,
+    initialPower: 2.25, // Valor inicial de power
+    baseCost: 16000,
+    initialBaseCost: 16000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x2.25 🗡️',
+    descriptionP: 'x2.25 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidRogue,
+  },
+  voidKnight: {
+    name: 'Cavaleiro Abissal',
+    type: 'armor',
+    rarity: "Lendário",
+    damage: 2.50,
+    initialDamage: 2.50, // Valor inicial de damage
+    power: 2.50,
+    initialPower: 2.50, // Valor inicial de power
+    baseCost: 20000,
+    initialBaseCost: 20000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x2.5 🗡️',
+    descriptionP: 'x2.5 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidKnight,
+  },
+  voidLord: {
+    name: 'Lorde do Vazio',
+    type: 'armor',
+    rarity: "Mítico",
+    damage: 3,
+    initialDamage: 3, // Valor inicial de damage
+    power: 3,
+    initialPower: 3, // Valor inicial de power
+    baseCost: 30000,
+    initialBaseCost: 30000, // Valor inicial de baseCost
+    level: 0,
+    descriptionD: 'x3 🗡️',
+    descriptionP: 'x3 🔥',
+    unlocked: false,
+    source: "Torre do Vazio",
+    image: voidLord,
   },
 };
 
@@ -922,8 +1050,7 @@ export const world1Chest = [
 
   { item: items.travellerArmor, probability: 0.26 },
   { item: items.forestSeeker, probability: 0.2 },
-  { item: items.titanArmor, probability: 0.0399 },
-  { item: items.edecio, probability: 0.0001 },
+  { item: items.titanArmor, probability: 0.04 },
 ];
 
 export const world2Chest = [
@@ -933,9 +1060,8 @@ export const world2Chest = [
   { item: items.boneStaff, probability: 0.01 },
 
   { item: items.steelArmor, probability: 0.175 },
-  { item: items.darkSteelArmor, probability: 0.0399 },
+  { item: items.darkSteelArmor, probability: 0.04 },
   { item: items.bloodArmor, probability: 0.01 },
-  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world3Chest = [
@@ -947,10 +1073,9 @@ export const world3Chest = [
 
   { item: items.darkKnightArmor, probability: 0.275 },
   { item: items.royalArmor, probability: 0.175 },
-  { item: items.warriorArmor, probability: 0.0399 },
+  { item: items.warriorArmor, probability: 0.04 },
   { item: items.darkRoyalArmor, probability: 0.009 },
   { item: items.fireArmor, probability: 0.001 },
-  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world4Chest = [
@@ -961,10 +1086,9 @@ export const world4Chest = [
   { item: items.plagueSword, probability: 0.001 },
 
   { item: items.plagueWarrior, probability: 0.175 },
-  { item: items.thornArmor, probability: 0.0399 },
+  { item: items.thornArmor, probability: 0.04 },
   { item: items.plagueDoctorArmor, probability: 0.009 },
   { item: items.plagueArmor, probability: 0.001 },
-  { item: items.edecio, probability: 0.0001 },
 ];
 
 export const world5Chest = [
@@ -976,8 +1100,19 @@ export const world5Chest = [
 
   { item: items.goldenArmor, probability: 0.275 },
   { item: items.goldenRobe, probability: 0.175 },
-  { item: items.capitalArmor, probability: 0.0399 },
+  { item: items.capitalArmor, probability: 0.04 },
   { item: items.dragonWarrior, probability: 0.009 },
   { item: items.dragonArmor, probability: 0.001 },
-  { item: items.edecio, probability: 0.0001 },
+];
+
+export const voidTowerChest = [
+  { item: items.voidSword, probability: 0.450 },
+  { item: items.voidFlame, probability: 0.04 },
+  { item: items.voidThunder, probability: 0.009 },
+  { item: items.voidLordSword, probability: 0.001 },
+
+  { item: items.voidArmor, probability: 0.450 },
+  { item: items.voidRogue, probability: 0.04 },
+  { item: items.voidKnight, probability: 0.009 },
+  { item: items.voidLord, probability: 0.001 },
 ];
