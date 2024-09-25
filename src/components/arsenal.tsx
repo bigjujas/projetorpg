@@ -1029,10 +1029,6 @@ export function drawItemFromChest(chest: { item: Item, probability: number }[]):
   for (const { item, probability } of chest) {
     cumulativeProbability += probability;
     if (random < cumulativeProbability) {
-      if (item.unlocked === true) {
-        item.level += 1
-        scaleItemAttributes(item);
-      } else
       item.unlocked = true;
       return item;   
     }
