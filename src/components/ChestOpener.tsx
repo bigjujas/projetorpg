@@ -113,7 +113,7 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems, playerP
                 <h3><span className='gem'>3M</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openVoidTowerChest}>
-                <h1>Tier V</h1>
+                <h1>Tier VI</h1>
                 <h2>💼</h2>
                 <h3 className='Épico'><span className='gem'>1K</span> 🟣</h3>
             </div>

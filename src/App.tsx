@@ -104,7 +104,9 @@ export const App = () => {
               damage: newItem.damage,
               baseCost: newItem.baseCost,
               power: newItem.power,
-              unlocked: newItem.unlocked
+              unlocked: newItem.unlocked,
+              descriptionD: newItem.descriptionD,
+              descriptionP: newItem.descriptionP,
             }; // Atualiza apenas as propriedades necessárias
           }
           // Itens bloqueados não são atualizados
