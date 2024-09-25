@@ -14,7 +14,7 @@ import anvil from './assets/anvil.png'
 import { time } from 'console';
 
 export const App = () => {
-  const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
+  const [playerDamage, setPlayerDamage] = useState<number>(100000000) // Dano do Jogador
   const [playerPowerGain, setPlayerPowerGain] = useState<number>(0) // Poder do jogador
   const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
@@ -286,7 +286,6 @@ export const App = () => {
         // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-        setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
   
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
@@ -300,6 +299,7 @@ export const App = () => {
   
           // Se o inimigo tiver a propriedade 'tier', aumente-a
           if (upgradedEnemy.tier !== undefined) {
+            setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
             upgradedEnemy.tier += 1; // Aumenta o tier
             upgradedEnemy.health = Math.round(upgradedEnemy.health * 1.2); // Aumenta a saúde em 20%
             upgradedEnemy.maxHealth = Math.round(upgradedEnemy.maxHealth * 1.2); // Aumenta o maxHealth em 20%
@@ -333,7 +333,6 @@ export const App = () => {
         // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-        setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
   
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
@@ -347,6 +346,7 @@ export const App = () => {
   
           // Se o inimigo tiver a propriedade 'tier', aumente-a
           if (upgradedEnemy.tier !== undefined) {
+            setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
             upgradedEnemy.tier += 1; // Aumenta o tier
             upgradedEnemy.health = Math.round(upgradedEnemy.health * 1.2); // Aumenta a saúde em 20%
             upgradedEnemy.maxHealth = Math.round(upgradedEnemy.maxHealth * 1.2); // Aumenta o maxHealth em 20%
