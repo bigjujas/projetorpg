@@ -87,35 +87,41 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems, playerP
 
     return (
         <div className='chests__container'>
+            <div className='chests__area'>
+            <div className='chest__columm'>
             <div className="chest__container" onClick={openWorld1Chest}>
                 <h1>Tier I</h1>
-                <h2>💼</h2>
+                <h2>📦</h2>
                 <h3><span className='gem'>50</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openWorld2Chest}>
                 <h1>Tier II</h1>
-                <h2>💼</h2>
+                <h2>📦</h2>
                 <h3><span className='gem'>1K</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openWorld3Chest}>
                 <h1>Tier III</h1>
-                <h2>💼</h2>
+                <h2>📦</h2>
                 <h3><span className='gem'>15K</span> 💎</h3>
             </div>
+            </div>
+            <div className='chest__columm'>
             <div className="chest__container" onClick={openWorld4Chest}>
                 <h1>Tier IV</h1>
-                <h2>💼</h2>
+                <h2>📦</h2>
                 <h3><span className='gem'>180K</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openWorld5Chest}>
                 <h1>Tier V</h1>
-                <h2>💼</h2>
+                <h2>📦</h2>
                 <h3><span className='gem'>3M</span> 💎</h3>
             </div>
             <div className="chest__container" onClick={openVoidTowerChest}>
                 <h1>Tier VI</h1>
-                <h2>💼</h2>
-                <h3 className='Épico'><span className='gem'>1K</span> 🟣</h3>
+                <h2>📦</h2>
+                <h3 className='Lendário'><span className='prism'>1K</span> 🔶</h3>
+            </div>
+            </div>
             </div>
             {drawnItem && (
                 <div className='drawn__display'>
@@ -124,7 +130,6 @@ const ChestOpener: React.FC<ChestsProps> = ({ playerGems, setPlayerGems, playerP
                         <h2 className={drawnItem.rarity}>{drawnItem.rarity}</h2>
                 </div>
             )}
-            <img src={chestImage} alt="" />
         </div>
     );
 };

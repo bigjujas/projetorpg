@@ -17,6 +17,16 @@
 	/* Esconde a barra de rolagem */
 }
 
+.forgeTab::-webkit-scrollbar {
+	display: none;
+	/* Esconde a barra de rolagem */
+}
+
+.leftTab::-webkit-scrollbar {
+	display: none;
+	/* Esconde a barra de rolagem */
+}
+
 .chestTab::-webkit-scrollbar {
 	display: none;
 	/* Esconde a barra de rolagem */
@@ -39,7 +49,7 @@
 }
 
 .prism {
-	color: #9b0d9b;
+	color: #ff6600;
 }
 
 .power {
@@ -53,6 +63,12 @@
 
 .buyable {
 	color: #1fc23a !important;
+}
+
+.expensive {
+	color: #c24040 !important;
+	filter: opacity(0.5);
+	pointer-events: none;
 }
 
 .Locked {
@@ -230,6 +246,7 @@
 }
 
 .right__container {
+	display: flex;
 	background-color: #1a0f09;
 	width: 32%;
 	box-sizing: border-box;
@@ -314,6 +331,11 @@
 	flex-direction: column;
 	flex: 1;
 	align-items: center;
+	text-align: center;
+	overflow-y: auto;
+	/* Habilita a rolagem vertical */
+	max-height: 82vh;
+	/* Define uma altura máxima para ativar a rolagem */
 }
 
 .leftTab h6 {
@@ -387,7 +409,7 @@
 	font-size: 14px;
 	padding: 10px 12px;
 	border-left: #000000 2px solid;
-	border-right: #000000 1px solid;
+	border-right: #000000 2px solid;
 	border-bottom: #000000 2px solid;
 }
 
@@ -396,9 +418,13 @@
 	flex: 1;
 	font-size: 14px;
 	padding: 10px 12px;
-	border-left: #000000 1px solid;
+	border-left: #000000 2px solid;
 	border-right: #000000 2px solid;
 	border-bottom: #000000 2px solid;
+}
+
+.relicH {
+	background-color: #bb3f4f !important;
 }
 
 .display__skin h5 {
@@ -503,6 +529,92 @@
 	grid-template-columns: repeat(3, 1fr);
 	gap: 6px;
 	/* Ajuste o espaçamento entre os itens conforme necessário */
+}
+
+.display__skin__relic {
+	background-color: #311d11;
+	padding: 15px;
+	border-radius: 15px;
+	border: black 2px solid;
+}
+
+.display__skin__relic img {
+	height: 238px;
+	width: 150px;
+	border: #000000 2px solid;
+	transition: all 0.2s ease;
+}
+
+.display__skin__relic h1,
+.display__skin__relic h2,
+.display__skin__relic h3,
+.display__skin__relic h4,
+.display__skin__relic h5 {
+	font-size: 14px;
+}
+
+.display__skin__relic h1 {
+	font-size: 12px;
+}
+
+.display__skin.equipped {
+	background-color: #3c414e;
+	position: relative;
+  }
+  
+.display__skin.equipped::before {
+	content: "Equipado";
+	position: absolute;
+	top: 5px;
+	left: 66px;
+	background-color: #2b344e;
+	border: black 1px solid;
+	color: #fff;
+	font-size: 10px;
+	padding: 2px 5px;
+	border-radius: 5px;
+	font-weight: 500;
+}
+
+.upgrade__relic {
+	padding: 10px;
+	transition: all 0.3s ease;
+}
+
+.upgrade__relic h1,
+.upgrade__relic h2 {
+	padding: 10px 10px;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+}
+
+.upgrade__relic h1 {
+	background-color: #85441c;
+	border-radius: 15px 15px 0px 0px;
+	border-top: black 2px solid;
+	border-left: black 2px solid;
+	border-right: black 2px solid;
+	border-bottom: black 1px solid;
+}
+
+.upgrade__relic h2 {
+	background-color: #023570;
+	border-radius: 0px 0px 15px 15px;
+	border-bottom: black 2px solid;
+	border-left: black 2px solid;
+	border-right: black 2px solid;
+}
+
+.upgrade__relic:hover {
+	transform: scale(1.05);
+	filter: brightness(1.15);
+	cursor: pointer;
+}
+
+.upgrade__relic:active {
+	transform: scale(0.95);
+	filter: brightness(1.3);
 }
 
 /* mundos */
@@ -685,13 +797,13 @@
 
 .health-bar-container {
 	width: 50%;
-	background-color: #ff5d5d;
+	position: relative;
+	background: linear-gradient(90deg, rgba(0,0,0,0.6) 51%, rgba(46,46,46,0.8) 78%);
 	border-radius: 45px;
 	overflow: hidden;
 	margin-bottom: 20px;
 	border: #000000 2px solid;
-	position: relative;
-}
+  }
 
 .health-bar-container p {
 	font-family: "Poppins", sans-serif;
@@ -705,7 +817,7 @@
 
 .health-bar {
 	height: 30px;
-	background-color: #18cc00;
+	background: linear-gradient(90deg, rgba(55,215,72,1) 23%, rgba(22,139,30,1) 78%);
 	width: 100%;
 	/* A largura será ajustada dinamicamente */
 	transition: width 0.3s ease;
@@ -742,20 +854,22 @@
 }
 
 .rightTab p {
-	font-size: 28px;
-	font-weight: 600;
-	margin-top: 10px;
+	font-size: 15px;
+	font-weight: 450;
+	margin-top: 1vh;
+	margin-bottom: 1vh;
 }
 
 .rightTab p span {
-	font-size: 22px;
-	font-weight: 500;
+	font-size: 18px;
+	font-weight: 700;
+	color: #bb3f4f;
 }
 
 .rightTab h6 {
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: 600;
-	margin: 0vh 12vh;
+	margin-top: 2vh;
 	background-color: #1b212e;
 	border-radius: 15px;
 	padding: 10px 15px;
@@ -829,6 +943,11 @@
 	filter: brightness(2);
 }
 
+.arrow {
+	font-size: 25px;
+	filter: saturate(0) brightness(2) opacity(0.2);
+}
+
 .autoattack__container {
 	background-color: #311d11;
 	margin: 1vh auto;
@@ -844,7 +963,7 @@
 	margin: 0 14vh;
 	background-color: #1b212e;
 	border-radius: 15px;
-	padding: 10px 15px;
+	padding: 5px 15px;
 	border: black 2px solid;
 }
 
@@ -863,7 +982,7 @@
 	font-weight: 700;
 	letter-spacing: 1.5px;
 	margin: 0;
-	padding: 10px 10px;
+	padding: 8px 5px;
 	flex: 1;
 	min-width: 0;
 	height: 100%;
@@ -940,22 +1059,27 @@
 .forgeTab {
 	align-items: center;
 	text-align: center;
+	overflow-y: auto;
+	/* Habilita a rolagem vertical */
+	max-height: 82vh;
+	/* Define uma altura máxima para ativar a rolagem */
 }
 
 .forgeTab .anvil {
-	height: 200px;
+	height: 150px;
 	width: auto;
-	margin: 0px auto;
+	margin: auto 10px;
 	border-radius: 30px;
-	padding: 20px;
+	padding: 40px;
 	filter: brightness(0.8) saturate(0.8);
+	background-color: #1b212e;
 }
 
 .forgeTab h6 {
-	font-family: "Poppins", sans-serif;
 	font-size: 25px;
 	font-weight: 600;
 	margin: 2vh 14vh;
+	margin-bottom: 1vh;
 	background-color: #1b212e;
 	border-radius: 15px;
 	padding: 10px 15px;
@@ -963,22 +1087,101 @@
 }
 
 .displayForge__container {
-	background-color: #311d11;
-	padding: 20px;
-	margin: 0px 2vh;
+	margin: 35px 1vh;
+	padding: 10px;
 	border-radius: 15px;
+	background-color: #1b212e;
 	border: black 2px solid;
-	margin-top: 8vh;
+}
+
+.forge__itemdisplay {
+	display: flex;
+	justify-content: center;
+}
+
+.forge__itemdisplay .forgeImage {
+	height: 190px;
+	width: 120px;
+	border-radius: 15px 0px 0px 15px;
+	border: black 2px solid;
+}
+
+.forge__itemtext {
+	display: flex;
+    flex-direction: column;
+}
+
+.forge__itemtext h1,
+.forge__itemtext h2,
+.forge__itemtext h3,
+.forge__itemtext h4,
+.forge__itemtext h5 {
+	font-size: 14px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	margin: auto 0px;
+	flex: 1;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	width: 200px;
+}
+
+.forge__itemtext h1 {
+	background-color: #1b212e;
+	padding: 10px 25px;
+	border-radius: 0px 15px 0px 0px;
+	border-right: #000000 2px solid;
+	border-top: #000000 2px solid;
+	margin: 0px 0px;
+}
+
+.forge__itemtext h2 {
+	background-color: #536795;
+	padding: 10px 25px;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+	border-top: black 2px solid;
+}
+
+.forge__itemtext h3 {
+	background-color: #991c25;
+	flex: 1;
+	font-size: 14px;
+	padding: 10px 12px;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+	border-top: black 1px solid;
+}
+
+.forge__itemtext h4 {
+	background-color: #99311c;
+	flex: 1;
+	font-size: 14px;
+	padding: 10px 12px;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+	border-top: black 1px solid;
+}
+
+.forge__itemtext h5 {
+	background-color: #c77c19;
+	padding: 10px 25px;
+	border-right: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+	border-radius: 0px 0px 15px;
 }
 
 .upgradeForge__container {
 	display: flex;
-	margin: 5px 0px;
+	margin: 0px auto;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
-	border: black 2px solid;
+	border: black 1px solid;
 	transition: all 0.3s ease;
+	width: 450px;
+	margin-top: 1vh;
 }
 
 .upgradeForge__container h1,
@@ -986,7 +1189,7 @@
 .upgradeForge__container h3,
 .upgradeForge__container h4 {
 	font-family: "Poppins", sans-serif;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 650;
 	letter-spacing: 1.5px;
 	margin: 0;
@@ -1003,13 +1206,14 @@
 }
 
 .upgradeForge__container h2 {
-	background-color: #252b3f;
+	background-color: #85441c;
 	flex-grow: 3;
 }
 
 .upgradeForge__container h3 {
 	color: gold;
 	background-color: #003775;
+	flex-grow: 1.5;
 }
 
 .upgradeForge__container h4 {
@@ -1062,6 +1266,15 @@
 	transition: all 0.3s ease;
 }
 
+.chests__area {
+	display: flex;
+}
+
+.chest__columm {
+	display: flex;
+	flex-direction: column;
+}
+
 .chests__container img {
 	height: 128px;
 	width: 128px;
@@ -1108,7 +1321,7 @@
 
 .chest__container {
 	display: flex;
-	margin: 10px 50px;
+	margin: 5px 10px;
 	justify-content: space-around;
 	align-items: center;
 	text-align: center;
@@ -1135,7 +1348,7 @@
 }
 
 .chest__container h2 {
-	background-color: #302a4d;
+	background-color: #564c8b;
 	flex-grow: 0.5;
 }
 

@@ -5,7 +5,22 @@ export interface Upgrade {
   cost: number;
   level: number;
   boost: number;
+  baseBoost: number;
 }
+
+export const scaleUpgradeBoost = (upgrade: Upgrade) => {
+  const levelMultiplier = Math.floor(upgrade.level / 10);
+  upgrade.boost = upgrade.baseBoost * Math.pow(2, levelMultiplier);
+  upgrade.description = `+${upgrade.boost} 🗡️`;
+};
+
+export const updateUpgradeLevel = (upgradeId: string, newLevel: number) => {
+  const upgrade = upgrades.find(u => u.id === upgradeId);
+  if (upgrade) {
+    upgrade.level = newLevel;
+    scaleUpgradeBoost(upgrade);
+  }
+};
 
 export const upgrades: Upgrade[] = [
   {
@@ -15,72 +30,34 @@ export const upgrades: Upgrade[] = [
     cost: 0,
     level: 0,
     boost: 0,
+    baseBoost: 0,
   },
   // upgrade dano
   {
     id: 'upgrade1',
     name: 'Força 🥊',
     description: '+1 🗡️',
-    cost: 10,
+    cost: 100,
     level: 0,
     boost: 1,
+    baseBoost: 1,
+  },
+  {
+    id: 'upgrade2',
+    name: 'Destreza 🏹',
+    description: '+30 🗡️',
+    cost: 10000,
+    level: 0,
+    boost: 30,
+    baseBoost: 30,
   },
   {
     id: 'upgrade3',
-    name: 'Destreza 🏹',
-    description: '+2 🗡️',
-    cost: 30,
-    level: 0,
-    boost: 2,
-  },
-  {
-    id: 'upgrade5',
     name: 'Fúria 💢',
     description: '+5 🗡️',
-    cost: 100,
+    cost: 1000,
     level: 0,
     boost: 5,
+    baseBoost: 5,
   },
-  {
-    id: 'upgrade7',
-    name: 'Berserk 🪓',
-    description: '+10 🗡️',
-    cost: 350,
-    level: 0,
-    boost: 10,
-  },
-  // upgrade poder
-  {
-    id: 'upgrade2',
-    name: 'Mana 🌀',
-    description: '+0.1 🔥',
-    cost: 10,
-    level: 0,
-    boost: 0.1,
-  },
-  {
-    id: 'upgrade4',
-    name: 'Magia 🔮',
-    description: '+0.2 🔥',
-    cost: 30,
-    level: 0,
-    boost: 0.2,
-  },
-  {
-    id: 'upgrade6',
-    name: 'Energia ⚡️',
-    description: '+0.5 🔥',
-    cost: 100,
-    level: 0,
-    boost: 0.5,
-  },
-  {
-    id: 'upgrade8',
-    name: 'Ar 💨',
-    description: '+1 🔥',
-    cost: 350,
-    level: 0,
-    boost: 1,
-  },
-  //upgrades de poder
 ];

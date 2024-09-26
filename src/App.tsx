@@ -7,15 +7,14 @@ import World from './components/world';
 import { Enemy, enemies, towerEnemyImages } from './components/enemies'; // Importa o objeto de inimigos agrupados
 import { Item, items, unlockItem, updateItemLevel, scaleItemAttributes } from './components/arsenal'; // Importa o objeto de armas e armaduras
 import { items as initialItems } from './components/arsenal';
-import { Upgrade, upgrades } from './components/upgrades'; // Importa os upgrades
+import { scaleUpgradeBoost, Upgrade, upgrades } from './components/upgrades'; // Importa os upgrades
 import ChestOpener from './components/ChestOpener';
 
 import anvil from './assets/anvil.png'
 import { time } from 'console';
+import { div } from 'framer-motion/client';
 
 export const App = () => {
-  const [playerDamage, setPlayerDamage] = useState<number>(0) // Dano do Jogador
-  const [playerPowerGain, setPlayerPowerGain] = useState<number>(0) // Poder do jogador
   const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
@@ -32,6 +31,10 @@ export const App = () => {
   const [currentWeapon, setCurrentWeapon] = useState<Item>(items.starterSword) // Arma Inicial
   const [currentArmor, setCurrentArmor] = useState<Item>(items.starterArmor) // Armadura Inicial
 
+  const [currentRelic1, setCurrentRelic1] = useState<Item>(items.relicIronRing) // Reliquia Inicial
+  const [currentRelic2, setCurrentRelic2] = useState<Item>(items.nullRelic) // Reliquia Inicial
+  const [currentRelic3, setCurrentRelic3] = useState<Item>(items.nullRelic) // Reliquia Inicial
+
   // coisas para ser salva ^^^^
 
 
@@ -40,7 +43,6 @@ export const App = () => {
   const exportGameData = () => {
     // Dados que você quer salvar no arquivo JSON
     const gameData = {
-      playerDamage,
       playerPower,
       playerLevel,
       playerCoins,
@@ -50,6 +52,9 @@ export const App = () => {
       isAutoAttackActive,
       currentWeapon,
       currentArmor,
+      currentRelic1,
+      currentRelic2,
+      currentRelic3,
       currentEnemy,
       items,
       upgrades
@@ -80,7 +85,6 @@ export const App = () => {
       const gameData = JSON.parse(jsonData);
 
       // Atualizar os estados do jogo com os dados importados
-      setPlayerDamage(gameData.playerDamage);
       setPlayerPower(gameData.playerPower);
       setPlayerLevel(gameData.playerLevel);
       setPlayerCoins(gameData.playerCoins);
@@ -90,12 +94,15 @@ export const App = () => {
       setIsAutoAttackActive(gameData.isAutoAttackActive)
       setCurrentWeapon(gameData.currentWeapon);
       setCurrentArmor(gameData.currentArmor);
+      setCurrentRelic1(gameData.currentRelic1);
+      setCurrentRelic2(gameData.currentRelic2);
+      setCurrentRelic3(gameData.currentRelic3);
       setCurrentEnemy(gameData.currentEnemy);
 
       setItems((prevItems) => {
         // Crie uma cópia do estado atual dos itens
         const updatedItems = { ...prevItems };
-      
+
         // Atualize somente os itens desbloqueados
         Object.keys(gameData.items).forEach(itemId => {
           const newItem = gameData.items[itemId];
@@ -103,17 +110,16 @@ export const App = () => {
             updatedItems[itemId] = {
               ...prevItems[itemId], // Mantém as propriedades originais
               level: newItem.level,
-              damage: newItem.damage,
+              boost: newItem.boost,
               baseCost: newItem.baseCost,
-              power: newItem.power,
               unlocked: newItem.unlocked,
-              descriptionD: newItem.descriptionD,
-              descriptionP: newItem.descriptionP,
+              description: newItem.description,
             }; // Atualiza apenas as propriedades necessárias
+            scaleItemAttributes(updatedItems[itemId]);
           }
           // Itens bloqueados não são atualizados
         });
-      
+
         return updatedItems;
       });
 
@@ -149,8 +155,9 @@ export const App = () => {
 
   // dano e poder
 
-  const finalDamage = ((playerDamage + currentWeapon.damage) * currentArmor.damage)
-  const finalPower = ((playerPowerGain + currentWeapon.power) * currentArmor.power)
+  const relicBuffs = ((currentRelic1.boost + currentRelic2.boost + currentRelic3.boost) - 2)
+  const finalDamage = ((currentWeapon.boost) * relicBuffs)
+  const finalPower = (((currentArmor.boost)) * relicBuffs)
 
   // Tabs
 
@@ -164,9 +171,14 @@ export const App = () => {
     setCurrentMiddleTab(tabIndex);
   };
 
+
+  const [selectedRelic, setSelectedRelic] = useState<number | null>(null);
   const [currentRightTab, setCurrentRightTab] = useState<number>(1);
-  const toggleRightTab = (tab: number) => {
-    setCurrentRightTab(tab);
+  const toggleRightTab = (tab: number, relicIndex?: number) => {
+    if (relicIndex !== undefined) {
+      setSelectedRelic(relicIndex); // Se `relicIndex` foi passado, atualize o estado.
+    }
+    setCurrentRightTab(tab); // Muda para a aba correta.
   };
 
 
@@ -181,29 +193,14 @@ export const App = () => {
   const applyUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
 
-    if (upgrade && upgrade.level < 100) {
+    if (upgrade && upgrade.level < 300) {
       const upgradeCost = getUpgradeCost(upgrade.cost, upgrade.level);
 
       if (playerPower >= upgradeCost) {
-        setPlayerDamage(playerDamage + upgrade.boost);
         setPlayerLevel(playerLevel + 1);
         setPlayerPower(playerPower - upgradeCost);
         upgrade.level += 1;
-      }
-    }
-  };
-
-  const applyPowerUpgrade = (upgradeId: string) => {
-    const upgrade = upgrades.find(upg => upg.id === upgradeId);
-
-    if (upgrade && upgrade.level < 100) {
-      const upgradeCost = getUpgradeCost(upgrade.cost, upgrade.level);
-
-      if (playerPower >= upgradeCost) {
-        setPlayerPowerGain(playerPowerGain + upgrade.boost);
-        setPlayerLevel(playerLevel + 1);
-        setPlayerPower(playerPower - upgradeCost);
-        upgrade.level += 1;
+        scaleUpgradeBoost(upgrade)
       }
     }
   };
@@ -212,7 +209,7 @@ export const App = () => {
 
   const applyArmorUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentArmor.level < 100 && playerCoins >= currentArmor.baseCost) {
+    if (upgrade && currentArmor.level < 25 && playerCoins >= currentArmor.baseCost) {
       setPlayerCoins(playerCoins - currentArmor.baseCost);
       currentArmor.level += 1;
       scaleItemAttributes(currentArmor); // Aplica o escalonamento dos atributos
@@ -221,10 +218,23 @@ export const App = () => {
 
   const applyWeaponUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentWeapon.level < 100 && playerCoins >= currentWeapon.baseCost) {
+    if (upgrade && currentWeapon.level < 25 && playerCoins >= currentWeapon.baseCost) {
       setPlayerCoins(playerCoins - currentWeapon.baseCost);
       currentWeapon.level += 1;
       scaleItemAttributes(currentWeapon); // Aplica o escalonamento dos atributos
+    }
+  };
+
+  const currentRelics = [currentRelic1, currentRelic2, currentRelic3];
+
+  const applyRelicUpgrade = (upgradeId: string, relicIndex: number) => {
+    const upgrade = upgrades.find(upg => upg.id === upgradeId);
+    const currentRelic = currentRelics[relicIndex]; // Obtém a relíquia correspondente
+
+    if (upgrade && currentRelic.level < 10 && playerPower >= currentRelic.baseCost) {
+      setPlayerPower(playerPower - currentRelic.baseCost);
+      currentRelic.level += 1;
+      scaleItemAttributes(currentRelic); // Aplica o escalonamento dos atributos
     }
   };
 
@@ -270,37 +280,37 @@ export const App = () => {
 
   const attackEnemy = () => {
     const currentTime = Date.now();
-  
+
     if (currentTime - lastClickTime < timeWindow / clickLimit) {
       // Clique ignorado por exceder o limite
       return;
     }
-  
+
     setLastClickTime(currentTime);
     setClickCount(prevCount => prevCount + 1);
-  
+
     setCurrentEnemy(prevEnemy => {
       // Verifica se o inimigo já foi derrotado
       if (prevEnemy.health <= 0) {
         return prevEnemy; // Não processa mais nada se o inimigo já está morto
       }
-  
+
       const newHealth = prevEnemy.health - finalDamage;
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-  
+
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
           setEnemyVisible(true);
-  
+
           const upgradedEnemy = {
             ...prevEnemy,
             health: prevEnemy.maxHealth, // Inimigo volta com vida cheia
           };
-  
+
           // Se o inimigo tiver a propriedade 'tier', aumente-a
           if (upgradedEnemy.tier !== undefined) {
             setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
@@ -310,9 +320,9 @@ export const App = () => {
             upgradedEnemy.prismsDropped = (upgradedEnemy.prismsDropped! * 1.4); // Aumenta o maxHealth em 20%
             upgradedEnemy.name = `Tier ${upgradedEnemy.tier}`;
             upgradedEnemy.image = towerEnemyImages[Math.floor(Math.random() * towerEnemyImages.length)],
-            setTimeLeft(30); 
+              setTimeLeft(30);
           }
-  
+
           // Respawn do inimigo com vida cheia e tier atualizado
           setCurrentEnemy(upgradedEnemy);
         }, 350);
@@ -321,7 +331,7 @@ export const App = () => {
         return { ...prevEnemy, health: newHealth };
       }
     });
-  
+
     setPlayerPower(prevPower => prevPower + finalPower);
   };
 
@@ -331,23 +341,23 @@ export const App = () => {
       if (prevEnemy.health <= 0) {
         return prevEnemy; // Não processa mais nada se o inimigo já está morto
       }
-  
+
       const newHealth = prevEnemy.health - finalDamage * autoAttackDamage;
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente
         setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped);
         setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped);
-  
+
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
         setTimeout(() => {
           setEnemyVisible(true);
-  
+
           const upgradedEnemy = {
             ...prevEnemy,
             health: prevEnemy.maxHealth, // Inimigo volta com vida cheia
           };
-  
+
           // Se o inimigo tiver a propriedade 'tier', aumente-a
           if (upgradedEnemy.tier !== undefined) {
             setPlayerPrisms(prevPrisms => prevPrisms + prevEnemy.prismsDropped!)
@@ -356,9 +366,9 @@ export const App = () => {
             upgradedEnemy.maxHealth = Math.round(upgradedEnemy.maxHealth * 1.2); // Aumenta o maxHealth em 20%
             upgradedEnemy.prismsDropped = (upgradedEnemy.prismsDropped! * 1.4); // Aumenta o maxHealth em 20%
             upgradedEnemy.name = `Tier ${upgradedEnemy.tier}`;
-            setTimeLeft(30); 
+            setTimeLeft(30);
           }
-  
+
           // Respawn do inimigo com vida cheia e tier atualizado
           setCurrentEnemy(upgradedEnemy);
         }, 350);
@@ -367,7 +377,7 @@ export const App = () => {
         return { ...prevEnemy, health: newHealth };
       }
     });
-  
+
     setPlayerPower(prevPower => prevPower + finalPower * autoAttackDamage);
   };
 
@@ -377,7 +387,7 @@ export const App = () => {
 
   // Efeito para o countdown do timer, somente se o inimigo tiver tier
   useEffect(() => {
-    if (currentEnemy.tier && timeLeft > 0) { 
+    if (currentEnemy.tier && timeLeft > 0) {
       const timerInterval = setInterval(() => {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000); // Conta para baixo a cada segundo
@@ -401,11 +411,11 @@ export const App = () => {
     }));
     setTimeLeft(30); // Reseta o tempo visual
   };
-  
+
   // Level do Auto Attack
 
   const autoAttackDamage = autoAttackLevel * 0.10
-  const powerNeeded = Math.floor(10 * Math.pow(1.20, autoAttackLevel));
+  const powerNeeded = Math.floor(50 * Math.pow(1.20, autoAttackLevel));
 
   const autoAttackLevelUp = () => {
     if (playerPower >= powerNeeded && autoAttackLevel < 50) {
@@ -446,6 +456,39 @@ export const App = () => {
       if (selectedItem.unlocked) {
         setCurrentArmor(selectedItem);
         setCurrentLeftTab(1);
+      } else {
+        console.error('O item não está desbloqueado.');
+      }
+    } else {
+      console.error(`O item com a chave ${itemKey} não foi encontrado.`);
+    }
+  };
+
+  const changeRelic = (itemKey: string) => {
+    const selectedItem = items[itemKey];
+
+    if (selectedItem) {
+      if (selectedItem.unlocked) {
+        // Verifica se a relíquia já está equipada em outros slots, mas ignora o slot atual
+        if (
+          (selectedRelic !== 1 && currentRelic1 && currentRelic1.name === selectedItem.name) ||
+          (selectedRelic !== 2 && currentRelic2 && currentRelic2.name === selectedItem.name) ||
+          (selectedRelic !== 3 && currentRelic3 && currentRelic3.name === selectedItem.name)
+        ) {
+          console.error('Esta relíquia já está equipada em outro slot.');
+          return;
+        }
+
+        // Se não estiver equipada em outro slot, troca a relíquia correspondente
+        if (selectedRelic === 1) {
+          setCurrentRelic1(selectedItem);
+        } else if (selectedRelic === 2) {
+          setCurrentRelic2(selectedItem);
+        } else if (selectedRelic === 3) {
+          setCurrentRelic3(selectedItem);
+        }
+
+        setCurrentRightTab(1); // Volta para a aba principal
       } else {
         console.error('O item não está desbloqueado.');
       }
@@ -498,10 +541,7 @@ export const App = () => {
                   <img src={currentArmor.image} onClick={() => toggleLeftTab(2)} alt="" draggable="false" />
                   <div className="equipped__status">
                     <h2 className={currentArmor.rarity}>{currentArmor.rarity}</h2>
-                    <div className="item__status">
-                      <h3>{currentArmor.descriptionD}</h3>
-                      <h4>{currentArmor.descriptionP}</h4>
-                    </div>
+                    <h4>{currentArmor.description}</h4>
                     <h5>Nv. {currentArmor.level}</h5>
                   </div>
                 </div>
@@ -510,12 +550,21 @@ export const App = () => {
                   <img src={currentWeapon.image} onClick={() => toggleLeftTab(3)} alt="" draggable="false" />
                   <div className="equipped__status">
                     <h2 className={currentWeapon.rarity}>{currentWeapon.rarity}</h2>
-                    <div className="item__status">
-                      <h3>{currentWeapon.descriptionD}</h3>
-                      <h4>{currentWeapon.descriptionP}</h4>
-                    </div>
+                    <h3>{currentWeapon.description}</h3>
                     <h5>Nv. {currentWeapon.level}</h5>
                   </div>
+                </div>
+              </div>
+              <div className="arrow">🔻🔻🔻🔻🔻</div>
+              <div className="autoattack__container">
+                <h6>Auto Ataque ⚔️</h6>
+                <div className="autoattack__upgrade" onClick={autoAttackLevelUp}>
+                  <h1>{(autoAttackDamage * 100).toFixed(0)}%</h1>
+                  <h2>Nv. {autoAttackLevel}</h2>
+                  <h3 className={`${playerPower >= powerNeeded ? 'buyable' : 'expensive'}`}>{autoAttackLevel === 50 ? "Max" : formatNumber(powerNeeded)} 🔥</h3>
+                </div>
+                <div className={`autoattack__button ${autoAttackLevel > 0 ? '' : 'Locked'}`}>
+                  <h2 className={isAutoAttackActive ? 'Ativado' : 'Desativado'} onClick={() => setIsAutoAttackActive(!isAutoAttackActive)}>{isAutoAttackActive ? 'Ativado' : 'Desativado'}</h2>
                 </div>
               </div>
             </div>
@@ -543,15 +592,15 @@ export const App = () => {
                     {itemsInSource.map(({ key, item }) => (
                       <div
                         key={key}
-                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}`}
+                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}
+                        ${(currentArmor.name === item.name) ? "equipped" : ""}`}
                         onClick={() => changeArmor(key)}
                       >
                         <h1 className={item.rarity}>{item.name}</h1>
                         <img src={item.image} alt={item.name} draggable="false" />
                         <div className="equipped__status">
                           <h2 className={item.rarity}>{item.rarity}</h2>
-                          <h3>{item.descriptionD}</h3>
-                          <h4>{item.descriptionP}</h4>
+                          <h4>{item.description}</h4>
                           <h5>Nv. {item.level}</h5>
                         </div>
                       </div>
@@ -584,15 +633,15 @@ export const App = () => {
                     {itemsInSource.map(({ key, item }) => (
                       <div
                         key={key}
-                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}`}
+                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"}
+                        ${(currentWeapon.name === item.name) ? "equipped" : ""}`}
                         onClick={() => changeWeapon(key)}
                       >
                         <h1 className={item.rarity}>{item.name}</h1>
                         <img src={item.image} alt={item.name} draggable="false" />
                         <div className="equipped__status">
                           <h2 className={item.rarity}>{item.rarity}</h2>
-                          <h3>{item.descriptionD}</h3>
-                          <h4>{item.descriptionP}</h4>
+                          <h3>{item.description}</h3>
                           <h5>Nv. {item.level}</h5>
                         </div>
                       </div>
@@ -653,106 +702,114 @@ export const App = () => {
               <p>Gemas</p>
               <h2><span className='gem'>{formatNumber(playerGems)}</span> 💎</h2>
             </div>
-            {playerPrisms > 0 && (
             <div className="display__status__container">
               <p>Prismas</p>
-              <h2><span className='prism'>{formatNumber(playerPrisms)}</span> 🟣</h2>
+              <h2><span className='prism'>{formatNumber(playerPrisms)}</span> 🔶</h2>
             </div>
-            )}
           </div>
           <div className="display__tabs">
-            <p className={currentRightTab === 1 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(1)}>Skills 🎯</p>
+            <p className={currentRightTab === 1 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(1)}>Relíquias ⚖️</p>
             <p className={currentRightTab === 2 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(2)}>Forja ⚒️</p>
-            <p className={currentRightTab === 3 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(3)}>Mercado 📦</p>
+            <p className={currentRightTab === 3 ? "tab_active" : "tab_inactive"} onClick={() => toggleRightTab(3)}>Mercado 🛒</p>
           </div>
+
           {currentRightTab === 1 && (
             <>
               <div className="rightTab">
-                  <p><span>Nivel:</span> {playerLevel}</p>
-                <div className="upgradeTab">
-                  <h6>Upgrades de Dano</h6>
-                  {upgrade1 && (
-                    <div onClick={() => applyUpgrade('upgrade1')} className="upgrade__container">
-                      <h1>{upgrade1.description}</h1>
-                      <h2>{upgrade1.name}</h2>
-                      <h4>Nv. {upgrade1.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade1.cost, upgrade1.level) ? 'buyable' : 'expensive'}`}>{upgrade1.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade1.cost, upgrade1.level))} 🔥</h3>
+                <h6>Relíquias</h6>
+                <p>Multiplicador Atual: <span>x{formatNumber(relicBuffs)}</span></p>
+                <div className="items__grid">
+                  <div className="display__skin display__skin__relic">
+                    <h1 className={currentRelic1.rarity}>{currentRelic1.name}</h1>
+                    <img src={currentRelic1.image} onClick={() => toggleRightTab(1.1, 1)} alt="" draggable="false" />
+                    <div className="equipped__status">
+                      <h2 className={currentRelic1.rarity}>{currentRelic1.rarity}</h2>
+                      <h4 className='relicH'>{currentRelic1.description}</h4>
+                      <h5>Nv. {currentRelic1.level}</h5>
                     </div>
-                  )}
-                  {upgrade1 && upgrade1.level >= 15 && upgrade3 && (
-                    <div onClick={() => applyUpgrade('upgrade3')} className="upgrade__container">
-                      <h1>{upgrade3.description}</h1>
-                      <h2>{upgrade3.name}</h2>
-                      <h4>Nv. {upgrade3.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade3.cost, upgrade3.level) ? 'buyable' : 'expensive'}`}>{upgrade3.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade3.cost, upgrade3.level))} 🔥</h3>
-                    </div>
-                  )}
-                  {upgrade3 && upgrade3.level >= 15 && upgrade5 && (
-                    <div onClick={() => applyUpgrade('upgrade5')} className="upgrade__container">
-                      <h1>{upgrade5.description}</h1>
-                      <h2>{upgrade5.name}</h2>
-                      <h4>Nv. {upgrade5.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade5.cost, upgrade5.level) ? 'buyable' : 'expensive'}`}>{upgrade5.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade5.cost, upgrade5.level))} 🔥</h3>
-                    </div>
-                  )}
-                  {upgrade5 && upgrade5.level >= 15 && upgrade7 && (
-                    <div onClick={() => applyUpgrade('upgrade7')} className="upgrade__container">
-                      <h1>{upgrade7.description}</h1>
-                      <h2>{upgrade7.name}</h2>
-                      <h4>Nv. {upgrade7.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade7.cost, upgrade7.level) ? 'buyable' : 'expensive'}`}>{upgrade7.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade7.cost, upgrade7.level))} 🔥</h3>
-                    </div>
-                  )}
                   </div>
-                  {/* upgrades de poder abaixo */}
-                  <div className="upgradeTab">
-                  <h6>Upgrades de Poder</h6>
-                  {upgrade2 && (
-                    <div onClick={() => applyPowerUpgrade('upgrade2')} className="upgrade__container powerUpgrade">
-                      <h1>{upgrade2.description}</h1>
-                      <h2>{upgrade2.name}</h2>
-                      <h4>Nv. {upgrade2.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade2.cost, upgrade2.level) ? 'buyable' : 'expensive'}`}>{upgrade2.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade2.cost, upgrade2.level))} 🔥</h3>
+                  <div className="display__skin display__skin__relic">
+                    <h1 className={currentRelic2.rarity}>{currentRelic2.name}</h1>
+                    <img src={currentRelic2.image} onClick={() => toggleRightTab(1.1, 2)} alt="" draggable="false" />
+                    <div className="equipped__status">
+                      <h2 className={currentRelic2.rarity}>{currentRelic2.rarity}</h2>
+                      <h3 className='relicH'>{currentRelic2.description}</h3>
+                      <h5>Nv. {currentRelic2.level}</h5>
+                    </div>
+                  </div>
+                  <div className="display__skin display__skin__relic">
+                    <h1 className={currentRelic3.rarity}>{currentRelic3.name}</h1>
+                    <img src={currentRelic3.image} onClick={() => toggleRightTab(1.1, 3)} alt="" draggable="false" />
+                    <div className="equipped__status">
+                      <h2 className={currentRelic3.rarity}>{currentRelic3.rarity}</h2>
+                      <h3 className='relicH'>{currentRelic3.description}</h3>
+                      <h5>Nv. {currentRelic3.level}</h5>
+                    </div>
+                  </div>
+                  {currentRelic1 !== items.nullRelic && (
+                    <div className={`upgrade__relic ${playerPower >= currentRelic1.baseCost ? '' : currentRelic1.level === 10 ? '' : 'expensive'} `} onClick={() => applyRelicUpgrade('upgradeItem', 0)}>
+                      <h1>Melhorar</h1>
+                      <h2 className='power'>{currentRelic1.level === 10 ? 'Max' : formatNumber(currentRelic1.baseCost, 0)} 🔥</h2>
                     </div>
                   )}
-                  {upgrade2 && upgrade2.level >= 15 && upgrade4 && (
-                    <div onClick={() => applyPowerUpgrade('upgrade4')} className="upgrade__container powerUpgrade">
-                      <h1>{upgrade4.description}</h1>
-                      <h2>{upgrade4.name}</h2>
-                      <h4>Nv. {upgrade4.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade4.cost, upgrade4.level) ? 'buyable' : 'expensive'}`}>{upgrade4.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade4.cost, upgrade4.level))} 🔥</h3>
+                  {currentRelic2 !== items.nullRelic && (
+                    <div className={`upgrade__relic ${playerPower >= currentRelic2.baseCost ? '' : currentRelic2.level === 10 ? '' : 'expensive'} `} onClick={() => applyRelicUpgrade('upgradeItem', 1)}>
+                      <h1>Melhorar</h1>
+                      <h2 className='power'>{currentRelic2.level === 10 ? 'Max' : formatNumber(currentRelic2.baseCost, 0)} 🔥</h2>
                     </div>
                   )}
-                  {upgrade4 && upgrade4.level >= 15 && upgrade6 && (
-                    <div onClick={() => applyPowerUpgrade('upgrade6')} className="upgrade__container powerUpgrade">
-                      <h1>{upgrade6.description}</h1>
-                      <h2>{upgrade6.name}</h2>
-                      <h4>Nv. {upgrade6.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade6.cost, upgrade6.level) ? 'buyable' : 'expensive'}`}>{upgrade6.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade6.cost, upgrade6.level))} 🔥</h3>
-                    </div>
-                  )}
-                  {upgrade6 && upgrade6.level >= 15 && upgrade8 && (
-                    <div onClick={() => applyPowerUpgrade('upgrade8')} className="upgrade__container powerUpgrade">
-                      <h1>{upgrade8.description}</h1>
-                      <h2>{upgrade8.name}</h2>
-                      <h4>Nv. {upgrade8.level}</h4>
-                      <h3 className={`${playerPower >= getUpgradeCost(upgrade8.cost, upgrade8.level) ? 'buyable' : 'expensive'}`}>{upgrade8.level === 100 ? "Max" : formatNumber(getUpgradeCost(upgrade8.cost, upgrade8.level))} 🔥</h3>
+                  {currentRelic3 !== items.nullRelic && (
+                    <div className={`upgrade__relic ${playerPower >= currentRelic3.baseCost ? '' : currentRelic3.level === 10 ? '' : 'expensive'} `} onClick={() => applyRelicUpgrade('upgradeItem', 2)}>
+                      <h1>Melhorar</h1>
+                      <h2 className='power'>{currentRelic3.level === 10 ? 'Max' : formatNumber(currentRelic3.baseCost, 0)} 🔥</h2>
                     </div>
                   )}
                 </div>
-                <div className="autoattack__container">
-                  <h6>Auto Ataque ⚔️</h6>
-                  <div className="autoattack__upgrade" onClick={autoAttackLevelUp}>
-                    <h1>{(autoAttackDamage * 100).toFixed(0)}%</h1>
-                    <h2>Nv. {autoAttackLevel}</h2>
-                    <h3 className={`${playerPower >= powerNeeded ? 'buyable' : 'expensive'}`}>{autoAttackLevel === 50 ? "Max" : formatNumber(powerNeeded)} 🔥</h3>
-                  </div>
-                  <div className={`autoattack__button ${autoAttackLevel > 0 ? '' : 'Locked'}`}>
-                    <h2 className={isAutoAttackActive ? 'Ativado' : 'Desativado'} onClick={() => setIsAutoAttackActive(!isAutoAttackActive)}>{isAutoAttackActive ? 'Ativado' : 'Desativado'}</h2>
-                  </div>
-                </div>
+
               </div>
             </>
+          )}
+
+          {currentRightTab === 1.1 && (
+            <div className="arsenalTab">
+              <h6>Arsenal</h6>
+              {Object.entries(
+                Object.keys(items)
+                  .filter((key) => items[key].type === "relic")
+                  .sort((a, b) => Number(items[b].unlocked) - Number(items[a].unlocked))
+                  .reduce<Record<string, { key: string; item: Item }[]>>((acc, key) => {
+                    const item = items[key];
+                    const source = item.source;
+                    if (!acc[source]) {
+                      acc[source] = [];
+                    }
+                    acc[source].push({ key, item });
+                    return acc;
+                  }, {})
+              ).map(([source, itemsInSource]) => (
+                <div key={source} className="source__category">
+                  <p>{source}</p>
+                  <div className="items__grid">
+                    {itemsInSource.map(({ key, item }) => (
+                      <div
+                        key={key}
+                        className={`display__skin display__skin__arsenal ${item.unlocked ? "" : "Locked"} 
+           ${(currentRelic1.name === item.name || currentRelic2.name === item.name || currentRelic3.name === item.name) ? "equipped" : ""}`}
+                        onClick={() => changeRelic(key)}
+                      >
+                        <h1 className={item.rarity}>{item.name}</h1>
+                        <img src={item.image} alt={item.name} draggable="false" />
+                        <div className="equipped__status">
+                          <h2 className={item.rarity}>{item.rarity}</h2>
+                          <h3 className='relicH'>{item.description}</h3>
+                          <h5>Nv. {item.level}</h5>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
 
           {currentRightTab === 2 && (
@@ -760,11 +817,32 @@ export const App = () => {
               <div className="forgeTab">
                 <h6>Melhorar Equipamento</h6>
                 <div className="displayForge__container">
-                  <img src={anvil} alt="" className='anvil' />
+                  <div className="forge__itemdisplay">
+                    <img className="forgeImage" src={currentWeapon.image} alt="" />
+                    <div className="forge__itemtext">
+                    <h1 className={currentWeapon.rarity}>{currentWeapon.name}</h1>
+                    <h2 className={currentWeapon.rarity}>{currentWeapon.rarity}</h2>
+                    <h3>{currentWeapon.description}</h3>
+                    <h5>Nv. {currentWeapon.level}</h5>
+                    </div>
+                    <img src={anvil} alt="" className='anvil' />
+                  </div>
                   <div onClick={() => applyWeaponUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
                     <h2>Melhorar Arma</h2>
                     <h3 className={`${playerCoins >= currentWeapon.baseCost ? 'buyable' : 'expensive'}`}>{currentWeapon.level === 100 ? "Max" : formatNumber(currentWeapon.baseCost)} 💰</h3>
+                  </div>
+                  </div>
+                  <div className="displayForge__container">
+                  <div className="forge__itemdisplay">
+                    <img className="forgeImage" src={currentArmor.image} alt="" />
+                    <div className="forge__itemtext">
+                    <h1 className={currentArmor.rarity}>{currentArmor.name}</h1>
+                    <h2 className={currentArmor.rarity}>{currentArmor.rarity}</h2>
+                    <h4>{currentArmor.description}</h4>
+                    <h5>Nv. {currentArmor.level}</h5>
+                    </div>
+                    <img src={anvil} alt="" className='anvil' />
                   </div>
                   <div onClick={() => applyArmorUpgrade('upgradeItem')} className="upgradeForge__container">
                     <h1>+1 Nv.</h1>
@@ -772,13 +850,14 @@ export const App = () => {
                     <h3 className={`${playerCoins >= currentArmor.baseCost ? 'buyable' : 'expensive'}`}>{currentArmor.level === 100 ? "Max" : formatNumber(currentArmor.baseCost)} 💰</h3>
                   </div>
                 </div>
+               
               </div>
             </>
           )}
           {currentRightTab === 3 && (
             <>
               <div className="chestTab">
-                <h6>Loja de Gemas</h6>
+                <h6>Mercado de Itens</h6>
                 <ChestOpener playerGems={playerGems} setPlayerGems={setPlayerGems} playerPrisms={playerPrisms} setPlayerPrisms={setPlayerPrisms} />
               </div>
             </>
