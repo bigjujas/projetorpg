@@ -104,19 +104,19 @@ export const scaleItemAttributes = (item: Item) => {
 
   if (item.type === 'armor') {
     item.boost = item.initialBoost * Math.pow(1.10, item.level)
-    item.baseCost = Math.floor(item.initialBaseCost * Math.pow(1.25, item.level))
+    item.baseCost = Math.floor(item.initialBaseCost * Math.pow(1.30, item.level))
 
     item.description = `+${formatNumber(item.boost)} 🔥`
 
   } else if (item.type === 'sword') {
     item.boost = item.initialBoost * Math.pow(1.10, item.level)
-    item.baseCost = Math.floor(item.initialBaseCost * Math.pow(1.25, item.level))
+    item.baseCost = Math.floor(item.initialBaseCost * Math.pow(1.30, item.level))
 
     item.description = `+${formatNumber(item.boost)} 🗡️`
 
   } else if (item.type === 'relic') {
     item.boost = item.initialBoost * Math.pow(1.10, item.level)
-    item.baseCost = Math.floor(item.initialBaseCost * Math.pow(1.50, item.level))
+    item.baseCost = Math.floor(item.initialBaseCost * Math.pow(2, item.level))
 
     item.description = `x${formatNumber(item.boost)}`
   }
@@ -155,8 +155,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Comum",
     boost: 3,
     initialBoost: 3, // Valor inicial de boost
-    baseCost: 15,
-    initialBaseCost: 15, // Valor inicial de baseCost
+    baseCost: 30,
+    initialBaseCost: 30, // Valor inicial de baseCost
     level: 0,
     description: '+3 🗡️',
     unlocked: false,
@@ -169,8 +169,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Raro",
     boost: 10,
     initialBoost: 10, // Valor inicial de boost
-    baseCost: 50,
-    initialBaseCost: 50, // Valor inicial de baseCost
+    baseCost: 200,
+    initialBaseCost: 200, // Valor inicial de baseCost
     level: 0,
     description: '+10 🗡️',
     unlocked: false,
@@ -183,8 +183,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 16,
     initialBoost: 16, // Valor inicial de boost
-    baseCost: 100,
-    initialBaseCost: 100, // Valor inicial de baseCost
+    baseCost: 1000,
+    initialBaseCost: 1000, // Valor inicial de baseCost
     level: 0,
     description: '+16 🗡️',
     unlocked: false,
@@ -539,8 +539,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Comum",
     boost: 3,
     initialBoost: 3, // Valor inicial de boost
-    baseCost: 15,
-    initialBaseCost: 15, // Valor inicial de baseCost
+    baseCost: 30,
+    initialBaseCost: 30, // Valor inicial de baseCost
     level: 0,
     description: '+3 🔥',
     unlocked: false,
@@ -553,8 +553,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Raro",
     boost: 10,
     initialBoost: 10, // Valor inicial de boost
-    baseCost: 50,
-    initialBaseCost: 50, // Valor inicial de baseCost
+    baseCost: 200,
+    initialBaseCost: 200, // Valor inicial de baseCost
     level: 0,
     description: '+10 🔥',
     unlocked: false,
@@ -567,8 +567,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 16,
     initialBoost: 16, // Valor inicial de boost
-    baseCost: 100,
-    initialBaseCost: 100, // Valor inicial de baseCost
+    baseCost: 1000,
+    initialBaseCost: 1000, // Valor inicial de baseCost
     level: 0,
     description: '+16 🔥',
     unlocked: false,

@@ -15,7 +15,7 @@ import { time } from 'console';
 import { div } from 'framer-motion/client';
 
 export const App = () => {
-  const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
+  const [playerPower, setPlayerPower] = useState<number>(1000000) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
   const [playerCoins, setPlayerCoins] = useState<number>(0) // Moedas do jogador
   const [playerGems, setPlayerGems] = useState<number>(0) // Gemas do jogador
