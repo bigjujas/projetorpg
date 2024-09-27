@@ -79,6 +79,21 @@ import relicStoneRing from '/src/assets/relics/relicStoneRing.jpg'
 import relicSkullSpear from '/src/assets/relics/relicSkullSpear.jpg'
 import relicBloodSkull from '/src/assets/relics/relicBloodSkull.jpg'
 
+import relicKnightShield from '/src/assets/relics/relicKnightShield.jpg'
+import relicKnightHelmet from '/src/assets/relics/relicKnightHelmet.jpg'
+import relicKnightHorse from '/src/assets/relics/relicKnightHorse.jpg'
+import relicKnightFire from '/src/assets/relics/relicKnightFire.jpg'
+
+import relicPlagueMask from '/src/assets/relics/relicPlagueMask.jpg'
+import relicPlagueRune from '/src/assets/relics/relicPlagueRune.jpg'
+import relicPlagueFlask from '/src/assets/relics/relicPlagueFlask.jpg'
+import relicPlagueCrow from '/src/assets/relics/relicPlagueCrow.jpg'
+
+import relicCapitalShield from '/src/assets/relics/relicCapitalShield.jpg'
+import relicCapitalEmblem from '/src/assets/relics/relicCapitalEmblem.jpg'
+import relicCapitalSkull from '/src/assets/relics/relicCapitalSkull.jpg'
+import relicCapitalRing from '/src/assets/relics/relicCapitalRing.jpg'
+
 export type Item = {
   name: string;
   type: string;
@@ -115,7 +130,7 @@ export const scaleItemAttributes = (item: Item) => {
     item.description = `+${formatNumber(item.boost)} 🗡️`
 
   } else if (item.type === 'relic') {
-    item.boost = item.initialBoost * Math.pow(1.10, item.level)
+    item.boost = item.initialBoost * Math.pow(1.05, item.level)
     item.baseCost = Math.floor(item.initialBaseCost * Math.pow(2, item.level))
 
     item.description = `x${formatNumber(item.boost)}`
@@ -155,8 +170,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Comum",
     boost: 3,
     initialBoost: 3, // Valor inicial de boost
-    baseCost: 30,
-    initialBaseCost: 30, // Valor inicial de baseCost
+    baseCost: 80,
+    initialBaseCost: 80, // Valor inicial de baseCost
     level: 0,
     description: '+3 🗡️',
     unlocked: false,
@@ -167,12 +182,12 @@ export const items: { [key: string]: Item } = {
     name: 'Lâmina da Floresta',
     type: 'sword',
     rarity: "Raro",
-    boost: 10,
-    initialBoost: 10, // Valor inicial de boost
-    baseCost: 200,
-    initialBaseCost: 200, // Valor inicial de baseCost
+    boost: 8,
+    initialBoost: 8, // Valor inicial de boost
+    baseCost: 750,
+    initialBaseCost: 750, // Valor inicial de baseCost
     level: 0,
-    description: '+10 🗡️',
+    description: '+8 🗡️',
     unlocked: false,
     source: "Mundo 1",
     image: forestSword,
@@ -181,12 +196,12 @@ export const items: { [key: string]: Item } = {
     name: 'Espada do Titã',
     type: 'sword',
     rarity: "Épico",
-    boost: 16,
-    initialBoost: 16, // Valor inicial de boost
-    baseCost: 1000,
-    initialBaseCost: 1000, // Valor inicial de baseCost
+    boost: 12,
+    initialBoost: 12, // Valor inicial de boost
+    baseCost: 1500,
+    initialBaseCost: 1500, // Valor inicial de baseCost
     level: 0,
-    description: '+16 🗡️',
+    description: '+12 🗡️',
     unlocked: false,
     source: "Mundo 1",
     image: titanSword,
@@ -196,12 +211,12 @@ export const items: { [key: string]: Item } = {
     name: 'Espada de Ossos',
     type: 'sword',
     rarity: "Comum",
-    boost: 18,
-    initialBoost: 18, // Valor inicial de boost
-    baseCost: 150,
-    initialBaseCost: 150, // Valor inicial de baseCost
+    boost: 20,
+    initialBoost: 20, // Valor inicial de boost
+    baseCost: 3000,
+    initialBaseCost: 3000, // Valor inicial de baseCost
     level: 0,
-    description: '+18 🗡️',
+    description: '+20 🗡️',
     unlocked: false,
     source: "Mundo 2",
     image: boneSword,
@@ -210,12 +225,12 @@ export const items: { [key: string]: Item } = {
     name: 'Ossos Retorcidos',
     type: 'sword',
     rarity: "Raro",
-    boost: 20,
-    initialBoost: 20, // Valor inicial de boost
-    baseCost: 300,
-    initialBaseCost: 300, // Valor inicial de baseCost
+    boost: 30,
+    initialBoost: 30, // Valor inicial de boost
+    baseCost: 7000,
+    initialBaseCost: 7000, // Valor inicial de baseCost
     level: 0,
-    description: '+25 🗡️',
+    description: '+30 🗡️',
     unlocked: false,
     source: "Mundo 2",
     image: boneCutlass,
@@ -224,12 +239,12 @@ export const items: { [key: string]: Item } = {
     name: 'Esmaga Crânios',
     type: 'sword',
     rarity: "Épico",
-    boost: 30,
-    initialBoost: 30, // Valor inicial de boost
-    baseCost: 450,
-    initialBaseCost: 450, // Valor inicial de baseCost
+    boost: 45,
+    initialBoost: 45, // Valor inicial de boost
+    baseCost: 12_500,
+    initialBaseCost: 12_500, // Valor inicial de baseCost
     level: 0,
-    description: '+30 🗡️',
+    description: '+45 🗡️',
     unlocked: false,
     source: "Mundo 2",
     image: boneSmasher,
@@ -238,12 +253,12 @@ export const items: { [key: string]: Item } = {
     name: 'Cajado de Sangue',
     type: 'sword',
     rarity: "Lendário",
-    boost: 45,
-    initialBoost: 45, // Valor inicial de boost
-    baseCost: 675,
-    initialBaseCost: 675, // Valor inicial de baseCost
+    boost: 70,
+    initialBoost: 70, // Valor inicial de boost
+    baseCost: 25_000,
+    initialBaseCost: 25_000, // Valor inicial de baseCost
     level: 0,
-    description: '+45 🗡️',
+    description: '+70 🗡️',
     unlocked: false,
     source: "Mundo 2",
     image: boneStaff,
@@ -253,12 +268,12 @@ export const items: { [key: string]: Item } = {
     name: 'Aço Negro',
     type: 'sword',
     rarity: "Comum",
-    boost: 50,
-    initialBoost: 50, // Valor inicial de boost
-    baseCost: 650,
-    initialBaseCost: 650, // Valor inicial de baseCost
+    boost: 60,
+    initialBoost: 60, // Valor inicial de boost
+    baseCost: 20_000,
+    initialBaseCost: 20_000, // Valor inicial de baseCost
     level: 0,
-    description: '+50 🗡️',
+    description: '+60 🗡️',
     unlocked: false,
     source: "Mundo 3",
     image: darksteelSword,
@@ -267,12 +282,12 @@ export const items: { [key: string]: Item } = {
     name: 'Espada Real',
     type: 'sword',
     rarity: "Raro",
-    boost: 75,
-    initialBoost: 75, // Valor inicial de boost
-    baseCost: 1000,
-    initialBaseCost: 1000, // Valor inicial de baseCost
+    boost: 85,
+    initialBoost: 85, // Valor inicial de boost
+    baseCost: 32_000,
+    initialBaseCost: 32_000, // Valor inicial de baseCost
     level: 0,
-    description: '+75 🗡️',
+    description: '+85 🗡️',
     unlocked: false,
     source: "Mundo 3",
     image: royalSword,
@@ -281,12 +296,12 @@ export const items: { [key: string]: Item } = {
     name: 'Grande Espada',
     type: 'sword',
     rarity: "Épico",
-    boost: 100,
-    initialBoost: 100, // Valor inicial de boost
-    baseCost: 1500,
-    initialBaseCost: 1500, // Valor inicial de baseCost
+    boost: 110,
+    initialBoost: 110, // Valor inicial de boost
+    baseCost: 65_000,
+    initialBaseCost: 65_000, // Valor inicial de baseCost
     level: 0,
-    description: '+100 🗡️',
+    description: '+110 🗡️',
     unlocked: false,
     source: "Mundo 3",
     image: greatSword,
@@ -295,12 +310,12 @@ export const items: { [key: string]: Item } = {
     name: 'Espada da Ordem',
     type: 'sword',
     rarity: "Lendário",
-    boost: 135,
-    initialBoost: 135, // Valor inicial de boost
-    baseCost: 2000,
-    initialBaseCost: 2000, // Valor inicial de baseCost
+    boost: 140,
+    initialBoost: 140, // Valor inicial de boost
+    baseCost: 100_000,
+    initialBaseCost: 100_000, // Valor inicial de baseCost
     level: 0,
-    description: '+135 🗡️',
+    description: '+140 🗡️',
     unlocked: false,
     source: "Mundo 3",
     image: aureaSword,
@@ -309,24 +324,25 @@ export const items: { [key: string]: Item } = {
     name: 'Fogo Ancestral',
     type: 'sword',
     rarity: "Mítico",
-    boost: 235,
-    initialBoost: 235, // Valor inicial de boost
-    baseCost: 5000,
-    initialBaseCost: 5000, // Valor inicial de baseCost
+    boost: 250,
+    initialBoost: 250, // Valor inicial de boost
+    baseCost: 400_000,
+    initialBaseCost: 400_000, // Valor inicial de baseCost
     level: 0,
-    description: '+235 🗡️',
+    description: '+250 🗡️',
     unlocked: false,
     source: "Mundo 3",
     image: fireSword,
   },
+  //mundo 4
   plagueHammer: {
     name: 'Martelo Devastado',
     type: 'sword',
     rarity: "Comum",
-    boost: 120,
-    initialBoost: 120, // Valor inicial de boost
-    baseCost: 1800,
-    initialBaseCost: 1800, // Valor inicial de baseCost
+    boost: 125,
+    initialBoost: 125, // Valor inicial de boost
+    baseCost: 100_000,
+    initialBaseCost: 100_000, // Valor inicial de baseCost
     level: 0,
     description: '+120 🗡️',
     unlocked: false,
@@ -339,8 +355,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Raro",
     boost: 150,
     initialBoost: 150, // Valor inicial de boost
-    baseCost: 2600,
-    initialBaseCost: 2600, // Valor inicial de baseCost
+    baseCost: 150_000,
+    initialBaseCost: 150_000, // Valor inicial de baseCost
     level: 0,
     description: '+150 🗡️',
     unlocked: false,
@@ -353,8 +369,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 180,
     initialBoost: 180, // Valor inicial de boost
-    baseCost: 3500,
-    initialBaseCost: 3500, // Valor inicial de baseCost
+    baseCost: 220_000,
+    initialBaseCost: 220_000, // Valor inicial de baseCost
     level: 0,
     description: '+180 🗡️',
     unlocked: false,
@@ -365,12 +381,12 @@ export const items: { [key: string]: Item } = {
     name: 'Foice da Praga',
     type: 'sword',
     rarity: "Lendário",
-    boost: 220,
-    initialBoost: 220, // Valor inicial de boost
-    baseCost: 5000,
-    initialBaseCost: 5000, // Valor inicial de baseCost
+    boost: 225,
+    initialBoost: 225, // Valor inicial de boost
+    baseCost: 300_000,
+    initialBaseCost: 300_000, // Valor inicial de baseCost
     level: 0,
-    description: '+220 🗡️',
+    description: '+225 🗡️',
     unlocked: false,
     source: "Mundo 4",
     image: plagueScythe,
@@ -381,8 +397,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Mítico",
     boost: 350,
     initialBoost: 350, // Valor inicial de boost
-    baseCost: 10000,
-    initialBaseCost: 10000, // Valor inicial de baseCost
+    baseCost: 750_000,
+    initialBaseCost: 750_000, // Valor inicial de baseCost
     level: 0,
     description: '+350 🗡️',
     unlocked: false,
@@ -396,8 +412,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Comum",
     boost: 200,
     initialBoost: 200, // Valor inicial de boost
-    baseCost: 4200,
-    initialBaseCost: 4200, // Valor inicial de baseCost
+    baseCost: 300_000,
+    initialBaseCost: 300_000, // Valor inicial de baseCost
     level: 0,
     description: '+200 🗡️',
     unlocked: false,
@@ -408,12 +424,12 @@ export const items: { [key: string]: Item } = {
     name: 'Lâmina Elétrica',
     type: 'sword',
     rarity: "Raro",
-    boost: 250,
-    initialBoost: 250, // Valor inicial de boost
-    baseCost: 5500,
-    initialBaseCost: 5500, // Valor inicial de baseCost
+    boost: 240,
+    initialBoost: 240, // Valor inicial de boost
+    baseCost: 450_000,
+    initialBaseCost: 450_000, // Valor inicial de baseCost
     level: 0,
-    description: '+250 🗡️',
+    description: '+240 🗡️',
     unlocked: false,
     source: "Mundo 5",
     image: shockSword,
@@ -424,8 +440,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 300,
     initialBoost: 300, // Valor inicial de boost
-    baseCost: 7500,
-    initialBaseCost: 7500, // Valor inicial de baseCost
+    baseCost: 650_000,
+    initialBaseCost: 650_000, // Valor inicial de baseCost
     level: 0,
     description: '+300 🗡️',
     unlocked: false,
@@ -436,12 +452,12 @@ export const items: { [key: string]: Item } = {
     name: 'Espada Dracônica',
     type: 'sword',
     rarity: "Lendário",
-    boost: 340,
-    initialBoost: 340, // Valor inicial de boost
-    baseCost: 9000,
-    initialBaseCost: 9000, // Valor inicial de baseCost
+    boost: 350,
+    initialBoost: 350, // Valor inicial de boost
+    baseCost: 900_000,
+    initialBaseCost: 900_000, // Valor inicial de baseCost
     level: 0,
-    description: '+340 🗡️',
+    description: '+350 🗡️',
     unlocked: false,
     source: "Mundo 5",
     image: dragonSword,
@@ -450,12 +466,12 @@ export const items: { [key: string]: Item } = {
     name: 'Era Dourada',
     type: 'sword',
     rarity: "Mítico",
-    boost: 420,
-    initialBoost: 420, // Valor inicial de boost
-    baseCost: 15000,
-    initialBaseCost: 15000, // Valor inicial de baseCost
+    boost: 450,
+    initialBoost: 450, // Valor inicial de boost
+    baseCost: 1_800_000,
+    initialBaseCost: 1_800_000, // Valor inicial de baseCost
     level: 0,
-    description: '+420 🗡️',
+    description: '+450 🗡️',
     unlocked: false,
     source: "Mundo 5",
     image: goldenSword,
@@ -465,12 +481,12 @@ export const items: { [key: string]: Item } = {
     name: 'Espada do Vazio',
     type: 'sword',
     rarity: "Raro",
-    boost: 375,
-    initialBoost: 375, // Valor inicial de boost
-    baseCost: 12000,
-    initialBaseCost: 12000, // Valor inicial de baseCost
+    boost: 320,
+    initialBoost: 320, // Valor inicial de boost
+    baseCost: 1_000_000,
+    initialBaseCost: 1_000_000, // Valor inicial de baseCost
     level: 0,
-    description: '+375 🗡️',
+    description: '+320 🗡️',
     unlocked: false,
     source: "Torre do Vazio",
     image: voidSword,
@@ -481,8 +497,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 400,
     initialBoost: 400, // Valor inicial de boost
-    baseCost: 15000,
-    initialBaseCost: 15000, // Valor inicial de baseCost
+    baseCost: 1_500_000,
+    initialBaseCost: 1_500_000, // Valor inicial de baseCost
     level: 0,
     description: '+400 🗡️',
     unlocked: false,
@@ -495,8 +511,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Lendário",
     boost: 450,
     initialBoost: 450, // Valor inicial de boost
-    baseCost: 20000,
-    initialBaseCost: 20000, // Valor inicial de baseCost
+    baseCost: 2_000_000,
+    initialBaseCost: 2_000_000, // Valor inicial de baseCost
     level: 0,
     description: '+450 🗡️',
     unlocked: false,
@@ -509,8 +525,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Mítico",
     boost: 520,
     initialBoost: 520, // Valor inicial de boost
-    baseCost: 30000,
-    initialBaseCost: 30000, // Valor inicial de baseCost
+    baseCost: 5_000_000,
+    initialBaseCost: 5_000_000, // Valor inicial de baseCost
     level: 0,
     description: '+520 🗡️',
     unlocked: false,
@@ -539,10 +555,10 @@ export const items: { [key: string]: Item } = {
     rarity: "Comum",
     boost: 3,
     initialBoost: 3, // Valor inicial de boost
-    baseCost: 30,
-    initialBaseCost: 30, // Valor inicial de baseCost
+    baseCost: 80,
+    initialBaseCost: 80, // Valor inicial de baseCost
     level: 0,
-    description: '+3 🔥',
+    description: '+2 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: travellerArmor,
@@ -551,12 +567,12 @@ export const items: { [key: string]: Item } = {
     name: 'Perseguidor',
     type: 'armor',
     rarity: "Raro",
-    boost: 10,
-    initialBoost: 10, // Valor inicial de boost
-    baseCost: 200,
-    initialBaseCost: 200, // Valor inicial de baseCost
+    boost: 5,
+    initialBoost: 5, // Valor inicial de boost
+    baseCost: 750,
+    initialBaseCost: 750, // Valor inicial de baseCost
     level: 0,
-    description: '+10 🔥',
+    description: '+5 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: forestSeeker,
@@ -565,12 +581,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura do Titã',
     type: 'armor',
     rarity: "Épico",
-    boost: 16,
-    initialBoost: 16, // Valor inicial de boost
-    baseCost: 1000,
-    initialBaseCost: 1000, // Valor inicial de baseCost
+    boost: 8,
+    initialBoost: 8, // Valor inicial de boost
+    baseCost: 1500,
+    initialBaseCost: 1500, // Valor inicial de baseCost
     level: 0,
-    description: '+16 🔥',
+    description: '+8 🔥',
     unlocked: false,
     source: "Mundo 1",
     image: titanArmor,
@@ -580,12 +596,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura de Aço',
     type: 'armor',
     rarity: "Raro",
-    boost: 20,
-    initialBoost: 20, // Valor inicial de boost
-    baseCost: 300,
-    initialBaseCost: 300, // Valor inicial de baseCost
+    boost: 15,
+    initialBoost: 15, // Valor inicial de boost
+    baseCost: 7000,
+    initialBaseCost: 7000, // Valor inicial de baseCost
     level: 0,
-    description: '+20 🔥',
+    description: '+15 🔥',
     unlocked: false,
     source: "Mundo 2",
     image: steelArmor,
@@ -594,12 +610,12 @@ export const items: { [key: string]: Item } = {
     name: 'Aço Negro',
     type: 'armor',
     rarity: "Épico",
-    boost: 30,
-    initialBoost: 30, // Valor inicial de boost
-    baseCost: 450,
-    initialBaseCost: 450, // Valor inicial de baseCost
+    boost: 25,
+    initialBoost: 25, // Valor inicial de boost
+    baseCost: 12_500,
+    initialBaseCost: 12_500, // Valor inicial de baseCost
     level: 0,
-    description: '+30 🔥',
+    description: '+25 🔥',
     unlocked: false,
     source: "Mundo 2",
     image: darkSteelArmor,
@@ -608,12 +624,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura Sangrenta',
     type: 'armor',
     rarity: "Lendário",
-    boost: 45,
-    initialBoost: 45, // Valor inicial de boost
-    baseCost: 675,
-    initialBaseCost: 675, // Valor inicial de baseCost
+    boost: 40,
+    initialBoost: 40, // Valor inicial de boost
+    baseCost: 25_000,
+    initialBaseCost: 25_000, // Valor inicial de baseCost
     level: 0,
-    description: '+45 🔥',
+    description: '+40 🔥',
     unlocked: false,
     source: "Mundo 2",
     image: bloodArmor,
@@ -623,12 +639,12 @@ export const items: { [key: string]: Item } = {
     name: 'Cavaleiro Simples',
     type: 'armor',
     rarity: "Comum",
-    boost: 1.28,
-    initialBoost: 1.28, // Valor inicial de boost
-    baseCost: 750,
-    initialBaseCost: 750, // Valor inicial de baseCost
+    boost: 32,
+    initialBoost: 32, // Valor inicial de boost
+    baseCost: 20_000,
+    initialBaseCost: 20_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.28 🔥',
+    description: '+32 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: darkKnightArmor,
@@ -637,12 +653,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura Real',
     type: 'armor',
     rarity: "Raro",
-    boost: 1.35,
-    initialBoost: 1.35, // Valor inicial de boost
-    baseCost: 1000,
-    initialBaseCost: 1000, // Valor inicial de baseCost
+    boost: 50,
+    initialBoost: 50, // Valor inicial de boost
+    baseCost: 32_000,
+    initialBaseCost: 32_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.35 🔥',
+    description: '+50 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: royalArmor,
@@ -651,12 +667,12 @@ export const items: { [key: string]: Item } = {
     name: 'Guerreiro Feroz',
     type: 'armor',
     rarity: "Épico",
-    boost: 1.45,
-    initialBoost: 1.45, // Valor inicial de boost
-    baseCost: 1500,
-    initialBaseCost: 1500, // Valor inicial de baseCost
+    boost: 65,
+    initialBoost: 65, // Valor inicial de boost
+    baseCost: 65_000,
+    initialBaseCost: 65_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.45 🔥',
+    description: '+65 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: warriorArmor,
@@ -665,12 +681,12 @@ export const items: { [key: string]: Item } = {
     name: 'Ordem Letal',
     type: 'armor',
     rarity: "Lendário",
-    boost: 1.55,
-    initialBoost: 1.55, // Valor inicial de boost
-    baseCost: 2200,
-    initialBaseCost: 2200, // Valor inicial de baseCost
+    boost: 85,
+    initialBoost: 85, // Valor inicial de boost
+    baseCost: 100_000,
+    initialBaseCost: 100_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.55 🔥',
+    description: '+85 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: darkRoyalArmor,
@@ -679,12 +695,12 @@ export const items: { [key: string]: Item } = {
     name: 'Fogo Ancestral',
     type: 'armor',
     rarity: "Mítico",
-    boost: 1.80,
-    initialBoost: 1.80, // Valor inicial de boost
-    baseCost: 5000,
-    initialBaseCost: 5000, // Valor inicial de baseCost
+    boost: 150,
+    initialBoost: 150, // Valor inicial de boost
+    baseCost: 400_000,
+    initialBaseCost: 400_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.8 🔥',
+    description: '+150 🔥',
     unlocked: false,
     source: "Mundo 3",
     image: fireArmor,
@@ -694,12 +710,12 @@ export const items: { [key: string]: Item } = {
     name: 'Caçador Devasto',
     type: 'armor',
     rarity: "Raro",
-    boost: 1.50,
-    initialBoost: 1.50, // Valor inicial de boost
-    baseCost: 2000,
-    initialBaseCost: 2000, // Valor inicial de baseCost
+    boost: 90,
+    initialBoost: 90, // Valor inicial de boost
+    baseCost: 150_000,
+    initialBaseCost: 150_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.5 🔥',
+    description: '+90 🔥',
     unlocked: false,
     source: "Mundo 4",
     image: plagueWarrior,
@@ -708,12 +724,12 @@ export const items: { [key: string]: Item } = {
     name: 'Manto Espinhoso',
     type: 'armor',
     rarity: "Épico",
-    boost: 1.65,
-    initialBoost: 1.65, // Valor inicial de boost
-    baseCost: 2800,
-    initialBaseCost: 2800, // Valor inicial de baseCost
+    boost: 100,
+    initialBoost: 100, // Valor inicial de boost
+    baseCost: 220_000,
+    initialBaseCost: 220_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.65 🔥',
+    description: '+100 🔥',
     unlocked: false,
     source: "Mundo 4",
     image: thornArmor,
@@ -722,12 +738,12 @@ export const items: { [key: string]: Item } = {
     name: 'Doutor da Praga',
     type: 'armor',
     rarity: "Lendário",
-    boost: 1.75,
-    initialBoost: 1.75, // Valor inicial de boost
-    baseCost: 4000,
-    initialBaseCost: 4000, // Valor inicial de baseCost
+    boost: 125,
+    initialBoost: 125, // Valor inicial de boost
+    baseCost: 300_000,
+    initialBaseCost: 300_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.75 🔥',
+    description: '+125 🔥',
     unlocked: false,
     source: "Mundo 4",
     image: plagueDoctorArmor,
@@ -736,12 +752,12 @@ export const items: { [key: string]: Item } = {
     name: 'A Praga',
     type: 'armor',
     rarity: "Mítico",
-    boost: 2,
-    initialBoost: 2, // Valor inicial de boost
-    baseCost: 10000,
-    initialBaseCost: 10000, // Valor inicial de baseCost
+    boost: 225,
+    initialBoost: 225, // Valor inicial de boost
+    baseCost: 750_000,
+    initialBaseCost: 750_000, // Valor inicial de baseCost
     level: 0,
-    description: '+2 🔥',
+    description: '+225 🔥',
     unlocked: false,
     source: "Mundo 4",
     image: plagueArmor,
@@ -751,12 +767,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura Dourada',
     type: 'armor',
     rarity: "Comum",
-    boost: 1.70,
-    initialBoost: 1.70, // Valor inicial de boost
-    baseCost: 4000,
-    initialBaseCost: 4000, // Valor inicial de baseCost
+    boost: 110,
+    initialBoost: 110, // Valor inicial de boost
+    baseCost: 300_000,
+    initialBaseCost: 300_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.7 🔥',
+    description: '+110 🔥',
     unlocked: false,
     source: "Mundo 5",
     image: goldenArmor,
@@ -765,12 +781,12 @@ export const items: { [key: string]: Item } = {
     name: 'Vestes Pristinas',
     type: 'armor',
     rarity: "Raro",
-    boost: 1.82,
-    initialBoost: 1.82, // Valor inicial de boost
-    baseCost: 6000,
-    initialBaseCost: 6000, // Valor inicial de baseCost
+    boost: 130,
+    initialBoost: 130, // Valor inicial de boost
+    baseCost: 450_000,
+    initialBaseCost: 450_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.82 🔥',
+    description: '+130 🔥',
     unlocked: false,
     source: "Mundo 5",
     image: goldenRobe,
@@ -779,12 +795,12 @@ export const items: { [key: string]: Item } = {
     name: 'Guarda Real',
     type: 'armor',
     rarity: "Épico",
-    boost: 1.90,
-    initialBoost: 1.90, // Valor inicial de boost
-    baseCost: 8000,
-    initialBaseCost: 8000, // Valor inicial de baseCost
+    boost: 150,
+    initialBoost: 150, // Valor inicial de boost
+    baseCost: 650_000,
+    initialBaseCost: 650_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.9 🔥',
+    description: '+150 🔥',
     unlocked: false,
     source: "Mundo 5",
     image: capitalArmor,
@@ -793,12 +809,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura Dracônica',
     type: 'armor',
     rarity: "Lendário",
-    boost: 1.98,
-    initialBoost: 1.98, // Valor inicial de boost
-    baseCost: 9500,
-    initialBaseCost: 9500, // Valor inicial de baseCost
+    boost: 175,
+    initialBoost: 175, // Valor inicial de boost
+    baseCost: 900_000,
+    initialBaseCost: 900_000, // Valor inicial de baseCost
     level: 0,
-    description: '+1.96 🔥',
+    description: '+175 🔥',
     unlocked: false,
     source: "Mundo 5",
     image: dragonWarrior,
@@ -807,12 +823,12 @@ export const items: { [key: string]: Item } = {
     name: 'Era Dourada',
     type: 'armor',
     rarity: "Mítico",
-    boost: 2.30,
-    initialBoost: 2.30, // Valor inicial de boost
-    baseCost: 15000,
-    initialBaseCost: 15000, // Valor inicial de baseCost
+    boost: 250,
+    initialBoost: 250, // Valor inicial de boost
+    baseCost: 1_800_000,
+    initialBaseCost: 1_800_000, // Valor inicial de baseCost
     level: 0,
-    description: '+2.3 🔥',
+    description: '+250 🔥',
     unlocked: false,
     source: "Mundo 5",
     image: dragonArmor,
@@ -822,12 +838,12 @@ export const items: { [key: string]: Item } = {
     name: 'Armadura do Vazio',
     type: 'armor',
     rarity: "Raro",
-    boost: 2.10,
-    initialBoost: 2.10, // Valor inicial de boost
-    baseCost: 12000,
-    initialBaseCost: 12000, // Valor inicial de baseCost
+    boost: 175,
+    initialBoost: 175, // Valor inicial de boost
+    baseCost: 1_000_000,
+    initialBaseCost: 1_000_000, // Valor inicial de baseCost
     level: 0,
-    description: '+2.1 🔥',
+    description: '+175 🔥',
     unlocked: false,
     source: "Torre do Vazio",
     image: voidArmor,
@@ -836,12 +852,12 @@ export const items: { [key: string]: Item } = {
     name: 'Assassino Vazio',
     type: 'armor',
     rarity: "Épico",
-    boost: 2.25,
-    initialBoost: 2.25, // Valor inicial de boost
-    baseCost: 16000,
-    initialBaseCost: 16000, // Valor inicial de baseCost
+    boost: 200,
+    initialBoost: 200, // Valor inicial de boost
+    baseCost: 1_500_000,
+    initialBaseCost: 1_500_000, // Valor inicial de baseCost
     level: 0,
-    description: '+2.25 🔥',
+    description: '+200 🔥',
     unlocked: false,
     source: "Torre do Vazio",
     image: voidRogue,
@@ -850,12 +866,12 @@ export const items: { [key: string]: Item } = {
     name: 'Cavaleiro Abissal',
     type: 'armor',
     rarity: "Lendário",
-    boost: 2.50,
-    initialBoost: 2.50, // Valor inicial de boost
-    baseCost: 20000,
-    initialBaseCost: 20000, // Valor inicial de baseCost
+    boost: 245,
+    initialBoost: 245, // Valor inicial de boost
+    baseCost: 2_000_000,
+    initialBaseCost: 2_000_000, // Valor inicial de baseCost
     level: 0,
-    description: '+2.5 🔥',
+    description: '+245 🔥',
     unlocked: false,
     source: "Torre do Vazio",
     image: voidKnight,
@@ -864,12 +880,12 @@ export const items: { [key: string]: Item } = {
     name: 'Lorde do Vazio',
     type: 'armor',
     rarity: "Mítico",
-    boost: 3,
-    initialBoost: 3, // Valor inicial de boost
-    baseCost: 30000,
-    initialBaseCost: 30000, // Valor inicial de baseCost
+    boost: 300,
+    initialBoost: 300, // Valor inicial de boost
+    baseCost: 5_000_000,
+    initialBaseCost: 5_000_000, // Valor inicial de baseCost
     level: 0,
-    description: '+3 🔥',
+    description: '+300 🔥',
     unlocked: false,
     source: "Torre do Vazio",
     image: voidLord,
@@ -910,8 +926,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Raro",
     boost: 1.1,
     initialBoost: 1.1, // Valor inicial de boost
-    baseCost: 75,
-    initialBaseCost: 75, // Valor inicial de baseCost
+    baseCost: 150,
+    initialBaseCost: 150, // Valor inicial de baseCost
     level: 0,
     description: 'x1',
     unlocked: false,
@@ -924,10 +940,10 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 1.25,
     initialBoost: 1.25, // Valor inicial de boost
-    baseCost: 90,
-    initialBaseCost: 90, // Valor inicial de baseCost
+    baseCost: 350,
+    initialBaseCost: 350, // Valor inicial de baseCost
     level: 0,
-    description: 'x1.2',
+    description: 'x1.25',
     unlocked: false,
     source: "Mundo 1",
     image: relicForestPendant,
@@ -938,8 +954,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Lendário",
     boost: 1.40,
     initialBoost: 1.40, // Valor inicial de boost
-    baseCost: 110,
-    initialBaseCost: 110, // Valor inicial de baseCost
+    baseCost: 500,
+    initialBaseCost: 500, // Valor inicial de baseCost
     level: 0,
     description: 'x1.4',
     unlocked: false,
@@ -953,8 +969,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Raro",
     boost: 1.30,
     initialBoost: 1.30, // Valor inicial de boost
-    baseCost: 120,
-    initialBaseCost: 120, // Valor inicial de baseCost
+    baseCost: 700,
+    initialBaseCost: 700, // Valor inicial de baseCost
     level: 0,
     description: 'x1.3',
     unlocked: false,
@@ -967,8 +983,8 @@ export const items: { [key: string]: Item } = {
     rarity: "Épico",
     boost: 1.38,
     initialBoost: 1.38, // Valor inicial de boost
-    baseCost: 250,
-    initialBaseCost: 250, // Valor inicial de baseCost
+    baseCost: 1250,
+    initialBaseCost: 1250, // Valor inicial de baseCost
     level: 0,
     description: 'x1.38',
     unlocked: false,
@@ -981,13 +997,184 @@ export const items: { [key: string]: Item } = {
     rarity: "Lendário",
     boost: 1.50,
     initialBoost: 1.50, // Valor inicial de boost
-    baseCost: 500,
-    initialBaseCost: 500, // Valor inicial de baseCost
+    baseCost: 2000,
+    initialBaseCost: 2000, // Valor inicial de baseCost
     level: 0,
     description: 'x1.50',
     unlocked: false,
     source: "Mundo 2",
     image: relicBloodSkull,
+  },
+  // mundo 3
+  relicKnightShield: {
+    name: 'Escudo Fiel',
+    type: 'relic',
+    rarity: "Raro",
+    boost: 1.42,
+    initialBoost: 1.42, // Valor inicial de boost
+    baseCost: 2500,
+    initialBaseCost: 2500, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.42',
+    unlocked: false,
+    source: "Mundo 3",
+    image: relicKnightShield,
+  },
+  relicKnightHelmet: {
+    name: 'Elmo do Cavaleiro',
+    type: 'relic',
+    rarity: "Épico",
+    boost: 1.50,
+    initialBoost: 1.50, // Valor inicial de boost
+    baseCost: 3200,
+    initialBaseCost: 3200, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.50',
+    unlocked: false,
+    source: "Mundo 3",
+    image: relicKnightHelmet,
+  },
+  relicKnightHorse: {
+    name: 'Montaria Aurea',
+    type: 'relic',
+    rarity: "Lendário",
+    boost: 1.65,
+    initialBoost: 1.65, // Valor inicial de boost
+    baseCost: 4000,
+    initialBaseCost: 4000, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.65',
+    unlocked: false,
+    source: "Mundo 3",
+    image: relicKnightHorse,
+  },
+  relicKnightFire: {
+    name: 'Rosa do Fogo',
+    type: 'relic',
+    rarity: "Mítico",
+    boost: 2,
+    initialBoost: 2, // Valor inicial de boost
+    baseCost: 12000,
+    initialBaseCost: 12000, // Valor inicial de baseCost
+    level: 0,
+    description: 'x2',
+    unlocked: false,
+    source: "Mundo 3",
+    image: relicKnightFire,
+  },
+  // mundo 4
+  relicPlagueMask: {
+    name: 'Mascara do Doutor',
+    type: 'relic',
+    rarity: "Raro",
+    boost: 1.50,
+    initialBoost: 1.50, // Valor inicial de boost
+    baseCost: 4500,
+    initialBaseCost: 4500, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.5',
+    unlocked: false,
+    source: "Mundo 4",
+    image: relicPlagueMask,
+  },
+  relicPlagueRune: {
+    name: 'Runa da Podridão',
+    type: 'relic',
+    rarity: "Épico",
+    boost: 1.65,
+    initialBoost: 1.65, // Valor inicial de boost
+    baseCost: 5800,
+    initialBaseCost: 5800, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.65',
+    unlocked: false,
+    source: "Mundo 4",
+    image: relicPlagueRune,
+  },
+  relicPlagueFlask: {
+    name: 'Frasco da Morte',
+    type: 'relic',
+    rarity: "Lendário",
+    boost: 1.75,
+    initialBoost: 1.75, // Valor inicial de boost
+    baseCost: 7000,
+    initialBaseCost: 7000, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.75',
+    unlocked: false,
+    source: "Mundo 4",
+    image: relicPlagueFlask,
+  },
+  relicPlagueCrow: {
+    name: 'A Praga',
+    type: 'relic',
+    rarity: "Mítico",
+    boost: 2.3,
+    initialBoost: 2.3, // Valor inicial de boost
+    baseCost: 20_000,
+    initialBaseCost: 20_000, // Valor inicial de baseCost
+    level: 0,
+    description: 'x2.3',
+    unlocked: false,
+    source: "Mundo 4",
+    image: relicPlagueCrow,
+  },
+  //mundo 5
+  relicCapitalShield: {
+    name: 'Escudo Antigo',
+    type: 'relic',
+    rarity: "Raro",
+    boost: 1.65,
+    initialBoost: 1.65, // Valor inicial de boost
+    baseCost: 8500,
+    initialBaseCost: 8500, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.65',
+    unlocked: false,
+    source: "Mundo 5",
+    image: relicCapitalShield,
+  },
+  relicCapitalEmblem: {
+    name: 'Emblema da Ordem',
+    type: 'relic',
+    rarity: "Épico",
+    boost: 1.75,
+    initialBoost: 1.75, // Valor inicial de boost
+    baseCost: 9500,
+    initialBaseCost: 9500, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.75',
+    unlocked: false,
+    source: "Mundo 5",
+    image: relicCapitalEmblem,
+  },
+  relicCapitalSkull: {
+    name: 'Caveira Prístina',
+    type: 'relic',
+    rarity: "Lendário",
+    boost: 1.90,
+    initialBoost: 1.90, // Valor inicial de boost
+    baseCost: 12000,
+    initialBaseCost: 12000, // Valor inicial de baseCost
+    level: 0,
+    description: 'x1.90',
+    unlocked: false,
+    source: "Mundo 5",
+    image: relicCapitalSkull,
+  },
+  relicCapitalRing: {
+    name: 'Era Dourada',
+    type: 'relic',
+    rarity: "Mítico",
+    boost: 2.6,
+    initialBoost: 2.6, // Valor inicial de boost
+    baseCost: 30000,
+    initialBaseCost: 30000, // Valor inicial de baseCost
+    level: 0,
+    description: 'x2.6',
+    unlocked: false,
+    source: "Mundo 5",
+    image: relicCapitalRing,
   },
 };
 
@@ -1043,44 +1230,68 @@ export const world2Chest = [
 ];
 
 export const world3Chest = [
-  { item: items.darksteelSword, probability: 0.275 },
-  { item: items.royalSword, probability: 0.175 },
-  { item: items.greatSword, probability: 0.04 },
-  { item: items.aureaSword, probability: 0.009 },
-  { item: items.fireSword, probability: 0.001 },
-
-  { item: items.darkKnightArmor, probability: 0.275 },
-  { item: items.royalArmor, probability: 0.175 },
-  { item: items.warriorArmor, probability: 0.04 },
-  { item: items.darkRoyalArmor, probability: 0.009 },
-  { item: items.fireArmor, probability: 0.001 },
+  //comum (52%)
+  { item: items.darksteelSword, probability: 0.26 },
+  { item: items.darkKnightArmor, probability: 0.26 },
+  //raro (38%)
+  { item: items.royalSword, probability: 0.1266 },
+  { item: items.royalArmor, probability: 0.1266 },
+  { item: items.relicKnightShield, probability: 0.1266 },
+  //épico (8%)
+  { item: items.greatSword, probability: 0.02666 },
+  { item: items.warriorArmor, probability: 0.02666 },
+  { item: items.relicKnightHelmet, probability: 0.02666 },
+  //lendário (2%)
+  { item: items.aureaSword, probability: 0.0066 },
+  { item: items.darkRoyalArmor, probability: 0.0066 },
+  { item: items.relicKnightHorse, probability: 0.0066 },
+  //mítico (0.1%)
+  { item: items.fireSword, probability: 0.00033 },
+  { item: items.fireArmor, probability: 0.00033 },
+  { item: items.relicKnightFire, probability: 0.00034 },
 ];
 
 export const world4Chest = [
-  { item: items.plagueHammer, probability: 0.55 },
-  { item: items.thornSword, probability: 0.175 },
-  { item: items.plagueDaggers, probability: 0.04 },
-  { item: items.plagueScythe, probability: 0.009 },
-  { item: items.plagueSword, probability: 0.001 },
-
-  { item: items.plagueWarrior, probability: 0.175 },
-  { item: items.thornArmor, probability: 0.04 },
-  { item: items.plagueDoctorArmor, probability: 0.009 },
-  { item: items.plagueArmor, probability: 0.001 },
+  // Comum (52%)
+  { item: items.plagueHammer, probability: 0.52 },
+  // Raro (38%)
+  { item: items.plagueWarrior, probability: 0.12666 },
+  { item: items.thornSword, probability: 0.12666 },
+  { item: items.relicPlagueMask, probability: 0.12666 },
+  // Épico (7.99%)
+  { item: items.plagueDaggers, probability: 0.02666 },
+  { item: items.thornArmor, probability: 0.02666 },
+  { item: items.relicPlagueRune, probability: 0.02666 },
+  // Lendário (2%)
+  { item: items.plagueScythe, probability: 0.00666 },
+  { item: items.plagueDoctorArmor, probability: 0.00666 },
+  { item: items.relicPlagueFlask, probability: 0.00666 },
+  // Mítico (0.1%)
+  { item: items.plagueSword, probability: 0.00033 },
+  { item: items.plagueArmor, probability: 0.00033 },
+  { item: items.relicPlagueCrow, probability: 0.00034 },
 ];
 
 export const world5Chest = [
-  { item: items.goldenAxe, probability: 0.275 },
-  { item: items.shockSword, probability: 0.175 },
-  { item: items.dragonLance, probability: 0.04 },
-  { item: items.dragonSword, probability: 0.009 },
-  { item: items.goldenSword, probability: 0.001 },
-
-  { item: items.goldenArmor, probability: 0.275 },
-  { item: items.goldenRobe, probability: 0.175 },
-  { item: items.capitalArmor, probability: 0.04 },
-  { item: items.dragonWarrior, probability: 0.009 },
-  { item: items.dragonArmor, probability: 0.001 },
+  // Comum (58%)
+  { item: items.goldenAxe, probability: 0.29 },
+  { item: items.goldenArmor, probability: 0.29 },
+  // Raro (32%)
+  { item: items.shockSword, probability: 0.10666 },
+  { item: items.goldenRobe, probability: 0.10666 },
+  { item: items.relicCapitalShield, probability: 0.10666 },
+  // Épico (7.99%)
+  { item: items.dragonLance, probability: 0.02666 },
+  { item: items.capitalArmor, probability: 0.02666 },
+  { item: items.relicCapitalEmblem, probability: 0.02666 },
+  // Lendário (2%)
+  { item: items.dragonSword, probability: 0.00666 },
+  { item: items.dragonWarrior, probability: 0.00666 },
+  { item: items.relicCapitalSkull, probability: 0.00666 },
+  // Mítico (1%)
+  { item: items.dragonArmor, probability: 0.00333 },
+  { item: items.goldenSword, probability: 0.00333 },
+  { item: items.relicCapitalRing, probability: 0.00334 },
 ];
 
 export const voidTowerChest = [

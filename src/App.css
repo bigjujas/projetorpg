@@ -77,6 +77,11 @@
 	z-index: 10;
 }
 
+.damage {
+	color: #fff;
+	background-color: #c24040 !important;
+}
+
 /* Raridades */
 
 .Comum {
@@ -368,11 +373,6 @@
 	text-align: center;
 }
 
-.item__status {
-	display: flex;
-	flex: 1;
-}
-
 .display__skin h1,
 .display__skin h2,
 .display__skin h3,
@@ -459,9 +459,17 @@
 	flex-direction: column;
 	flex: 1;
 	align-items: center;
-	background-color: #311d11;
+	background-color: #311c10;
 	overflow: auto;
 	overflow-x: hidden;
+}
+
+.arsenal__tabs {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	position: relative;
 }
 
 .arsenalTab h6 {
@@ -474,6 +482,28 @@
 	padding: 5px 20px;
 	border: black 2px solid;
 }
+
+.arsenal__tabs p {
+	background-color: #2c3549;
+	font-size: 22px;
+	font-weight: 600;
+	margin-left: 20px;
+	position: absolute;
+	padding: 5px 20px;
+	left: 420px;
+	bottom: 5px;
+	border-radius: 15px;
+	border: black 2px solid;
+	transition: all 0.1s ease;
+}
+
+.arsenal__tabs p:hover {
+	filter: brightness(1.2);
+	transform: scale(0.95);
+	cursor: pointer;
+	border: #fff 1px solid;
+}
+
 
 .display__skin__arsenal {
 	background-color: #23262e;
@@ -507,6 +537,14 @@
 	gap: 6px;
 	/* Ajuste o espaçamento entre os itens conforme necessário */
 	margin-top: 2vh;
+}
+
+.index__tab {
+	background-color: #2f273b;
+}
+
+.index__item {
+	pointer-events: none;
 }
 
 .source__category {
@@ -554,7 +592,7 @@
 }
 
 .display__skin__relic h1 {
-	font-size: 12px;
+	font-size: 11px;
 }
 
 .display__skin.equipped {
@@ -777,7 +815,7 @@
 .enemy img {
 	height: 380px;
 	width: 300px;
-	transition: all 0.3s ease;
+	transition: all 0.1s ease;
 	border: black 2px solid;
 	border-radius: 50px;
 	box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
