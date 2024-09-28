@@ -12,7 +12,7 @@ interface WorldProps {
   currentEnemy: Enemy;
   toggleMiddleTab: (tabIndex: number) => void;
   changeEnemy: (enemyName: string) => void;
-  attackEnemy: () => void;
+  attackEnemy: (event: React.MouseEvent<HTMLDivElement>) => void;
   healthBarWidth: number;
   enemyVisible: boolean;
   setEnemyVisible: React.Dispatch<React.SetStateAction<boolean>>;

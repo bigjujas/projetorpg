@@ -36,6 +36,34 @@
 	display: none;
 }
 
+.notificacao {
+	font-family: "Press Start 2P", system-ui;
+	font-size: 20px;
+	z-index: 2;
+}
+
+/* Classe para fazer a notificação visível */
+.notificacao-visivel {
+	opacity: 1;
+	transform: translate(-50%, -200%); /* Ajusta a posição para subir mais alto */
+  }
+  
+  /* Estilo de animação para o desaparecimento da notificação */
+  @keyframes desaparecer {
+	0% {
+	  opacity: 1;
+	  transform: translate(-50%, -50%); /* Ajusta a posição inicial para subir rapidamente */
+	}
+	100% {
+	  opacity: 0;
+	  transform: translate(-50%, -300%); /* Ajusta a posição final para subir ainda mais */
+	}
+  }
+  
+  .notificacao {
+	animation: desaparecer 0.75s forwards; /* Reduz o tempo da animação para desaparecer */
+  }
+
 /* Globais */
 
 .gold {

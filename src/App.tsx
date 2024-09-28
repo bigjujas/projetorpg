@@ -14,6 +14,8 @@ import anvil from './assets/anvil.png'
 import { time } from 'console';
 import { div } from 'framer-motion/client';
 
+let notificationId = 0;
+
 export const App = () => {
   const [playerPower, setPlayerPower] = useState<number>(0) // Poder do jogador
   const [playerLevel, setPlayerLevel] = useState<number>(0)
@@ -34,6 +36,8 @@ export const App = () => {
   const [currentRelic1, setCurrentRelic1] = useState<Item>(items.relicIronRing) // Reliquia Inicial
   const [currentRelic2, setCurrentRelic2] = useState<Item>(items.nullRelic) // Reliquia Inicial
   const [currentRelic3, setCurrentRelic3] = useState<Item>(items.nullRelic) // Reliquia Inicial
+
+  const [notificacoes, setNotificacoes] = useState<{ id: number; texto: string; top: number; left: number }[]>([]);
 
   // coisas para ser salva ^^^^
 
@@ -278,7 +282,7 @@ export const App = () => {
     return () => clearInterval(autoAttackInterval);
   }, [isAutoAttackActive, autoAttackLevel]);
 
-  const attackEnemy = () => {
+  const attackEnemy = (event: React.MouseEvent<HTMLDivElement>) => {
     const currentTime = Date.now();
 
     if (currentTime - lastClickTime < timeWindow / clickLimit) {
@@ -288,6 +292,30 @@ export const App = () => {
 
     setLastClickTime(currentTime);
     setClickCount(prevCount => prevCount + 1);
+
+    // Adiciona notificação na posição do clique
+    const { clientX, clientY } = event;
+    const novoId = notificationId++;
+
+    setNotificacoes(prevNotificacoes => [
+      ...prevNotificacoes,
+      {
+        id: novoId,
+        texto: `-${formatNumber(finalDamage)} 🗡️`,
+        top: clientY,
+        left: clientX
+      }
+    ]);
+
+    // Remove a notificação após 1 segundo
+    // Define um timeout para remover a notificação após 2 segundos
+    setTimeout(() => {
+      setNotificacoes(prevNotificacoes =>
+        prevNotificacoes.filter(notificacao => notificacao.id !== novoId)
+      );
+    }, 2000); // 2000 milissegundos = 2 segundos
+    
+    //
 
     setCurrentEnemy(prevEnemy => {
       // Verifica se o inimigo já foi derrotado
@@ -558,10 +586,10 @@ export const App = () => {
           )}
           {currentLeftTab === 1.1 && (
             <div className="arsenalTab">
-            <div className="arsenal__tabs">
-              <h6>Arsenal</h6>
-              <p onClick={() => toggleLeftTab(1.3)}>Index</p>
-            </div>
+              <div className="arsenal__tabs">
+                <h6>Arsenal</h6>
+                <p onClick={() => toggleLeftTab(1.3)}>Index</p>
+              </div>
               {Object.entries(
                 Object.keys(items)
                   .filter((key) => items[key].type === "armor" && items[key].unlocked)
@@ -600,7 +628,7 @@ export const App = () => {
               ))}
             </div>
           )}
-            {currentLeftTab === 1.3 && (
+          {currentLeftTab === 1.3 && (
             <div className="arsenalTab index__tab">
               <div className="arsenal__tabs">
                 <h6>Index</h6>
@@ -755,6 +783,22 @@ export const App = () => {
         )}
         {currentMiddleTab === 2 && (
           <div className="middle__container">
+            {/* Exibe as notificações na tela */}
+            {notificacoes.map(notificacao => (
+              <div
+                key={notificacao.id}
+                className='notificacao'
+                style={{
+                  position: 'absolute',
+                  top: notificacao.top,
+                  left: notificacao.left,
+                  pointerEvents: 'none',
+                  transition: 'top 0.5s ease-out',
+                }}
+              >
+                {notificacao.texto}
+              </div>
+            ))}
             <World
               background={currentWorld.background}
               worldNumber={currentWorld.number}
@@ -763,7 +807,7 @@ export const App = () => {
               currentEnemy={currentEnemy}
               toggleMiddleTab={toggleMiddleTab}
               changeEnemy={changeEnemy}
-              attackEnemy={attackEnemy}
+              attackEnemy={(event: React.MouseEvent<HTMLDivElement>) => attackEnemy(event)}
               healthBarWidth={(currentEnemy.health / currentEnemy.maxHealth) * 100}
               enemyVisible={enemyVisible}
               setEnemyVisible={setEnemyVisible}
