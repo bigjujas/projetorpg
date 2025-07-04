@@ -213,7 +213,7 @@ export const App = () => {
 
   const applyArmorUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentArmor.level < 25 && playerCoins >= currentArmor.baseCost) {
+    if (upgrade && currentArmor.level < 100 && playerCoins >= currentArmor.baseCost) {
       setPlayerCoins(playerCoins - currentArmor.baseCost);
       currentArmor.level += 1;
       scaleItemAttributes(currentArmor); // Aplica o escalonamento dos atributos
@@ -222,7 +222,7 @@ export const App = () => {
 
   const applyWeaponUpgrade = (upgradeId: string) => {
     const upgrade = upgrades.find(upg => upg.id === upgradeId);
-    if (upgrade && currentWeapon.level < 25 && playerCoins >= currentWeapon.baseCost) {
+    if (upgrade && currentWeapon.level < 100 && playerCoins >= currentWeapon.baseCost) {
       setPlayerCoins(playerCoins - currentWeapon.baseCost);
       currentWeapon.level += 1;
       scaleItemAttributes(currentWeapon); // Aplica o escalonamento dos atributos
