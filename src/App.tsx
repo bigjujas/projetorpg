@@ -161,7 +161,7 @@ export const App = () => {
 
   const relicBuffs = ((currentRelic1.boost + currentRelic2.boost + currentRelic3.boost) - 2)
   const finalDamage = ((currentWeapon.boost) * relicBuffs)
-  const finalPower = (((currentArmor.boost)) * relicBuffs) * 10
+  const finalPower = (((currentArmor.boost)) * relicBuffs) * 100
 
   // Tabs
 
@@ -326,8 +326,8 @@ export const App = () => {
       const newHealth = prevEnemy.health - finalDamage;
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente
-        setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped * 10);
-        setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped * 10);
+        setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped * 100);
+        setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped * 100);
 
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
@@ -373,8 +373,8 @@ export const App = () => {
       const newHealth = prevEnemy.health - finalDamage * autoAttackDamage;
       if (newHealth <= 0) {
         // Atualizando moedas e gemas corretamente
-        setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped * 10);
-        setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped * 10);
+        setPlayerCoins(prevCoins => prevCoins + prevEnemy.coinsDropped * 100);
+        setPlayerGems(prevGems => prevGems + prevEnemy.gemsDropped * 100);
 
         // Inimigo derrotado, some por 0,5 segundos
         setEnemyVisible(false);
